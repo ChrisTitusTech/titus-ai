@@ -1,130 +1,125 @@
 ---
 name: mdbook
-description: >-
-  This skill should be used when the user asks about "mdBook", "mdbook",
-  "book.toml", "SUMMARY.md", "mdbook build", "mdbook serve", "mdbook init",
-  "mdbook watch", "mdbook test", "mdbook clean", "mdBook configuration",
-  "mdBook preprocessor", "mdBook renderer", "mdBook backend", "mdBook theme",
-  "mdBook syntax highlighting", "mdBook MathJax", "mdBook search",
-  "mdBook CI deployment", "mdBook GitHub Pages", "mdBook GitLab Pages",
-  "mdBook custom theme", "index.hbs", "mdBook editor", "mdBook markdown",
-  "mdBook include files", "mdBook hiding code lines",
-  or any topic related to creating, configuring, theming, building, or deploying
-  documentation books with mdBook.
-version: 0.1.0
+description: Use this skill when creating, editing, validating, or converting KDP-ready book manuscripts with mdBook as the source workflow, or when working with mdBook documentation projects, including book.toml, SUMMARY.md, mdbook init/build/serve/watch/test/clean, Markdown formatting, mdBook configuration, themes, preprocessors, renderers/backends, MathJax, search, custom themes, CI deployment, GitHub Pages, GitLab Pages, or Rust mdBook developer APIs.
 ---
 
-# mdBook Documentation
+# mdBook
 
-Complete reference for [mdBook](https://rust-lang.github.io/mdBook/), the Rust-based tool for creating books from Markdown. Auto-generated from the official guide at https://github.com/rust-lang/mdBook.
+Use this skill to create KDP-ready manuscripts with mdBook as the source format and to create, configure, build, theme, validate, and deploy mdBook projects.
 
-The `references/` directory contains the full, unmodified guide markdown, updated daily.
+## Workflow
 
-## Directives
+1. Identify the mdBook topic from the user's request.
+2. Read the matching reference file before giving detailed guidance or editing files.
+3. Use correct TOML for `book.toml` and correct Markdown structure for `SUMMARY.md`.
+4. Prefer the local reference files because they mirror the official mdBook guide.
+5. Use `scripts/generate-references.sh` only when the bundled references need to be refreshed from upstream mdBook docs.
+6. When the references are insufficient and current docs are required, fetch the matching file from `https://raw.githubusercontent.com/rust-lang/mdBook/master/guide/src/<path>.md`.
 
-- Base all answers on the official mdBook documentation in the reference files below.
-- Use correct `book.toml` (TOML) syntax for configuration examples.
-- Use correct `SUMMARY.md` format for table of contents structure.
-- Distinguish between **built-in preprocessors** (links, index) and **custom preprocessors**.
-- Distinguish between **built-in renderers** (HTML) and **alternative backends** (pdf, epub, etc.).
+## KDP Manuscript Workflow
 
-## Reference Files
+Use mdBook as the manuscript source when creating Kindle or print-ready books:
 
-Identify the topic from the user's question, then read the matching reference file:
+1. Keep manuscript source in Markdown under `src/`.
+2. Use `src/SUMMARY.md` as the canonical table of contents and chapter order.
+3. Use `book.toml` for title, author, language, source directory, HTML output, and any preprocessing.
+4. Build with `mdbook build` and inspect the generated `book/` output before conversion.
+5. Convert or package the generated content into the requested KDP target, usually EPUB for Kindle and PDF for print.
+6. Validate links, images, chapter breaks, metadata, fonts, and table of contents before delivery.
 
-### Getting Started
+### KDP Structure
 
-| Topic | File |
-|-------|------|
-| Overview and introduction | **`references/overview.md`** |
-| Installation (cargo, binaries) | **`references/installation.md`** |
-| Creating a new book | **`references/creating-a-book.md`** |
-| Reading / navigating books | **`references/reading-books.md`** |
+Use a simple, review-friendly book structure unless the user provides a manuscript-specific structure:
 
-### CLI
+1. Title page
+2. Copyright page
+3. Table of contents, optional for print
+4. Preface or introduction, optional
+5. Chapters
+6. About the author
+7. Additional resources, optional
 
-| Topic | File |
-|-------|------|
-| All CLI commands (init, build, watch, serve, test, clean, completions) | **`references/cli.md`** |
+### KDP Output Guidance
 
-### Book Format
+- Prefer EPUB for Kindle eBooks.
+- Prefer PDF for print books.
+- Keep heading hierarchy consistent.
+- Use one clear book title and chapter-level headings.
+- Use relative image paths.
+- Use high-resolution images for print, preferably 300 DPI.
+- Avoid excessive styling that may fail KDP review or convert poorly.
+- Embed fonts for print PDFs when required.
+- Do not include crop marks unless specifically requested.
 
-| Topic | File |
-|-------|------|
-| SUMMARY.md structure and syntax | **`references/summary-format.md`** |
-| Markdown features and extensions | **`references/markdown.md`** |
-| mdBook-specific features (hiding code, include, playground) | **`references/mdbook-specific.md`** |
-| MathJax support | **`references/mathjax.md`** |
+### KDP Validation Checklist
 
-### Configuration
+- Metadata is complete.
+- Cover dimensions match the target format.
+- Table of contents links work.
+- Internal and external links are not broken.
+- Images are present and appropriate resolution.
+- EPUB passes validation when EPUB is requested.
+- PDF pages render correctly when PDF is requested.
+- Fonts are embedded where required.
+- Chapter breaks are correct.
+- Final upload notes call out any remaining KDP risks.
 
-| Topic | File |
-|-------|------|
-| book.toml (general, preprocessors, renderers, environment variables) | **`references/configuration.md`** |
+## References
 
-### Theme
+- [Overview](references/overview.md): mdBook purpose and general introduction.
+- [Installation](references/installation.md): installing mdBook with Cargo, prebuilt binaries, or source builds.
+- [Creating a Book](references/creating-a-book.md): `mdbook init`, project layout, and first-book workflow.
+- [Reading Books](references/reading-books.md): navigating generated mdBook output.
+- [CLI](references/cli.md): `init`, `build`, `watch`, `serve`, `test`, `clean`, and completions.
+- [SUMMARY Format](references/summary-format.md): `src/SUMMARY.md` syntax and nesting.
+- [Markdown](references/markdown.md): supported Markdown syntax and extensions.
+- [mdBook Specific](references/mdbook-specific.md): hiding code lines, including files, playgrounds, and mdBook-only features.
+- [MathJax](references/mathjax.md): math rendering support.
+- [Configuration](references/configuration.md): `book.toml`, preprocessors, renderers, environment variables, and output options.
+- [Theme](references/theme.md): custom themes, `index.hbs`, syntax highlighting, editor support, and theme files.
+- [Continuous Integration](references/continuous-integration.md): GitHub Actions, GitLab CI, and deployment patterns.
+- [For Developers](references/for-developers.md): custom preprocessors, renderers/backends, and Rust API details.
 
-| Topic | File |
-|-------|------|
-| Theme customization (index.hbs, syntax highlighting, editor) | **`references/theme.md`** |
+## Scripts
 
-### For Developers
+- [generate-references.sh](scripts/generate-references.sh): refresh the `references/` files from the upstream mdBook guide. Run it from the skill directory.
 
-| Topic | File |
-|-------|------|
-| Writing preprocessors and backends (Rust API) | **`references/for-developers.md`** |
+## Quick Commands
 
-### Deployment
+Create and preview a book:
 
-| Topic | File |
-|-------|------|
-| CI/CD (GitHub Actions, GitLab CI) | **`references/continuous-integration.md`** |
-
-## Live Fetching
-
-When reference files are insufficient, fetch the latest docs from raw GitHub:
-
-```
-https://raw.githubusercontent.com/rust-lang/mdBook/master/guide/src/<path>.md
-```
-
-Examples:
-- `https://raw.githubusercontent.com/rust-lang/mdBook/master/guide/src/format/configuration/general.md`
-- `https://raw.githubusercontent.com/rust-lang/mdBook/master/guide/src/cli/build.md`
-- `https://raw.githubusercontent.com/rust-lang/mdBook/master/guide/src/format/theme/syntax-highlighting.md`
-
-## Strategy
-
-1. Identify the topic from the user's question.
-2. Read the matching reference file from the tables above.
-3. Answer with correct TOML syntax for `book.toml` and Markdown for `SUMMARY.md`.
-4. If more detail is needed, fetch from the corresponding raw GitHub URL.
-5. For custom preprocessors/backends, reference `references/for-developers.md`.
-6. For CI deployment, check `references/continuous-integration.md`.
-
-## Quick Reference
-
-### Create a new book
 ```bash
 mdbook init my-book
 cd my-book
-mdbook serve --open    # preview at http://localhost:3000
+mdbook serve --open
 ```
 
-### Project structure
+Build and validate:
+
+```bash
+mdbook build
+mdbook serve
+mdbook watch
+mdbook test
+mdbook clean
 ```
+
+## Project Layout
+
+```text
 my-book/
-├── book.toml          # Configuration
+├── book.toml
 ├── src/
-│   ├── SUMMARY.md     # Table of contents
+│   ├── SUMMARY.md
 │   ├── chapter_1.md
 │   └── chapter_2/
 │       ├── section_1.md
 │       └── section_2.md
-└── book/              # Generated output (after build)
+└── book/
 ```
 
-### SUMMARY.md syntax
+## SUMMARY.md Basics
+
 ```markdown
 # Summary
 
@@ -139,7 +134,8 @@ my-book/
 [Appendix](appendix.md)
 ```
 
-### book.toml basics
+## book.toml Basics
+
 ```toml
 [book]
 title = "My Book"
@@ -156,11 +152,14 @@ preferred-dark-theme = "ayu"
 git-repository-url = "https://github.com/user/repo"
 ```
 
-### Build commands
-```bash
-mdbook build              # build to book/
-mdbook serve              # live preview server
-mdbook watch              # rebuild on changes
-mdbook test               # test Rust code samples
-mdbook clean              # remove build artifacts
-```
+## Topic Guidance
+
+- For setup or install questions, read [Installation](references/installation.md) and [Creating a Book](references/creating-a-book.md).
+- For command behavior, flags, or troubleshooting build commands, read [CLI](references/cli.md).
+- For table of contents or chapter structure issues, read [SUMMARY Format](references/summary-format.md).
+- For Markdown rendering, includes, hidden lines, playgrounds, or code blocks, read [Markdown](references/markdown.md) and [mdBook Specific](references/mdbook-specific.md).
+- For `book.toml`, preprocessors, renderers, search, output options, or environment variables, read [Configuration](references/configuration.md).
+- For custom CSS, JavaScript, templates, highlighting, or editor integration, read [Theme](references/theme.md).
+- For MathJax or equation rendering, read [MathJax](references/mathjax.md).
+- For GitHub Pages, GitLab Pages, or automated builds, read [Continuous Integration](references/continuous-integration.md).
+- For custom preprocessors or renderers/backends, read [For Developers](references/for-developers.md).
