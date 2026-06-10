@@ -1,0 +1,4 @@
+interface:
+  display_name: "Homelab Admin"
+  short_description: "Operate homelab infrastructure safely"
+  default_prompt: "Use $homelab-admin to plan and execute a safe homelab maintenance task."

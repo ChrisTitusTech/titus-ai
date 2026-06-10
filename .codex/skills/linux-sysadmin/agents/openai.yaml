@@ -1,0 +1,4 @@
+interface:
+  display_name: "Linux Sysadmin"
+  short_description: "Diagnose Linux services and hosts"
+  default_prompt: "Use $linux-sysadmin to troubleshoot a Linux service, SSH, SELinux, or firewall issue."

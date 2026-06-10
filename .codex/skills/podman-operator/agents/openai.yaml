@@ -1,0 +1,4 @@
+interface:
+  display_name: "Podman Operator"
+  short_description: "Run Podman services with systemd"
+  default_prompt: "Use $podman-operator to deploy a rootless Podman service with Quadlet."

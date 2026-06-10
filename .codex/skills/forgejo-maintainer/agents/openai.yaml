@@ -1,0 +1,4 @@
+interface:
+  display_name: "Forgejo Maintainer"
+  short_description: "Maintain Forgejo repositories and runners"
+  default_prompt: "Use $forgejo-maintainer to plan a Forgejo upgrade, backup, or runner change."

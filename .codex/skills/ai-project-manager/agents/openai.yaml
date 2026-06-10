@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Project Manager"
+  short_description: "Plan projects from spec to tasks"
+  default_prompt: "Use $ai-project-manager to turn project docs into an implementation plan and execute the next phase."
