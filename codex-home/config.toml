@@ -1,0 +1,30 @@
+# Portable user defaults for Titus's machines. Keep credentials and runtime
+# state in the active ~/.codex directory, not in this repository.
+
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+web_search = "live"
+
+[sandbox_workspace_write]
+network_access = true
+
+[projects."/home/titus"]
+trust_level = "trusted"
+
+[projects."/home/titus/github/titusbooks"]
+trust_level = "trusted"
+
+[projects."/home/titus/github/myheroultra"]
+trust_level = "trusted"
+
+[projects."/home/titus/github/titus-ai"]
+trust_level = "trusted"
+
+[projects."/home/titus/.codex"]
+trust_level = "trusted"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[notice]
+hide_rate_limit_model_nudge = true

@@ -61,3 +61,16 @@ target/
 .cache/
 .parcel-cache/
 .turbo/
+
+# Codex runtime state and credentials
+auth.json
+history.jsonl
+installation_id
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+sessions/
+archived_sessions/
+shell_snapshots/
+plugins/
+models_cache.json

@@ -1,0 +1,17 @@
+# Local llama.cpp profile.
+#
+# Start llama-server with its OpenAI-compatible endpoint on port 8080:
+#   llama-server --model /path/to/model.gguf --jinja --port 8080
+#   codex --profile llamacpp
+#
+# The model value is an API identifier. Override it when your server expects a
+# specific model name:
+#   codex --profile llamacpp --model another-model
+
+model = "local-model"
+model_provider = "local_llamacpp"
+
+[model_providers.local_llamacpp]
+name = "Local llama.cpp"
+base_url = "http://127.0.0.1:8080/v1"
+wire_api = "responses"

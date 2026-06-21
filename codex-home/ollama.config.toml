@@ -1,0 +1,12 @@
+# Local Ollama profile.
+#
+# Start Ollama and ensure the selected model is installed before use:
+#   ollama pull qwen3-coder
+#   codex --profile ollama
+#
+# Override the model without editing this file:
+#   codex --profile ollama --model another-model
+
+model = "qwen3-coder"
+model_provider = "ollama"
+oss_provider = "ollama"

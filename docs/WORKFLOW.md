@@ -1,74 +1,28 @@
-# AI Development Workflow
+# AI development workflow
 
-## File Structure
+## Project file roles
 
-```text
-repo/
-├── AGENTS.md
-├── README.md
-├── docs/
-│   ├── SPEC.md
-│   ├── ROADMAP.md
-│   └── TASKS.md
-└── src/
-```
+| File | Purpose |
+| --- | --- |
+| `AGENTS.md` | Durable instructions Codex loads automatically |
+| `SPEC.md` | Product and technical requirements |
+| `ROADMAP.md` | Milestones and longer-term direction |
+| `TASKS.md` | Current actionable work and status |
+| `.agents/skills/` | Reusable workflows Codex can invoke |
+| `docs/` | Reference material loaded only when requested or linked |
 
-## Purpose of Each File
+## Recommended workflow
 
-### AGENTS.md
+1. Put stable working conventions in `AGENTS.md`.
+2. Capture requirements in `SPEC.md`.
+3. Derive milestones in `ROADMAP.md`.
+4. Break the next milestone into testable items in `TASKS.md`.
+5. Invoke the relevant skill or ask Codex to select one.
+6. Implement one reviewable phase.
+7. Run the validation defined before implementation.
+8. Update task status only after validation.
 
-Rules for AI agents.
+## Documentation rule
 
-* Coding standards
-* Testing requirements
-* Project conventions
-* Commands and workflows
-* Files/directories to avoid
-
-### SPEC.md
-
-Source of truth for what the project should do.
-
-* Features
-* Requirements
-* Constraints
-* APIs
-* Technical decisions
-
-### ROADMAP.md
-
-High-level development plan.
-
-* Major milestones
-* Project phases
-* Long-term priorities
-
-### TASKS.md
-
-Current actionable work.
-
-* Small implementation tasks
-* Bug fixes
-* Refactoring items
-* Task status tracking
-
-## Recommended Workflow
-
-1. Use ChatGPT to define requirements.
-2. Update `SPEC.md`.
-3. Update `ROADMAP.md`.
-4. Generate actionable items in `TASKS.md`.
-5. Use Codex to implement tasks from `TASKS.md`.
-6. Review changes and tests.
-7. Update task status.
-
-## Rule of Thumb
-
-* **AGENTS.md** = How to build
-* **SPEC.md** = What to build
-* **ROADMAP.md** = When to build it
-* **TASKS.md** = What to do next
-
-```
-```
-
+Do not rely on Codex discovering arbitrary documents by filename. Reference
+supporting documents from `AGENTS.md`, a skill, or the task prompt.
