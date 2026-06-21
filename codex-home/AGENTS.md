@@ -5,6 +5,7 @@
 - Prefix shell commands with `rtk` when `rtk` is installed.
 - If `rtk` is unavailable, state that once and use the raw command.
 - In command chains, apply `rtk` to each supported command segment.
+- If `rtk` rejects an unsupported command or flag, retry it raw.
 - Use raw commands when debugging command filtering.
 
 ## Working style
