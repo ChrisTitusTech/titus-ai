@@ -1,3 +1,8 @@
+# --- Headroom proxy (auto-injected by headroom wrap codex) ---
+model_provider = "headroom"
+openai_base_url = "http://127.0.0.1:8787/v1"
+# --- end Headroom ---
+
 # Portable user defaults for Titus's machines. Keep credentials and runtime
 # state in the active ~/.codex directory, not in this repository.
 
@@ -23,8 +28,30 @@ trust_level = "trusted"
 [projects."/home/titus/.codex"]
 trust_level = "trusted"
 
+[projects."/home/titus/github/website"]
+trust_level = "trusted"
+
 [tui.model_availability_nux]
 "gpt-5.5" = 4
 
 [notice]
 hide_rate_limit_model_nudge = true
+
+# --- Headroom MCP server ---
+[mcp_servers.headroom]
+command = "headroom"
+args = ["mcp", "serve"]
+# --- end Headroom MCP server ---
+
+# --- Headroom MCP server: serena ---
+[mcp_servers.serena]
+command = "uvx"
+args = ["--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server", "--project-from-cwd", "--context", "codex"]
+# --- end Headroom MCP server: serena ---
+
+# --- Headroom proxy (auto-injected by headroom wrap codex) ---
+[model_providers.headroom]
+name = "OpenAI via Headroom proxy"
+base_url = "http://127.0.0.1:8787/v1"
+supports_websockets = true
+# --- end Headroom ---

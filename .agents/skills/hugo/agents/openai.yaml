@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hugo"
+  short_description: "Build, edit, validate, and deploy Hugo static sites."
+  default_prompt: "Use the Hugo skill to inspect this site, make a scoped content or template change, and validate the Hugo build."
