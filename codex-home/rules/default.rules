@@ -200,6 +200,12 @@ prefix_rule(pattern=["terraform", "show"], decision="allow")
 prefix_rule(pattern=["terraform", "output"], decision="allow")
 prefix_rule(pattern=["terraform", "version"], decision="allow")
 prefix_rule(pattern=["terraform", "providers"], decision="allow")
+<<<<<<< HEAD
 prefix_rule(pattern=["rtk", "mkdir", "-p", "/home/titus/.codex/skills"], decision="allow")
 prefix_rule(pattern=["rtk", "proxy", "mkdir", "-p", ".agents/skills/hugo/agents"], decision="allow")
 prefix_rule(pattern=["rtk", "proxy", "cp"], decision="allow")
+=======
+prefix_rule(pattern=["rtk", "python", "/home/titus/.codex/plugins/cache/openai-curated-remote/github/0.1.5/skills/gh-address-comments/scripts/fetch_comments.py"], decision="allow")
+prefix_rule(pattern=["rtk", "ssh", "plex"], decision="allow")
+prefix_rule(pattern=["cp", "-a"], decision="allow")
+>>>>>>> 0db115c (add bash scripting)

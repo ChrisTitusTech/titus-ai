@@ -28,7 +28,11 @@ trust_level = "trusted"
 [projects."/home/titus/.codex"]
 trust_level = "trusted"
 
+<<<<<<< HEAD
 [projects."/home/titus/github/website"]
+=======
+[projects."/home/titus/github/linutil"]
+>>>>>>> 0db115c (add bash scripting)
 trust_level = "trusted"
 
 [tui.model_availability_nux]
