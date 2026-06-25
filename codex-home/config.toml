@@ -1,7 +1,7 @@
 # Portable user defaults for Titus's machines. Keep credentials and runtime
 # state in the active ~/.codex directory, not in this repository.
 
-approval_policy = "on-request"
+approval_policy = "never"
 sandbox_mode = "workspace-write"
 web_search = "live"
 
@@ -32,6 +32,9 @@ trust_level = "trusted"
 [projects."/home/titus/github/dwm-titus"]
 trust_level = "trusted"
 
+[projects."/home/titus/.local/share/dwm-titus"]
+trust_level = "trusted"
+
 [tui.model_availability_nux]
 "gpt-5.5" = 4
 
@@ -40,3 +43,9 @@ hide_rate_limit_model_nudge = true
 
 [apps.connector_76869538009648d5b282a4bb21c3d157.tools."github.add_review_to_pr"]
 approval_mode = "approve"
+
+[apps.connector_76869538009648d5b282a4bb21c3d157.tools."github.add_comment_to_issue"]
+approval_mode = "approve"
+
+[features]
+memories = true
