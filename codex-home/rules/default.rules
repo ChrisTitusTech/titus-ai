@@ -41,6 +41,10 @@ prefix_rule(
 )
 prefix_rule(pattern=["node", "skills/.system/openai-docs/scripts/fetch-codex-manual.mjs"], decision="allow")
 
+# RTK is the default command wrapper for this configuration. Allow any command
+# routed through rtk so wrapped commands do not need a second approval rule.
+prefix_rule(pattern=["rtk"], decision="allow")
+
 # Development SDKs, runtimes, package managers, and framework CLIs.
 prefix_rule(pattern=["dotnet"], decision="allow")
 prefix_rule(pattern=["node"], decision="allow")
@@ -174,6 +178,28 @@ prefix_rule(pattern=["git", "add"], decision="allow")
 prefix_rule(pattern=["git", "commit"], decision="allow")
 prefix_rule(pattern=["git", "fetch"], decision="allow")
 
+# Common shell and file inspection commands used when rtk needs to be bypassed
+# for command-filter debugging or exact output.
+prefix_rule(pattern=["bash"], decision="allow")
+prefix_rule(pattern=["sh"], decision="allow")
+prefix_rule(pattern=["sed"], decision="allow")
+prefix_rule(pattern=["awk"], decision="allow")
+prefix_rule(pattern=["grep"], decision="allow")
+prefix_rule(pattern=["rg"], decision="allow")
+prefix_rule(pattern=["find"], decision="allow")
+prefix_rule(pattern=["ls"], decision="allow")
+prefix_rule(pattern=["cat"], decision="allow")
+prefix_rule(pattern=["head"], decision="allow")
+prefix_rule(pattern=["tail"], decision="allow")
+prefix_rule(pattern=["wc"], decision="allow")
+prefix_rule(pattern=["sort"], decision="allow")
+prefix_rule(pattern=["uniq"], decision="allow")
+prefix_rule(pattern=["cut"], decision="allow")
+prefix_rule(pattern=["tr"], decision="allow")
+prefix_rule(pattern=["xargs"], decision="allow")
+prefix_rule(pattern=["printf"], decision="allow")
+prefix_rule(pattern=["test"], decision="allow")
+
 # Read-only container, cluster, and infrastructure inspection.
 prefix_rule(pattern=["docker", "ps"], decision="allow")
 prefix_rule(pattern=["docker", "images"], decision="allow")
@@ -262,3 +288,8 @@ prefix_rule(pattern=["rtk", "proxy", "git", "merge", "origin/main"], decision="a
 prefix_rule(pattern=["rtk", "proxy", "git", "add", "config/rofi/powermenu.sh", "scripts/check-deps.sh"], decision="allow")
 prefix_rule(pattern=["rtk", "proxy", "git", "add", "assets/cursors/COPYING"], decision="allow")
 prefix_rule(pattern=["rtk", "proxy", "git", "commit", "-m", "Merge main into phase-2"], decision="allow")
+prefix_rule(pattern=["rtk", "gh", "auth", "status"], decision="allow")
+prefix_rule(pattern=["rtk", "gh", "pr", "view"], decision="allow")
+prefix_rule(pattern=["rtk", "git"], decision="allow")
+prefix_rule(pattern=["rtk", "./install.sh"], decision="allow")
+prefix_rule(pattern=["rtk", "make", "check-container-smoke"], decision="allow")
