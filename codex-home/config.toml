@@ -32,6 +32,15 @@ trust_level = "trusted"
 [projects."/home/titus/github/dwm-titus"]
 trust_level = "trusted"
 
+[projects."/home/titus/Downloads/capitaine-cursors-r4"]
+trust_level = "trusted"
+
+[projects."/home/titus/github/zed-titus"]
+trust_level = "trusted"
+
+[projects."/home/titus/.local/share/dwm-titus"]
+trust_level = "trusted"
+
 [tui.model_availability_nux]
 "gpt-5.5" = 4
 
