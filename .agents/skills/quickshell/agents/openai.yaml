@@ -1,0 +1,4 @@
+interface:
+  display_name: "Quickshell"
+  short_description: "Lint and build Quickshell QML projects"
+  default_prompt: "Use $quickshell to lint and validate this Quickshell QML project."

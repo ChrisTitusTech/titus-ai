@@ -1,2 +1,23 @@
 approval_policy = "never"
 sandbox_mode = "danger-full-access"
+
+[projects."/home/titus/github/titus-ai"]
+trust_level = "trusted"
+
+[projects."/home/titus/github/resolve-linux"]
+trust_level = "trusted"
+
+[projects."/home/titus/.local/share/dwm-titus"]
+trust_level = "trusted"
+
+[projects."/media/drive/Video Production/AAA-Videos to Make"]
+trust_level = "trusted"
+
+[projects."/home/titus/games/eq-legends"]
+trust_level = "trusted"
+
+[projects."/home/titus/games/everquest"]
+trust_level = "trusted"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
