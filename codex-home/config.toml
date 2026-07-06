@@ -1,5 +1,9 @@
 approval_policy = "never"
+model = "gpt-5.5"
+model_reasoning_effort = "xhigh"
+plan_mode_reasoning_effort = "xhigh"
 sandbox_mode = "danger-full-access"
+service_tier = "priority"
 
 [projects."/home/titus/github/titus-ai"]
 trust_level = "trusted"
@@ -17,6 +21,15 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/home/titus/games/everquest"]
+trust_level = "trusted"
+
+[projects."/home/titus/Downloads/HUDChallenges 2860 1.4.7 QemLENmWz"]
+trust_level = "trusted"
+
+[projects."/home/titus/github/fallout76-configs"]
+trust_level = "trusted"
+
+[projects."/home/titus/github/3plates"]
 trust_level = "trusted"
 
 [tui.model_availability_nux]
