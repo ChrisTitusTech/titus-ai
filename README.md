@@ -46,10 +46,10 @@ rtk --version
 rtk gain
 ```
 
-The managed `codex-home/AGENTS.md` already instructs Codex to prefix supported
-commands with `rtk`, so no separate `rtk init` step is required after running
-this repository's installer. Codex falls back to the raw command when RTK is
-missing or rejects an unsupported command or flag.
+The managed `codex-home/AGENTS.md` already instructs Codex to use RTK selectively
+for commands whose large or repetitive output benefits from filtering, so no
+separate `rtk init` step is required after running this repository's installer.
+Short commands and commands that require exact output remain raw.
 
 ## Use
 

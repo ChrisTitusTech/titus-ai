@@ -3,16 +3,20 @@
 
 ## Golden Rule
 
-**Always prefix commands with `rtk`**. If RTK has a dedicated filter, it uses it. If not, it passes through unchanged. This means RTK is always safe to use.
+Use `rtk` only when command output is likely to be large or repetitive and its
+filtered result is sufficient. Typical candidates are test suites, builds,
+linters, logs, broad searches, dependency listings, and infrastructure status
+commands.
 
-**Important**: Even in command chains with `&&`, use `rtk`:
-```bash
-# ❌ Wrong
-git add . && git commit -m "msg" && git push
+Keep commands raw when their output should be short, exact or complete output
+matters, or the command inspects a specific file or narrowly scoped result. In
+command chains, apply `rtk` only to segments that benefit from filtering. If
+RTK hides needed detail or complicates debugging, rerun the command raw.
 
-# ✅ Correct
-rtk git add . && rtk git commit -m "msg" && rtk git push
-```
+For Bash and command-line automation work, consider RTK for noisy validation
+commands. Keep commands raw when validating exact stdout, stderr, exit-status,
+quoting, or pipeline behavior. Do not use `rtk proxy` merely to add an RTK
+prefix without filtering.
 
 ## RTK Commands by Workflow
 

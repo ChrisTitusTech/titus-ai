@@ -23,11 +23,19 @@ for tools that load it automatically.
 
 ## Command execution
 
-- Prefix shell commands with `rtk` when `rtk` is installed.
-- If `rtk` is unavailable, state that once and use the raw command.
-- In command chains, apply `rtk` to each supported command segment.
-- If `rtk` rejects an unsupported command or flag, retry it raw.
-- Use raw commands when debugging command filtering.
+- Use `rtk` when command output is likely to be large or repetitive and a
+  filtered summary is sufficient. Good candidates include test suites, builds,
+  linters, logs, broad searches, dependency listings, and infrastructure
+  status commands.
+- Use raw commands when output is expected to be short, when exact or complete
+  output matters, or when inspecting a specific file or narrowly scoped result.
+- In command chains, apply `rtk` only to segments that benefit from filtering.
+- If RTK hides needed detail, rejects a command or flag, or complicates
+  debugging, rerun the command raw. Do not use `rtk proxy` merely to satisfy an
+  RTK convention.
+- If a task is primarily Bash or command-line automation, consider RTK for
+  noisy validation commands, but keep commands raw when validating exact
+  stdout, stderr, exit-status, quoting, or pipeline behavior.
 - Prefer running code, tests, linters, and type checks over guessing.
 - Read complete errors, logs, and stack traces before fixing them.
 
@@ -82,47 +90,3 @@ Read only the documents needed for the task:
   repeat mistake or document durable project behavior.
 - When the user corrects an approach, tighten the relevant rule instead of
   appending a vague warning.
-
-
-<!-- headroom:rtk-instructions -->
-# RTK (Rust Token Killer) - Token-Optimized Commands
-
-When running shell commands, **always prefix with `rtk`**. This reduces context
-usage by 60-90% with zero behavior change. If rtk has no filter for a command,
-it passes through unchanged — so it is always safe to use.
-
-## Key Commands
-```bash
-# Git (59-80% savings)
-rtk git status          rtk git diff            rtk git log
-
-# Files & Search (60-75% savings)
-rtk ls <path>           rtk read <file>         rtk grep <pattern>
-rtk find <pattern>      rtk diff <file>
-
-# Test (90-99% savings) — shows failures only
-rtk pytest tests/       rtk cargo test          rtk test <cmd>
-
-# Build & Lint (80-90% savings) — shows errors only
-rtk tsc                 rtk lint                rtk cargo build
-rtk prettier --check    rtk mypy                rtk ruff check
-
-# Analysis (70-90% savings)
-rtk err <cmd>           rtk log <file>          rtk json <file>
-rtk summary <cmd>       rtk deps                rtk env
-
-# GitHub (26-87% savings)
-rtk gh pr view <n>      rtk gh run list         rtk gh issue list
-
-# Infrastructure (85% savings)
-rtk docker ps           rtk kubectl get         rtk docker logs <c>
-
-# Package managers (70-90% savings)
-rtk pip list            rtk pnpm install        rtk npm run <script>
-```
-
-## Rules
-- In command chains, prefix each segment: `rtk git add . && rtk git commit -m "msg"`
-- For debugging, use raw command without rtk prefix
-- `rtk proxy <cmd>` runs command without filtering but tracks usage
-<!-- /headroom:rtk-instructions -->
