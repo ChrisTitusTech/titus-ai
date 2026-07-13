@@ -24,6 +24,11 @@
 - Prefer small, reviewable changes with relevant validation.
 - Do not expose credentials, tokens, private keys, or secret file contents.
 - Do not perform destructive operations without explicit authorization.
+- Use subagents only when the user or applicable `AGENTS.md` or skill
+  instructions explicitly request subagents, delegation, or parallel agent
+  work.
+- Treat explicit user stop points as hard boundaries. Stop at the requested
+  milestone and wait before starting the next phase.
 
 ## Scope selection
 
