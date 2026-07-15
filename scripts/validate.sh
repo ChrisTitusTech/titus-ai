@@ -29,6 +29,9 @@ if command -v python3 >/dev/null 2>&1; then
     python3 -c 'import pathlib, sys, tomllib; tomllib.loads(pathlib.Path(sys.argv[1]).read_text())' "$config_file" ||
       fail "invalid TOML in ${config_file#"$repo_root"/}"
   done
+
+  python3 -c 'import pathlib, sys, tomllib; config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit(config.get("features", {}).get("memories") is not True)' \
+    "$repo_root/codex-home/config.toml" || fail "codex-home/config.toml must enable features.memories"
 fi
 
 if [[ -d "$repo_root/.codex/skills" ]]; then
