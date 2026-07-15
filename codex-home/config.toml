@@ -48,7 +48,19 @@ trust_level = "trusted"
 [projects."/home/titus/github/dwm-titus"]
 trust_level = "trusted"
 
+[projects."/home/titus/.local/share/mybash"]
+trust_level = "trusted"
+
+[projects."/home/titus/github/website-messages"]
+trust_level = "trusted"
+
 [projects."/home/titus/github/website"]
+trust_level = "trusted"
+
+[projects."/home/titus/github/newsletter"]
+trust_level = "trusted"
+
+[projects."/home/titus/github/streamdeck-dashboard"]
 trust_level = "trusted"
 
 [tui.model_availability_nux]
