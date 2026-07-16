@@ -17,6 +17,7 @@ required_files=(
   "codex-home/llamacpp.config.toml"
   "codex-home/rules/default.rules"
   "docs/CODEX_LAYOUT.md"
+  "scripts/install.ps1"
   "scripts/install.sh"
 )
 

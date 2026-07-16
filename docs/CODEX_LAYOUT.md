@@ -65,7 +65,8 @@ repository uses `.agents/skills` as its canonical location.
 
 Do not point `CODEX_HOME` at this repository. Codex writes runtime state into
 `CODEX_HOME`, while this repository intentionally separates managed files from
-runtime data. Use `scripts/install.sh` instead.
+runtime data. Use `scripts/install.sh` on Linux or macOS and
+`scripts/install.ps1` on Windows instead.
 
 ## Verification
 

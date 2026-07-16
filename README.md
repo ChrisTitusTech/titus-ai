@@ -4,11 +4,18 @@ Portable Codex configuration, rules, and reusable skills.
 
 ## Install
 
-Preview and install:
+Preview and install on Linux or macOS:
 
 ```bash
 ./scripts/install.sh --dry-run
 ./scripts/install.sh
+```
+
+On Windows, run the PowerShell installer from the repository root:
+
+```powershell
+.\scripts\install.ps1 -DryRun
+.\scripts\install.ps1
 ```
 
 Restart Codex after installation. Existing managed files are backed up under
