@@ -70,6 +70,9 @@ for tools that load it automatically.
 
 Read only the documents needed for the task:
 
+- `SPEC.md` for product requirements, boundaries, and acceptance criteria.
+- `ROADMAP.md` for ordered outcomes, risks, and phase exit criteria.
+- `TASKS.md` for the current phase, validation status, and remaining work.
 - `docs/CODEX_LAYOUT.md` for Codex discovery and installation boundaries.
 - `docs/SKILLS.md` when creating or changing skills.
 - `docs/WORKFLOW.md` when changing the repository development workflow.
@@ -83,6 +86,9 @@ Read only the documents needed for the task:
   rendered output.
 - Run `./scripts/validate.sh` after changing configuration, skills, install
   scripts, or repository layout.
+- Run `./scripts/test-install.sh` directly when diagnosing Linux or macOS
+  installer behavior. Windows installer behavior is covered by
+  `./scripts/test-install.ps1` in CI.
 
 ## Maintenance
 

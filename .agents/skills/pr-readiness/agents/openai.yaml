@@ -1,0 +1,4 @@
+interface:
+  display_name: "PR Readiness"
+  short_description: "Verify changes before and during pull requests"
+  default_prompt: "Use $pr-readiness to validate this change, run local review, and determine whether the pull request is ready to merge."

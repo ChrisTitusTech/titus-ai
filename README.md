@@ -76,6 +76,22 @@ $rust-cli add a new subcommand
 
 Codex can also select skills automatically based on their descriptions.
 
+## AI development workflow
+
+The reusable workflow separates planning from pull-request readiness:
+
+- `$ai-project-manager` reads or creates `AGENTS.md`, `SPEC.md`, `ROADMAP.md`,
+  and `TASKS.md`, pauses at plan-approval boundaries, and executes one
+  reviewable phase at a time.
+- `$pr-readiness` validates the final diff, runs local CodeRabbit review,
+  records manual testing, and verifies CI and review state before merge.
+
+Project-document templates live under
+`.agents/skills/ai-project-manager/assets/project-docs/`. Adapt them to the
+project instead of leaving placeholder requirements.
+
+See [docs/WORKFLOW.md](docs/WORKFLOW.md) for the complete lifecycle.
+
 ## Local models
 
 Local model profiles are optional and do not change the default provider.
@@ -111,9 +127,15 @@ The llama.cpp profile expects a Responses-compatible endpoint at
 ./scripts/validate.sh
 ```
 
+The validation includes an isolated Linux or macOS installer integration test.
+GitHub Actions also exercises the PowerShell installer on Windows and runs
+dependency review for pull requests.
+
 ## Repository layout
 
 - `AGENTS.md`: instructions for maintaining this repository
+- `SPEC.md`, `ROADMAP.md`, and `TASKS.md`: requirements, phase order, and
+  validated task status
 - `.agents/skills/`: reusable skills
 - `codex-home/`: portable global instructions, configuration, profiles, and rules
 - `docs/`: reference documentation loaded only when explicitly requested
