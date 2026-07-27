@@ -139,13 +139,16 @@ if command -v codex >/dev/null 2>&1; then
 fi
 
 if command -v pwsh >/dev/null 2>&1; then
-  # The PowerShell variables must not expand in Bash.
-  # shellcheck disable=SC2016
-  pwsh -NoProfile -Command \
-    '$failed = $false; foreach ($path in $args) { $errors = $null; [void][System.Management.Automation.Language.Parser]::ParseFile($path, [ref]$null, [ref]$errors); if ($errors.Count) { $errors | ForEach-Object { Write-Error $_ }; $failed = $true } }; if ($failed) { exit 1 }' \
+  for powershell_file in \
     "$repo_root/scripts/install.ps1" \
-    "$repo_root/scripts/test-install.ps1" ||
-    fail "PowerShell syntax validation failed"
+    "$repo_root/scripts/test-install.ps1"; do
+    # The PowerShell variables must not expand in Bash.
+    # shellcheck disable=SC2016
+    pwsh -NoProfile -Command \
+      '$errors = $null; [void][System.Management.Automation.Language.Parser]::ParseFile($args[0], [ref]$null, [ref]$errors); if ($errors.Count) { $errors | ForEach-Object { Write-Error $_ }; exit 1 }' \
+      "$powershell_file" ||
+      fail "PowerShell syntax validation failed for ${powershell_file#"$repo_root"/}"
+  done
 fi
 
 if ! bash "$repo_root/scripts/test-install.sh"; then
