@@ -144,9 +144,8 @@ if command -v pwsh >/dev/null 2>&1; then
     "$repo_root/scripts/test-install.ps1"; do
     # The PowerShell variables must not expand in Bash.
     # shellcheck disable=SC2016
-    pwsh -NoProfile -Command \
-      '$errors = $null; [void][System.Management.Automation.Language.Parser]::ParseFile($args[0], [ref]$null, [ref]$errors); if ($errors.Count) { $errors | ForEach-Object { Write-Error $_ }; exit 1 }' \
-      "$powershell_file" ||
+    TITUS_AI_POWERSHELL_FILE="$powershell_file" pwsh -NoProfile -Command \
+      '$errors = $null; [void][System.Management.Automation.Language.Parser]::ParseFile($env:TITUS_AI_POWERSHELL_FILE, [ref]$null, [ref]$errors); if ($errors.Count) { $errors | ForEach-Object { Write-Error $_ }; exit 1 }' ||
       fail "PowerShell syntax validation failed for ${powershell_file#"$repo_root"/}"
   done
 fi
