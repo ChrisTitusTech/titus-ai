@@ -66,6 +66,12 @@ trust_level = "trusted"
 [projects."/home/titus/github/linutil"]
 trust_level = "trusted"
 
+[projects."/home/titus/github/agent-proxy"]
+trust_level = "trusted"
+
+[projects."/home/titus/github/t3code"]
+trust_level = "trusted"
+
 [tui]
 status_line = ["model-with-reasoning", "current-dir", "project-name", "git-branch"]
 status_line_use_colors = true
