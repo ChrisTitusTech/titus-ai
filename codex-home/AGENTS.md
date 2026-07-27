@@ -27,6 +27,9 @@
 - Use subagents only when the user or applicable `AGENTS.md` or skill
   instructions explicitly request subagents, delegation, or parallel agent
   work.
+- When the Superpowers plugin is installed, skip its full development
+  methodology for trivial, low-risk edits. Use the relevant workflow for
+  non-trivial features, debugging, planning, and review work.
 - Treat explicit user stop points as hard boundaries. Stop at the requested
   milestone and wait before starting the next phase.
 

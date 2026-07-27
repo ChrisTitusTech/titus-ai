@@ -7,8 +7,11 @@
 - [x] Add isolated Linux, macOS, and Windows installer integration tests.
 - [x] Add pull-request CI, dependency review, Dependabot, and a PR template.
 - [x] Align Claude routing and workflow documentation.
+- [x] Add opt-in, cross-platform installation for selected Codex plugins.
+- [x] Trust all Git worktrees beneath the current user's `~/github` directory.
 - [x] Run local repository, shell, installer, workflow, and skill validation.
-- [ ] Confirm the Windows installer integration test passes in CI.
+- [ ] Confirm Windows installer integration, including plugin installation and
+  recursive GitHub trust generation, passes in CI.
 - [x] Inspect the final diff and stage only workflow-alignment changes.
 
 ## Next phase: Enforced repository governance

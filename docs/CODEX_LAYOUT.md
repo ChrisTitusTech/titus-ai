@@ -38,9 +38,35 @@ This repository manages only:
 - optional local model profiles
 - command rules
 - reusable skills
+- an opt-in list of recommended plugin selectors
 
-The installer links those files into their documented locations while
-preserving runtime state.
+The installer links instructions, rules, profiles, and skills into their
+documented locations while preserving runtime state. It renders
+`~/.codex/config.toml` as a regular file so it can add machine-specific trust
+entries for `~/github` and every Git worktree discovered beneath it. With the
+explicit plugin option, it asks Codex to install each selector from
+`codex-plugins.txt`; it does not link or track the resulting plugin cache,
+authentication, or connector state.
+
+## GitHub project trust
+
+Codex project trust uses exact absolute project paths. A parent project entry
+and wildcard entries do not automatically trust nested repositories. On each
+run, the installer adds the current user's `~/github` path plus every Git
+worktree found recursively below it to the generated config. Rerun the
+installer after adding repositories to refresh those entries.
+
+## Plugins and MCP servers
+
+Run the installer with `--plugins` on Linux or macOS, or `-Plugins` on Windows,
+to install the selectors in `codex-plugins.txt`. Without that option, plugin
+state is untouched. Restart Codex or start a new session after installing a
+plugin so its bundled skills and tools can load.
+
+Plugins can package skills, connectors, MCP servers, hooks, and other assets.
+Standalone services such as Context7, Playwright, and Chrome DevTools are MCP
+servers, not entries managed by this repository's plugin manifest. Configure
+those separately when a project needs them.
 
 ## Local model profiles
 

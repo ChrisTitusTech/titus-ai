@@ -16,6 +16,7 @@ required_files=(
   "ROADMAP.md"
   "SPEC.md"
   "TASKS.md"
+  "codex-plugins.txt"
   "codex-home/AGENTS.md"
   "codex-home/config.toml"
   "codex-home/ollama.config.toml"
@@ -36,6 +37,16 @@ required_files=(
 for relative in "${required_files[@]}"; do
   [[ -f "$repo_root/$relative" ]] || fail "missing $relative"
 done
+
+if grep -Evq '^[a-z0-9][a-z0-9-]*@[a-z0-9][a-z0-9-]*$' "$repo_root/codex-plugins.txt"; then
+  fail "codex-plugins.txt contains an invalid plugin selector"
+fi
+
+plugin_count="$(grep -Ec '^[a-z0-9][a-z0-9-]*@[a-z0-9][a-z0-9-]*$' "$repo_root/codex-plugins.txt" || true)"
+[[ "$plugin_count" -gt 0 ]] || fail "codex-plugins.txt contains no plugins"
+
+duplicate_plugins="$(sort "$repo_root/codex-plugins.txt" | uniq -d)"
+[[ -z "$duplicate_plugins" ]] || fail "codex-plugins.txt contains duplicate plugins"
 
 if command -v python3 >/dev/null 2>&1; then
   for config_file in "$repo_root"/codex-home/*.toml; do
@@ -131,9 +142,10 @@ if command -v pwsh >/dev/null 2>&1; then
   # The PowerShell variables must not expand in Bash.
   # shellcheck disable=SC2016
   pwsh -NoProfile -Command \
-    '$errors = $null; [void][System.Management.Automation.Language.Parser]::ParseFile($args[0], [ref]$null, [ref]$errors); if ($errors.Count) { $errors | ForEach-Object { Write-Error $_ }; exit 1 }' \
-    "$repo_root/scripts/install.ps1" ||
-    fail "PowerShell syntax validation failed for scripts/install.ps1"
+    '$failed = $false; foreach ($path in $args) { $errors = $null; [void][System.Management.Automation.Language.Parser]::ParseFile($path, [ref]$null, [ref]$errors); if ($errors.Count) { $errors | ForEach-Object { Write-Error $_ }; $failed = $true } }; if ($failed) { exit 1 }' \
+    "$repo_root/scripts/install.ps1" \
+    "$repo_root/scripts/test-install.ps1" ||
+    fail "PowerShell syntax validation failed"
 fi
 
 if ! bash "$repo_root/scripts/test-install.sh"; then

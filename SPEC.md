@@ -16,10 +16,14 @@ wants the same safe Codex baseline in multiple repositories.
 
 - Install global Codex instructions, configuration, rules, local-model
   profiles, and reusable skills from this repository.
+- Optionally install an explicit list of recommended Codex plugins from
+  configured marketplaces.
+- Trust the current user's `~/github` directory and every Git worktree
+  discovered recursively beneath it on each installation.
 - Preview installation without changing the target system.
 - Preserve existing managed targets in timestamped backups before replacement.
-- Leave credentials, sessions, history, caches, plugins, and runtime databases
-  untouched.
+- Leave credentials, sessions, history, caches, plugin state, and runtime
+  databases untouched unless plugin installation is explicitly requested.
 - Support repeated installation without replacing already-correct links.
 - Provide project-planning templates and separate planning from pull-request
   readiness.
@@ -30,10 +34,14 @@ wants the same safe Codex baseline in multiple repositories.
 
 ## Architecture
 
-- `codex-home/` contains portable files linked into `CODEX_HOME`.
+- `codex-home/` contains portable files installed into `CODEX_HOME`.
+- The installer renders `config.toml` with machine-specific exact trust entries
+  while linking the other managed files.
 - `.agents/skills/` contains reusable workflows linked into `AGENTS_HOME`.
 - `scripts/install.sh` and `scripts/install.ps1` perform user-scoped
   installation.
+- `codex-plugins.txt` records plugin selectors installed only through the
+  explicit plugin option.
 - `scripts/validate.sh` and installer integration tests provide local and CI
   evidence.
 - `AGENTS.md`, this specification, `ROADMAP.md`, and `TASKS.md` define how the
@@ -59,7 +67,8 @@ wants the same safe Codex baseline in multiple repositories.
 ## Non-goals
 
 - Mirroring the complete Codex home directory.
-- Managing credentials, plugins, sessions, or caches.
+- Managing credentials, plugin caches or authentication, sessions, or caches.
+- Installing plugins without an explicit opt-in.
 - Replacing project-specific `AGENTS.md` or requirements.
 - Installing Codex, Claude Code, CodeRabbit, RTK, or local model servers.
 - Adding security scanners that do not support the repository's languages.
@@ -68,9 +77,11 @@ wants the same safe Codex baseline in multiple repositories.
 
 - `./scripts/validate.sh` passes from a clean checkout.
 - Linux and macOS installer integration tests verify dry-run safety, backup
-  preservation, correct links, and idempotence in isolated temporary
-  directories.
+  preservation, correct links, generated GitHub trust entries, and idempotence
+  in isolated temporary directories.
 - Windows CI verifies the equivalent PowerShell installer behavior.
+- Installer tests verify plugin opt-in and dry-run behavior without contacting
+  a live marketplace.
 - Every skill has valid front matter and the documented skill inventory matches
   the actual directories.
 - Pull requests run validation and dependency review on the latest commit.

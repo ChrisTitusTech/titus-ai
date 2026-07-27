@@ -31,6 +31,10 @@ review, manual-testing, and merge workflow.
 - Add cross-platform installer integration tests and pull-request CI.
 - Add Dependabot coverage, dependency review, and PR evidence prompts.
 - Align Claude routing and workflow documentation.
+- Add explicit, cross-platform installation for selected Codex plugins without
+  making ordinary installs mutate plugin state.
+- Render exact trusted-project entries for every Git worktree beneath the
+  current user's `~/github` directory.
 
 ### Risks
 
