@@ -1,6 +1,6 @@
 ---
 name: python-ai
-description: Build and troubleshoot Python AI applications with uv, local LLMs, OpenAI APIs, OpenRouter, agent frameworks, retrieval, tool calling, evaluation, and AI developer tooling. Use when Codex is asked to implement Python AI features, manage AI dependencies, design prompts or agents, debug model calls, or prepare AI app validation.
+description: Build and troubleshoot Python AI applications with uv, local LLMs, OpenAI APIs, OpenRouter, agent frameworks, retrieval, tool calling, evaluation, and AI developer tooling. Use when a coding agent (Cursor or Codex) is asked to implement Python AI features, manage AI dependencies, design prompts or agents, debug model calls, or prepare AI app validation.
 ---
 
 # python-ai

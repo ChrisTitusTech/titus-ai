@@ -1,4 +1,4 @@
-# Titus AI tasks
+# Narehood AI tasks
 
 ## Completed phase: Workflow alignment
 
@@ -14,6 +14,19 @@
 - [x] Confirm Windows installer integration, including plugin installation and
   recursive GitHub trust generation, passes in CI.
 - [x] Inspect the final diff and stage only workflow-alignment changes.
+
+## Completed phase: Cursor-first + Narehood rebrand
+
+- [x] Reframe SPEC, ROADMAP, TASKS, README, and root AGENTS for Cursor-primary
+  Narehood AI (public-safe).
+- [x] Complete Narehood AI / narehood-ai rebrand; strip personal absolute paths
+  from sample config and skill examples.
+- [x] Expand project-docs AGENTS template; add STATUS.md template; update
+  ai-project-manager skill.
+- [x] Add CURSOR_LAYOUT.md; update SKILLS and WORKFLOW; soften Codex-only skill
+  wording; align global instructions.
+- [x] Document Cursor skills consumption; extend validate if needed; run
+  validate.sh; public-repo leak-check.
 
 ## Current phase: Enforced repository governance
 

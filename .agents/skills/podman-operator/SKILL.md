@@ -1,6 +1,6 @@
 ---
 name: podman-operator
-description: Build, deploy, and troubleshoot Podman services, Quadlet units, rootless containers, container networking, volumes, systemd integration, and production container operations. Use when Codex is asked to convert compose files, write Quadlet units, debug Podman networking or volumes, or prepare repeatable container deployment steps.
+description: Build, deploy, and troubleshoot Podman services, Quadlet units, rootless containers, container networking, volumes, systemd integration, and production container operations. Use when a coding agent (Cursor or Codex) is asked to convert compose files, write Quadlet units, debug Podman networking or volumes, or prepare repeatable container deployment steps.
 ---
 
 # podman-operator

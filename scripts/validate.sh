@@ -23,8 +23,14 @@ required_files=(
   "codex-home/llamacpp.config.toml"
   "codex-home/rules/default.rules"
   "docs/CODEX_LAYOUT.md"
+  "docs/CURSOR_LAYOUT.md"
   "docs/SKILLS.md"
   "docs/WORKFLOW.md"
+  ".agents/skills/ai-project-manager/assets/project-docs/AGENTS.md"
+  ".agents/skills/ai-project-manager/assets/project-docs/SPEC.md"
+  ".agents/skills/ai-project-manager/assets/project-docs/ROADMAP.md"
+  ".agents/skills/ai-project-manager/assets/project-docs/TASKS.md"
+  ".agents/skills/ai-project-manager/assets/project-docs/STATUS.md"
   ".github/dependabot.yml"
   ".github/pull_request_template.md"
   ".github/workflows/validate.yml"
@@ -185,6 +191,26 @@ actual_skills="$(printf '%s' "$actual_skills" | sort)"
 [[ "$documented_skills" == "$actual_skills" ]] ||
   fail "docs/SKILLS.md does not match .agents/skills"
 
+# Patterns are split so this validator file does not match itself.
+legacy_brand="$(printf '%s%s' 'titus' '-ai')"
+legacy_label="$(printf '%s%s' 'Titus' ' AI')"
+personal_home="$(printf '%s%s' '/home/' 'titus')"
+
+if command -v git >/dev/null 2>&1 &&
+  git -C "$repo_root" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  if git -C "$repo_root" grep -nE "${personal_home}|${legacy_brand}|${legacy_label}" \
+    -- . ':(exclude)scripts/validate.sh' >/tmp/narehood-ai-git-leak.txt 2>/dev/null; then
+    if [[ -s /tmp/narehood-ai-git-leak.txt ]]; then
+      fail "personal or legacy brand strings found in git-tracked files"
+      cat /tmp/narehood-ai-git-leak.txt >&2 || true
+    fi
+  fi
+fi
+
+if grep -Eq '^\[projects\.' "$repo_root/codex-home/config.toml"; then
+  fail "codex-home/config.toml must not commit personal project trust paths"
+fi
+
 for forbidden in auth.json history.jsonl installation_id state_5.sqlite goals_1.sqlite memories_1.sqlite; do
   [[ ! -e "$repo_root/$forbidden" ]] || fail "runtime file must not be tracked: $forbidden"
 done
@@ -251,8 +277,8 @@ if command -v pwsh >/dev/null 2>&1 &&
     "$repo_root/scripts/test-install.ps1"; do
     # The PowerShell variables must not expand in Bash.
     # shellcheck disable=SC2016
-    TITUS_AI_POWERSHELL_FILE="$powershell_file" pwsh -NoProfile -Command \
-      '$errors = $null; [void][System.Management.Automation.Language.Parser]::ParseFile($env:TITUS_AI_POWERSHELL_FILE, [ref]$null, [ref]$errors); if ($errors.Count) { $errors | ForEach-Object { Write-Error $_ }; exit 1 }' ||
+    NAREHOOD_AI_POWERSHELL_FILE="$powershell_file" pwsh -NoProfile -Command \
+      '$errors = $null; [void][System.Management.Automation.Language.Parser]::ParseFile($env:NAREHOOD_AI_POWERSHELL_FILE, [ref]$null, [ref]$errors); if ($errors.Count) { $errors | ForEach-Object { Write-Error $_ }; exit 1 }' ||
       fail "PowerShell syntax validation failed for ${powershell_file#"$repo_root"/}"
   done
 fi

@@ -2,10 +2,14 @@
 
 ## Scope
 
-This repository is the source of truth for Titus's portable Codex
-configuration, reusable skills, and durable coding-agent instructions. The root
-`AGENTS.md` is the project maintenance file and follows the AGENTS.md convention
-for tools that load it automatically.
+This repository is the source of truth for Narehood's portable coding-agent
+configuration, reusable skills, and durable instructions. Cursor is the primary
+target; Codex install remains supported. The root `AGENTS.md` is the project
+maintenance file and follows the AGENTS.md convention for tools that load it
+automatically (including Cursor and Cloud Agents).
+
+This repository is public. Do not commit credentials, personal absolute paths,
+private product operations, or secret values.
 
 ## Operating principles
 
@@ -20,6 +24,28 @@ for tools that load it automatically.
   cleanup.
 - Keep communication direct and concise. Skip flattery, filler, ceremonial
   openings, and emoji.
+
+## Pull requests
+
+Unless the user explicitly says not to, or the change cannot produce a
+reviewable result:
+
+1. Work on a feature branch (not the default branch directly).
+2. Keep the branch synced with the base branch and resolve merge conflicts
+   before asking for review.
+3. Open or update a pull request after pushing meaningful work.
+4. If the host reports merge conflicts on the PR, fix them on the branch and
+   push again until the PR is mergeable.
+
+## Blocked by keys or auth
+
+If a task is blocked by a missing secret, API key, login, 2FA, or dashboard
+permission on the human's side:
+
+1. Stop. Do not invent workarounds that ship a degraded product.
+2. Ask clearly for the exact credential or action needed.
+3. Wait for the human before continuing expensive work (paid builds, store
+   submits, production deploys).
 
 ## Command execution
 
@@ -42,7 +68,7 @@ for tools that load it automatically.
 - Keep credentials, tokens, sessions, history, caches, logs, and runtime
   databases out of this repository.
 - Put reusable workflows in `.agents/skills/<name>/SKILL.md`.
-- Put portable user configuration in `codex-home/`.
+- Put portable Codex user configuration in `codex-home/`.
 - Put project maintenance instructions in this file.
 - Do not assume files in `docs/` are loaded automatically.
 - Use the minimum code or documentation change that solves the stated problem.
@@ -59,6 +85,7 @@ Read only the documents needed for the task:
 - `SPEC.md` for product requirements, boundaries, and acceptance criteria.
 - `ROADMAP.md` for ordered outcomes, risks, and phase exit criteria.
 - `TASKS.md` for the current phase, validation status, and remaining work.
+- `docs/CURSOR_LAYOUT.md` for Cursor and Cloud Agent discovery boundaries.
 - `docs/CODEX_LAYOUT.md` for Codex discovery and installation boundaries.
 - `docs/SKILLS.md` when creating or changing skills.
 - `docs/WORKFLOW.md` when changing the repository development workflow.

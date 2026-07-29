@@ -42,6 +42,11 @@ requirements.
 - Use observable, testable outcomes.
 - Include required automated and manual validation.
 
+## Operational status
+
+When the project needs a living shipped/blocked/deploy picture separate from
+`TASKS.md`, maintain `STATUS.md` with placeholders only in public repositories.
+
 ## Unresolved questions
 
 - Record decisions that must be resolved before implementation.

@@ -29,7 +29,12 @@ ephemeral runtime state. Examples include:
 - shell snapshots
 
 Tracking or replacing those files would expose credentials, create noisy
-changes, and make the setup less portable.
+changes, and make the setup less portable. This public repository must not
+commit personal absolute project paths in sample `config.toml`; the installer
+renders trusts for the current user at install time.
+
+Cursor-first discovery is documented in [CURSOR_LAYOUT.md](CURSOR_LAYOUT.md).
+Codex remains a secondary install target.
 
 This repository manages only:
 

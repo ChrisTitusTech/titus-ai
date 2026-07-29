@@ -1,4 +1,4 @@
-# Skills for Codex
+# Skills for coding agents
 
 ## Purpose
 
@@ -14,12 +14,16 @@ Use a skill for knowledge that is:
 
 ## Discovery locations
 
-Use the current documented locations:
+Canonical portable locations (Cursor and Codex):
 
 ```text
 repository/.agents/skills/<skill-name>/SKILL.md
 ~/.agents/skills/<skill-name>/SKILL.md
 ```
+
+Cursor also discovers `.cursor/skills/` and `~/.cursor/skills/`. Prefer
+`.agents/skills/` as the source of truth in this repository so skills stay
+shared. See [CURSOR_LAYOUT.md](CURSOR_LAYOUT.md).
 
 Codex scans repository skill directories from the working directory up to the
 repository root. The installer links this repository's skills into the user
@@ -48,6 +52,7 @@ clear `name` and `description`.
 - Prefer instructions over scripts unless deterministic automation is useful.
 - Keep project requirements in project documentation, not reusable skills.
 - Use `agents/openai.yaml` only for useful UI metadata or dependencies.
+- Prefer agent-agnostic trigger wording ("coding agent", "Cursor or Codex").
 
 ## Repository skills
 

@@ -15,7 +15,7 @@ Official docs:
 Run the bundled helper from a Quickshell config project:
 
 ```sh
-/home/titus/github/titus-ai/.agents/skills/quickshell/scripts/quickshell-qmllint
+$REPO_ROOT/.agents/skills/quickshell/scripts/quickshell-qmllint
 ```
 
 It:

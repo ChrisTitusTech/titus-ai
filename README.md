@@ -1,8 +1,39 @@
-# titus-ai
+# narehood-ai
 
-Portable Codex configuration, rules, and reusable skills.
+Public portable coding-agent configuration, reusable skills, and project
+planning templates. **Cursor** (including Cloud Agents) is the primary target;
+optional Codex install remains supported.
 
-## Install
+## Use with Cursor
+
+Cursor loads project `AGENTS.md` automatically. Skills under `.agents/skills/`
+are discovered in the repository and, when linked into `~/.agents/skills/`,
+across other projects.
+
+To install skills into your user agents home (shared with Codex):
+
+```bash
+./scripts/install.sh --dry-run
+./scripts/install.sh
+```
+
+On Windows:
+
+```powershell
+.\scripts\install.ps1 -DryRun
+.\scripts\install.ps1
+```
+
+The installer also manages optional Codex home files under `~/.codex/`. For
+Cursor-only work, the important result is `.agents/skills/` linked into
+`~/.agents/skills/`. See [docs/CURSOR_LAYOUT.md](docs/CURSOR_LAYOUT.md).
+
+Project planning templates live under
+`.agents/skills/ai-project-manager/assets/project-docs/` (`AGENTS.md`,
+`SPEC.md`, `ROADMAP.md`, `TASKS.md`, and optional `STATUS.md`). Adapt them to
+each project; keep placeholders out of production docs.
+
+## Optional Codex install
 
 Preview and install on Linux or macOS:
 
@@ -11,7 +42,7 @@ Preview and install on Linux or macOS:
 ./scripts/install.sh
 ```
 
-On Windows, run the PowerShell installer from the repository root:
+On Windows:
 
 ```powershell
 .\scripts\install.ps1 -DryRun
@@ -29,16 +60,14 @@ The installer manages:
 
 ### Trust GitHub projects
 
-Every installation renders `~/.codex/config.toml` with trusted-project entries
-for that user's `~/github` directory and every Git worktree found recursively
-beneath it. This includes repositories inside organization or grouping
-subdirectories.
+Every Codex installation renders `~/.codex/config.toml` with trusted-project
+entries for that user's `~/github` directory and every Git worktree found
+recursively beneath it. The committed sample `codex-home/config.toml` does not
+contain personal absolute paths; the installer adds machine-local trusts at
+install time.
 
-Codex trust entries match exact project roots rather than directory globs, so
-the installer discovers each repository instead of relying on a parent or `*`
-entry. Rerun the installer after creating or cloning repositories so new
-worktrees are added. Common dependency and build directories are skipped during
-discovery.
+Rerun the installer after creating or cloning repositories so new worktrees are
+added. Common dependency and build directories are skipped during discovery.
 
 ### Install recommended plugins
 
@@ -80,14 +109,12 @@ Playwright, and Chrome DevTools are
 [MCP servers](https://learn.chatgpt.com/docs/extend/mcp) rather than plugins and
 require separate configuration. GitHub, Codex Security, and Sentry remain
 opt-in until they are added to the manifest because they can require service
-authorization or project-specific setup. Plugin directories do not provide
-reliable public installation counts, so the ranking is based on fit for this
-workflow rather than unverifiable popularity.
+authorization or project-specific setup.
 
 ### Install RTK
 
 [RTK](https://github.com/rtk-ai/rtk) is an optional Rust CLI proxy that
-compresses verbose command output before it reaches Codex's context window.
+compresses verbose command output before it reaches an agent's context window.
 Install it directly from GitHub:
 
 ```bash
@@ -110,20 +137,14 @@ rtk --version
 rtk gain
 ```
 
-The managed `codex-home/AGENTS.md` already instructs Codex to use RTK selectively
-for commands whose large or repetitive output benefits from filtering, so no
-separate `rtk init` step is required after running this repository's installer.
-Short commands and commands that require exact output remain raw.
+Managed agent instructions already tell agents to use RTK selectively for
+commands whose large or repetitive output benefits from filtering. Short
+commands and commands that require exact output remain raw.
 
-## Use
+## Use skills
 
-Start Codex normally to use the default configuration:
-
-```bash
-codex
-```
-
-Invoke a skill explicitly when needed:
+Invoke a skill explicitly when needed (Codex `$skill` syntax; Cursor may also
+auto-select from skill descriptions):
 
 ```text
 $linux-sysadmin diagnose this service failure
@@ -131,26 +152,20 @@ $python-ai add an Ollama-backed model provider
 $rust-cli add a new subcommand
 ```
 
-Codex can also select skills automatically based on their descriptions.
-
 ## AI development workflow
 
 The reusable workflow separates planning from pull-request readiness:
 
 - `$ai-project-manager` reads or creates `AGENTS.md`, `SPEC.md`, `ROADMAP.md`,
-  and `TASKS.md`, pauses at plan-approval boundaries, and executes one
-  reviewable phase at a time.
+  `TASKS.md`, and optional `STATUS.md`, pauses at plan-approval boundaries, and
+  executes one reviewable phase at a time.
 - `$pr-readiness` validates the final diff, runs `codex review --uncommitted`
   until no actionable findings remain, records manual testing, and verifies CI
   and review state before merge.
 
-Project-document templates live under
-`.agents/skills/ai-project-manager/assets/project-docs/`. Adapt them to the
-project instead of leaving placeholder requirements.
-
 See [docs/WORKFLOW.md](docs/WORKFLOW.md) for the complete lifecycle.
 
-## Local models
+## Local models (Codex)
 
 Local model profiles are optional and do not change the default provider.
 
@@ -194,11 +209,13 @@ dependency review for pull requests.
 - `AGENTS.md`: instructions for maintaining this repository
 - `SPEC.md`, `ROADMAP.md`, and `TASKS.md`: requirements, phase order, and
   validated task status
-- `.agents/skills/`: reusable skills
+- `.agents/skills/`: reusable skills (Cursor + Codex)
 - `codex-plugins.txt`: opt-in Codex plugin selections
-- `codex-home/`: portable global instructions, configuration, profiles, and rules
+- `codex-home/`: portable Codex global instructions, configuration, profiles,
+  and rules
 - `docs/`: reference documentation loaded only when explicitly requested
 - `scripts/`: installation and validation
 
-See [docs/CODEX_LAYOUT.md](docs/CODEX_LAYOUT.md) for detailed discovery and
-configuration behavior.
+See [docs/CURSOR_LAYOUT.md](docs/CURSOR_LAYOUT.md) and
+[docs/CODEX_LAYOUT.md](docs/CODEX_LAYOUT.md) for discovery and configuration
+behavior.

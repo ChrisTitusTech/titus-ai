@@ -1,4 +1,4 @@
-# Titus AI roadmap
+# Narehood AI roadmap
 
 ## Phase 1: Portable Codex foundation
 
@@ -72,3 +72,35 @@ repository.
 - The repository ruleset protects the default branch.
 - Required checks run against the latest pull-request commit.
 - The documented merge gate matches GitHub settings.
+
+## Phase 4: Cursor-first + Narehood rebrand
+
+Status: Complete
+
+### Outcome
+
+The public repository is branded Narehood AI, Cursor is the primary agent
+surface, shared skills and planning templates encode evolved policy patterns,
+and Codex install remains available as a secondary path without personal or
+private product leakage.
+
+### Included work
+
+- Complete Narehood AI / narehood-ai rebrand across docs and installers.
+- Remove personal absolute paths from committed sample configuration.
+- Reframe SPEC, README, and maintenance docs for Cursor-primary use.
+- Strengthen project-doc templates and add an optional STATUS.md template.
+- Document Cursor discovery in `docs/CURSOR_LAYOUT.md`.
+- Soften Codex-only skill trigger wording; align global PR and key-block rules.
+
+### Risks
+
+- Installer tests must stay in sync with renamed backup and temp prefixes.
+- Public visibility requires continuous vigilance against identity or product
+  leaks in examples.
+
+### Exit criteria
+
+- Local validation passes with the new brand prefixes.
+- Grep finds no legacy brand strings or personal home paths in tracked files.
+- Templates use placeholders only.

@@ -1,6 +1,6 @@
 ---
 name: linux-sysadmin
-description: Diagnose and operate Linux systems, especially Rocky Linux and Ubuntu, including SSH, SELinux, permissions, firewalls, packages, processes, logs, and systemd services. Use when Codex is asked to troubleshoot hosts, prepare commands, write runbooks, fix service failures, or reason about Linux administration.
+description: Diagnose and operate Linux systems, especially Rocky Linux and Ubuntu, including SSH, SELinux, permissions, firewalls, packages, processes, logs, and systemd services. Use when a coding agent (Cursor or Codex) is asked to troubleshoot hosts, prepare commands, write runbooks, fix service failures, or reason about Linux administration.
 ---
 
 # linux-sysadmin

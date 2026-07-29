@@ -27,13 +27,13 @@ description: Build, lint, validate, and troubleshoot Quickshell desktop shell pr
 Lint all QML under the nearest `shell.qml` root:
 
 ```sh
-/home/titus/github/titus-ai/.agents/skills/quickshell/scripts/quickshell-qmllint
+$REPO_ROOT/.agents/skills/quickshell/scripts/quickshell-qmllint
 ```
 
 Lint a specific config root:
 
 ```sh
-/home/titus/github/titus-ai/.agents/skills/quickshell/scripts/quickshell-qmllint --root config/quickshell
+$REPO_ROOT/.agents/skills/quickshell/scripts/quickshell-qmllint --root config/quickshell
 ```
 
 Run a config for validation:

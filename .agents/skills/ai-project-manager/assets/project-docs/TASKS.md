@@ -14,3 +14,6 @@
 Move tasks here only after their acceptance criteria and required validation
 pass. Record skipped validation and residual risk instead of marking incomplete
 work done.
+
+Keep operational shipped/blocked/deploy notes in `STATUS.md` when that file is
+used, not as a substitute for checked-off tasks here.

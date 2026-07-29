@@ -1,6 +1,6 @@
 ---
 name: forgejo-maintainer
-description: Maintain Forgejo and Gitea-compatible installations, repository administration, SSH access, Actions runners, backups, upgrades, migrations, and operational runbooks. Use when Codex is asked to debug Forgejo, plan upgrades, migrate from Gitea, configure runners, verify backups, or administer repositories and access.
+description: Maintain Forgejo and Gitea-compatible installations, repository administration, SSH access, Actions runners, backups, upgrades, migrations, and operational runbooks. Use when a coding agent (Cursor or Codex) is asked to debug Forgejo, plan upgrades, migrate from Gitea, configure runners, verify backups, or administer repositories and access.
 ---
 
 # forgejo-maintainer
