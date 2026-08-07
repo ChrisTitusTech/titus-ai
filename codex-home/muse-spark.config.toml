@@ -1,0 +1,24 @@
+# Meta muse-spark profile.
+#
+# Set the MODEL_API_KEY environment variable, then launch:
+#   codex --profile muse-spark
+#
+# Override the model without editing this file:
+#   codex --profile muse-spark --model another-model
+
+model = "muse-spark-1.2-contributor"
+model_provider = "meta"
+model_reasoning_effort = "high"
+model_reasoning_summary = "auto"
+model_context_window = 1048576
+model_supports_reasoning_summaries = true
+model_auto_compact_token_limit = 900000
+
+[model_providers.meta]
+name = "Meta Model API"
+base_url = "https://api.meta.ai/v1"
+env_key = "MODEL_API_KEY"
+wire_api = "responses"
+
+[projects.'c:\users\subscribe']
+trust_level = "trusted"

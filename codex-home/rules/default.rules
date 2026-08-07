@@ -3,12 +3,7 @@
 prefix_rule(pattern=["rtk"], decision="allow")
 
 # Shells and common command runners.
-prefix_rule(pattern=["bash"], decision="allow")
-prefix_rule(pattern=["/bin/bash"], decision="allow")
 prefix_rule(pattern=["/usr/bin/bash"], decision="allow")
-prefix_rule(pattern=["sh"], decision="allow")
-prefix_rule(pattern=["env"], decision="allow")
-prefix_rule(pattern=["sudo"], decision="allow")
 prefix_rule(pattern=["pkexec"], decision="allow")
 
 # File, text, and process utilities.
@@ -33,7 +28,6 @@ prefix_rule(pattern=["jq"], decision="allow")
 prefix_rule(pattern=["cp"], decision="allow")
 prefix_rule(pattern=["mkdir"], decision="allow")
 prefix_rule(pattern=["install"], decision="allow")
-prefix_rule(pattern=["rm"], decision="allow")
 prefix_rule(pattern=["ps"], decision="allow")
 prefix_rule(pattern=["pgrep"], decision="allow")
 prefix_rule(pattern=["pkill"], decision="allow")
@@ -47,19 +41,15 @@ prefix_rule(pattern=["gh"], decision="allow")
 prefix_rule(pattern=["ssh"], decision="allow")
 
 # Git operations.
-prefix_rule(pattern=["git"], decision="allow")
 
 # Development SDKs, runtimes, package managers, and framework CLIs.
 prefix_rule(pattern=["dotnet"], decision="allow")
-prefix_rule(pattern=["node"], decision="allow")
 prefix_rule(pattern=["npm"], decision="allow")
 prefix_rule(pattern=["npx"], decision="allow")
 prefix_rule(pattern=["pnpm"], decision="allow")
 prefix_rule(pattern=["pnpx"], decision="allow")
 prefix_rule(pattern=["yarn"], decision="allow")
-prefix_rule(pattern=["bun"], decision="allow")
 prefix_rule(pattern=["bunx"], decision="allow")
-prefix_rule(pattern=["deno"], decision="allow")
 
 prefix_rule(pattern=["astro"], decision="allow")
 prefix_rule(pattern=["hugo"], decision="allow")
@@ -81,8 +71,6 @@ prefix_rule(pattern=["mvnw"], decision="allow")
 prefix_rule(pattern=["gradle"], decision="allow")
 prefix_rule(pattern=["gradlew"], decision="allow")
 
-prefix_rule(pattern=["python"], decision="allow")
-prefix_rule(pattern=["python3"], decision="allow")
 prefix_rule(pattern=["pip"], decision="allow")
 prefix_rule(pattern=["pip3"], decision="allow")
 prefix_rule(pattern=["pipx"], decision="allow")
@@ -90,10 +78,8 @@ prefix_rule(pattern=["uv"], decision="allow")
 prefix_rule(pattern=["poetry"], decision="allow")
 prefix_rule(pattern=["pytest"], decision="allow")
 
-prefix_rule(pattern=["ruby"], decision="allow")
 prefix_rule(pattern=["bundle"], decision="allow")
 prefix_rule(pattern=["rails"], decision="allow")
-prefix_rule(pattern=["php"], decision="allow")
 prefix_rule(pattern=["composer"], decision="allow")
 prefix_rule(pattern=["artisan"], decision="allow")
 
@@ -159,9 +145,7 @@ prefix_rule(pattern=["rebar3"], decision="allow")
 prefix_rule(pattern=["gleam"], decision="allow")
 prefix_rule(pattern=["kotlin"], decision="allow")
 prefix_rule(pattern=["kotlinc"], decision="allow")
-prefix_rule(pattern=["lua"], decision="allow")
 prefix_rule(pattern=["luarocks"], decision="allow")
-prefix_rule(pattern=["perl"], decision="allow")
 prefix_rule(pattern=["raku"], decision="allow")
 
 # Containers, clusters, infrastructure, and system service tools.
@@ -179,3 +163,6 @@ prefix_rule(pattern=["lightdm"], decision="allow")
 prefix_rule(pattern=["xprop"], decision="allow")
 prefix_rule(pattern=["picom"], decision="allow")
 prefix_rule(pattern=["zed"], decision="allow")
+prefix_rule(pattern=["C:\\Program Files\\PowerShell\\7\\pwsh.exe", "-Command", "gh --version; gh auth status; gh repo view --json nameWithOwner,defaultBranchRef; gh pr list --head uniform-progress-install --state all --json number,title,state,isDraft,url,baseRefName,headRefName"], decision="allow")
+prefix_rule(pattern=["C:\\Program Files\\PowerShell\\7\\pwsh.exe", "-Command", "gh pr view uniform-progress-install --json number,title,url,isDraft,state,baseRefName,headRefName,mergeStateStatus,statusCheckRollup"], decision="allow")
+prefix_rule(pattern=["C:\\Program Files\\PowerShell\\7\\pwsh.exe", "-Command", "gh pr view 4844 --json number,title,url,isDraft,state,mergeable,mergeStateStatus,reviewDecision,statusCheckRollup"], decision="allow")
