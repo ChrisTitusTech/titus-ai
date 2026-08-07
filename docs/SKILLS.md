@@ -52,12 +52,17 @@ clear `name` and `description`.
 ## Repository skills
 
 - `ai-project-manager`
+- `bash-scripting`
 - `forgejo-maintainer`
 - `homelab-admin`
+- `hugo`
 - `linux-sysadmin`
 - `mdbook`
 - `podman-operator`
+- `pr-readiness`
 - `python-ai`
+- `quickshell`
 - `rust-cli`
 
-Run `./scripts/validate.sh` after adding or changing a skill.
+Run `./scripts/validate.sh` after adding or changing a skill. Validation fails
+when this list and the skill directories drift apart.
