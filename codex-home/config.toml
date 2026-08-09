@@ -5,9 +5,11 @@ plan_mode_reasoning_effort = "high"
 model_verbosity = "low"
 sandbox_mode = "danger-full-access"
 
+notify = [ "C:\\Users\\Subscribe\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\f1bf3cd3a5929acd\\bin\\node_modules\\@oai\\sky\\bin\\windows\\codex-computer-use.exe", "turn-ended" ]
 [features]
 fast_mode = false
 memories = true
+js_repl = false
 
 [projects."/home/titus/github/titus-ai"]
 trust_level = "trusted"
@@ -72,6 +74,9 @@ trust_level = "trusted"
 [projects."/home/titus/github/t3code"]
 trust_level = "trusted"
 
+[projects.'c:\users\subscribe\github\winoneshot']
+trust_level = "trusted"
+
 [tui]
 status_line = ["model-with-reasoning", "current-dir", "project-name", "git-branch"]
 status_line_use_colors = true
@@ -79,3 +84,49 @@ status_line_use_colors = true
 [tui.model_availability_nux]
 "gpt-5.5" = 4
 "gpt-5.6-sol" = 4
+
+[desktop]
+followUpQueueMode = "queue"
+
+[marketplaces.openai-bundled]
+last_updated = "2026-08-08T17:19:54Z"
+source_type = "local"
+source = '\\?\C:\Users\Subscribe\.codex\.tmp\bundled-marketplaces\openai-bundled'
+
+[plugins."sites@openai-bundled"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."visualize@openai-bundled"]
+enabled = true
+
+[mcp_servers.node_repl]
+args = []
+command = 'C:\Users\Subscribe\AppData\Local\OpenAI\Codex\runtimes\cua_node\f1bf3cd3a5929acd\bin\node_repl.exe'
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = 'C:\Users\Subscribe\AppData\Local\OpenAI\Codex\runtimes\cua_node\f1bf3cd3a5929acd\bin\node_modules'
+NODE_REPL_NODE_PATH = 'C:\Users\Subscribe\AppData\Local\OpenAI\Codex\runtimes\cua_node\f1bf3cd3a5929acd\bin\node.exe'
+NODE_REPL_TRUSTED_CODE_PATHS = 'C:\Users\Subscribe\.codex;C:\Users\Subscribe\AppData\Local\OpenAI\Codex\runtimes\cua_node\f1bf3cd3a5929acd\bin\node_modules'
+CODEX_HOME = 'C:\Users\Subscribe\.codex'
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "e7f98a8ce324234ed7f3be8fa39ba54b26e2e8fc79feed2470dcd0871af4a5b3"
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.803.41515"
+SKY_CUA_NATIVE_PIPE = "1"
+SKY_CUA_NATIVE_PIPE_DIRECTORY = '\\.\pipe\codex-computer-use-dfbe0c8e-8cf4-434a-a266-7629ee0a2507'
+CODEX_CLI_PATH = 'C:\Users\Subscribe\AppData\Local\OpenAI\Codex\bin\cfac6bda2d141e07\codex.exe'
+
+[shell_environment_policy.set]
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "e7f98a8ce324234ed7f3be8fa39ba54b26e2e8fc79feed2470dcd0871af4a5b3"
+NODE_REPL_TRUSTED_CODE_PATHS = 'C:\Users\Subscribe\.codex;C:\Users\Subscribe\AppData\Local\OpenAI\Codex\runtimes\cua_node\f1bf3cd3a5929acd\bin\node_modules'
+
+[windows]
+sandbox = "elevated"
