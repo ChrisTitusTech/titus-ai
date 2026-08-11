@@ -27,6 +27,8 @@ wants the same safe Codex baseline in multiple repositories.
 - Support repeated installation without replacing already-correct links.
 - Provide project-planning templates and separate planning from pull-request
   readiness.
+- Use the built-in `codex review --uncommitted` workflow for local review, with
+  validation and review repeated after each actionable fix.
 - Validate repository structure, configuration syntax, skill metadata,
   documentation consistency, and installer behavior.
 - Run Linux, macOS, and Windows validation for pull requests and default-branch
@@ -70,7 +72,8 @@ wants the same safe Codex baseline in multiple repositories.
 - Managing credentials, plugin caches or authentication, sessions, or caches.
 - Installing plugins without an explicit opt-in.
 - Replacing project-specific `AGENTS.md` or requirements.
-- Installing Codex, Claude Code, CodeRabbit, RTK, or local model servers.
+- Installing Codex, Claude Code, third-party review CLIs, RTK, or local model
+  servers.
 - Adding security scanners that do not support the repository's languages.
 
 ## Acceptance criteria
@@ -84,6 +87,8 @@ wants the same safe Codex baseline in multiple repositories.
   a live marketplace.
 - Every skill has valid front matter and the documented skill inventory matches
   the actual directories.
+- The pull-request readiness workflow requires a clean Codex review loop and
+  does not depend on a third-party review service.
 - Pull requests run validation and dependency review on the latest commit.
 - Workflow documentation covers planning, implementation, review, manual
   testing, and merge gates.

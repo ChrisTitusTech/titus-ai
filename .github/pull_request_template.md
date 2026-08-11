@@ -14,7 +14,7 @@ List the exact commands and CI checks that passed.
 - [ ] Complete local validation passed
 - [ ] Pull-request CI passed on the latest commit
 - [ ] Applicable security checks passed
-- [ ] Local CodeRabbit review completed
+- [ ] Local Codex review loop completed
 
 ## Manual testing
 
@@ -27,7 +27,7 @@ behavior, persistence, logs, upgrade behavior, or rollback behavior tested.
 ## Review
 
 - [ ] Independent review is complete
-- [ ] CodeRabbit review is complete
+- [ ] Latest Codex review has no actionable findings
 - [ ] Actionable review threads are resolved
 
 ## Limitations and follow-up

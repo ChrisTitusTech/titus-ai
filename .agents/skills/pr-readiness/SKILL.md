@@ -1,6 +1,6 @@
 ---
 name: pr-readiness
-description: Validate local or published changes from final diff through pull-request merge readiness, including project gates, local CodeRabbit review, CI, independent review, thread resolution, and manual-test evidence. Use when Codex is asked to review uncommitted work, prepare or open a pull request, check whether a PR is ready, address final review feedback, or verify merge readiness.
+description: Validate local or published changes from final diff through pull-request merge readiness, including project gates, the built-in Codex review loop, CI, independent review, thread resolution, and manual-test evidence. Use when Codex is asked to review uncommitted work, prepare or open a pull request, check whether a PR is ready, address final review feedback, or verify merge readiness.
 ---
 
 # PR readiness
@@ -13,15 +13,20 @@ description: Validate local or published changes from final diff through pull-re
    unrelated pre-existing changes from the requested change.
 3. Run focused checks, then the repository's complete required local gate.
    Record exact commands, results, skipped checks, and residual risk.
-4. Run the local CodeRabbit review when the CLI is available:
+4. Run the built-in local Codex review after the complete local gate passes:
 
    ```bash
-   coderabbit review --agent --uncommitted --include-untracked
+   codex review --uncommitted
    ```
 
-   Let the review finish. Fix actionable defects, add regression coverage when
-   practical, rerun affected validation, and repeat the review. Explain verified
-   false positives without changing correct code.
+   Let the review finish. Verify every finding against the current diff, fix
+   only actionable defects, add regression coverage when practical, rerun
+   affected validation, and repeat `codex review --uncommitted` until no
+   actionable findings remain. Explain verified false positives without
+   changing correct code. A review-mode Codex instance must report findings
+   directly and never launch a nested review. If Codex review is unavailable or
+   fails, report it as a readiness blocker instead of substituting a third-party
+   review CLI.
 5. Commit, push, or open a pull request only when the user authorized those
    state changes. Keep the PR draft while known gates or manual tests remain.
 6. For a published PR, verify checks and reviews against the latest commit.
@@ -40,7 +45,7 @@ Do not report a pull request as ready to merge while any of these remain:
 
 - required CI is failed, pending, missing, or attached to an older commit
 - actionable review feedback is unresolved
-- a required independent or CodeRabbit review is incomplete
+- the Codex review loop or a required independent review is incomplete
 - required manual testing is incomplete or undocumented
 - the branch contains unrelated changes, secrets, debug code, or generated junk
 - planning documents no longer match the implementation

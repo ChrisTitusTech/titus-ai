@@ -7,6 +7,7 @@
 - [x] Add isolated Linux, macOS, and Windows installer integration tests.
 - [x] Add pull-request CI, dependency review, Dependabot, and a PR template.
 - [x] Align Claude routing and workflow documentation.
+- [x] Replace the third-party local review loop with built-in Codex review.
 - [x] Add opt-in, cross-platform installation for selected Codex plugins.
 - [x] Trust all Git worktrees beneath the current user's `~/github` directory.
 - [x] Run local repository, shell, installer, workflow, and skill validation.

@@ -27,18 +27,21 @@
 8. Stop for plan approval when the user reserved that checkpoint.
 9. Implement one approved phase, run focused checks, and inspect the diff.
 10. Run the complete local gate and update task status only after it passes.
-11. Use `$pr-readiness` to run local CodeRabbit review:
+11. Use `$pr-readiness` to run the built-in Codex review:
 
     ```bash
-    coderabbit review --agent --uncommitted --include-untracked
+    codex review --uncommitted
     ```
 
-12. Fix actionable findings, rerun validation, and repeat local review until
-    clean or every remaining item has a documented reason.
+12. Verify every finding against the current diff. Fix only actionable defects,
+    rerun affected validation, and repeat `codex review --uncommitted` until no
+    actionable findings remain. Document verified false positives without
+    changing correct code. A review-mode Codex instance reports findings
+    directly and must not launch another nested review.
 13. Commit the focused change, push it, and open a draft pull request only when
     authorized.
-14. Require CI validation, applicable security checks, CodeRabbit review, and a
-    fresh independent review on the latest commit.
+14. Require a completed Codex review loop, CI validation, applicable security
+    checks, and a fresh independent review on the latest commit.
 15. Fix or explain every review item, resolve completed threads, and repeat the
     checks after every push.
 16. Complete and document required manual testing on the real target

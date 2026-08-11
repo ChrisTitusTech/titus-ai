@@ -140,8 +140,9 @@ The reusable workflow separates planning from pull-request readiness:
 - `$ai-project-manager` reads or creates `AGENTS.md`, `SPEC.md`, `ROADMAP.md`,
   and `TASKS.md`, pauses at plan-approval boundaries, and executes one
   reviewable phase at a time.
-- `$pr-readiness` validates the final diff, runs local CodeRabbit review,
-  records manual testing, and verifies CI and review state before merge.
+- `$pr-readiness` validates the final diff, runs `codex review --uncommitted`
+  until no actionable findings remain, records manual testing, and verifies CI
+  and review state before merge.
 
 Project-document templates live under
 `.agents/skills/ai-project-manager/assets/project-docs/`. Adapt them to the
