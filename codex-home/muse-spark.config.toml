@@ -20,11 +20,5 @@ base_url = "https://api.meta.ai/v1"
 env_key = "MODEL_API_KEY"
 wire_api = "responses"
 
-[projects.'c:\users\subscribe']
-trust_level = "trusted"
-
-[projects.'c:\users\subscribe\downloads']
-trust_level = "trusted"
-
 [windows]
 sandbox = "elevated"

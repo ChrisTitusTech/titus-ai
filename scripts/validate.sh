@@ -56,6 +56,35 @@ if command -v python3 >/dev/null 2>&1; then
 
   python3 -c 'import pathlib, sys, tomllib; config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit(config.get("features", {}).get("memories") is not True)' \
     "$repo_root/codex-home/config.toml" || fail "codex-home/config.toml must enable features.memories"
+
+  python3 - "$repo_root/codex-home/config.toml" <<'PY' ||
+import pathlib
+import sys
+import tomllib
+
+config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text())
+forbidden = []
+
+for section in ("marketplaces", "plugins"):
+    if section in config:
+        forbidden.append(section)
+
+if "state" in config.get("hooks", {}):
+    forbidden.append("hooks.state")
+
+if "node_repl" in config.get("mcp_servers", {}):
+    forbidden.append("mcp_servers.node_repl")
+
+if forbidden:
+    print("runtime state in portable config: " + ", ".join(forbidden), file=sys.stderr)
+    raise SystemExit(1)
+PY
+    fail "codex-home/config.toml contains machine-local runtime or plugin state"
+
+  for profile_file in "$repo_root"/codex-home/*.config.toml; do
+    python3 -c 'import pathlib, sys, tomllib; config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit("projects" in config)' \
+      "$profile_file" || fail "${profile_file#"$repo_root"/} must not contain machine-specific project trust"
+  done
 fi
 
 if [[ -d "$repo_root/.codex/skills" ]]; then
@@ -103,6 +132,10 @@ for forbidden in auth.json history.jsonl installation_id state_5.sqlite goals_1.
   [[ ! -e "$repo_root/$forbidden" ]] || fail "runtime file must not be tracked: $forbidden"
 done
 
+if grep -Fq "C:\\\\Program Files\\\\PowerShell\\\\" "$repo_root/codex-home/rules/default.rules"; then
+  fail "codex-home/rules/default.rules contains a machine-specific PowerShell approval"
+fi
+
 if command -v git >/dev/null 2>&1 &&
   git -C "$repo_root" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   if git -C "$repo_root" ls-files | grep -Eq '(^|/)(auth\.json|history\.jsonl|installation_id|.*\.sqlite(-shm|-wal)?)$'; then
@@ -138,7 +171,8 @@ if command -v codex >/dev/null 2>&1; then
   fi
 fi
 
-if command -v pwsh >/dev/null 2>&1; then
+if command -v pwsh >/dev/null 2>&1 &&
+  pwsh -NoProfile -Command 'exit 0' >/dev/null 2>&1; then
   for powershell_file in \
     "$repo_root/scripts/install.ps1" \
     "$repo_root/scripts/test-install.ps1"; do
