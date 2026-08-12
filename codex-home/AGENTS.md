@@ -38,6 +38,36 @@
 - Treat explicit user stop points as hard boundaries. Stop at the requested
   milestone and wait before starting the next phase.
 
+## Task interpretation
+
+- Match the requested action mode. `Inspect`, `review`, `diagnose`, and `report`
+  authorize investigation and reporting, not implementation. `Fix`, `update`,
+  `address`, and `implement` authorize completing the requested change and
+  relevant validation.
+- Treat an explicit sequence of actions as one authorized workflow. Complete
+  every named step without pausing for repeated confirmation unless blocked or
+  a new materially risky choice is required.
+- Commit, push, pull-request, merge, release, deployment, and external-message
+  actions require explicit authorization. When authorized, complete them rather
+  than returning instructions or status only.
+- When asked to check logs for other issues, inspect the complete relevant run,
+  not only the first reported symptom. Separate benign or idempotent conditions
+  from genuine failures.
+- Never report full success when a required operation, test, validation, or
+  requested step failed. Report partial completion and the exact remaining
+  blockers.
+
+## Acceptance evidence
+
+- Treat user-provided screenshots and runtime observations as acceptance
+  evidence. Reconcile visible failures even when automated checks pass, then
+  revalidate.
+- When setting up a development environment, install the required tooling and
+  prove the actual build, lint, and test commands work on that machine.
+- Preserve user-supplied publication-ready commands, links, examples,
+  verification steps, and update procedures unless the user asks to condense
+  them.
+
 ## Scope selection
 
 - Use `AGENTS.md` for durable repository conventions.

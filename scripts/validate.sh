@@ -85,6 +85,42 @@ PY
     python3 -c 'import pathlib, sys, tomllib; config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit("projects" in config)' \
       "$profile_file" || fail "${profile_file#"$repo_root"/} must not contain machine-specific project trust"
   done
+
+  python3 - "$repo_root/AGENTS.md" "$repo_root/codex-home/AGENTS.md" <<'PY' ||
+import pathlib
+import re
+import sys
+
+
+def bullet_rules(path):
+    rules = []
+    current = None
+
+    for line in pathlib.Path(path).read_text().splitlines():
+        if line.startswith("- "):
+            if current is not None:
+                rules.append(re.sub(r"\s+", " ", current).strip())
+            current = line
+        elif current is not None and line.startswith("  "):
+            current += " " + line.strip()
+        elif current is not None:
+            rules.append(re.sub(r"\s+", " ", current).strip())
+            current = None
+
+    if current is not None:
+        rules.append(re.sub(r"\s+", " ", current).strip())
+
+    return set(rules)
+
+
+duplicates = sorted(bullet_rules(sys.argv[1]) & bullet_rules(sys.argv[2]))
+if duplicates:
+    print("duplicate AGENTS.md rules:", file=sys.stderr)
+    for duplicate in duplicates:
+        print(f"  {duplicate}", file=sys.stderr)
+    raise SystemExit(1)
+PY
+    fail "root and global AGENTS.md files contain duplicate rules"
 fi
 
 if [[ -d "$repo_root/.codex/skills" ]]; then
@@ -159,15 +195,31 @@ if command -v shellcheck >/dev/null 2>&1; then
 fi
 
 if command -v codex >/dev/null 2>&1; then
-  policy_result="$(
+  read_only_policy_result="$(
     codex execpolicy check \
       --rules "$repo_root/codex-home/rules/default.rules" \
-      rtk gain
+      rg --files
   )" || fail "invalid codex-home/rules/default.rules"
 
-  if [[ -n "${policy_result:-}" ]] && command -v python3 >/dev/null 2>&1; then
+  forbidden_policy_result="$(
+    codex execpolicy check \
+      --rules "$repo_root/codex-home/rules/default.rules" \
+      gh repo delete owner/repo --yes
+  )" || fail "invalid codex-home/rules/default.rules"
+
+  wrapper_policy_result="$(
+    codex execpolicy check \
+      --rules "$repo_root/codex-home/rules/default.rules" \
+      rtk git push --force
+  )" || fail "invalid codex-home/rules/default.rules"
+
+  if command -v python3 >/dev/null 2>&1; then
     python3 -c 'import json, sys; raise SystemExit(json.loads(sys.argv[1]).get("decision") != "allow")' \
-      "$policy_result" || fail "default rules must allow rtk commands"
+      "$read_only_policy_result" || fail "default rules must allow read-only inspection commands"
+    python3 -c 'import json, sys; raise SystemExit(json.loads(sys.argv[1]).get("decision") != "forbidden")' \
+      "$forbidden_policy_result" || fail "default rules must forbid repository deletion"
+    python3 -c 'import json, sys; raise SystemExit(json.loads(sys.argv[1]).get("decision") == "allow")' \
+      "$wrapper_policy_result" || fail "default rules must not blanket-allow rtk commands"
   fi
 fi
 
