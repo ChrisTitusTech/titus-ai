@@ -18,6 +18,11 @@ for tools that load it automatically.
   interpretations and the choice materially affects the result.
 - Touch only what the task requires. Avoid drive-by refactors, formatting, or
   cleanup.
+- Do not create or leave a pull request in draft state unless the user
+  explicitly requests a draft. If the work is not ready for review, stop
+  before opening the pull request and report the blockers. When authorized to
+  publish completed work, open a ready-for-review pull request or mark the
+  existing draft ready for review.
 - Keep communication direct and concise. Skip flattery, filler, ceremonial
   openings, and emoji.
 

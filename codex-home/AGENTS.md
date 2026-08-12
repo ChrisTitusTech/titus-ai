@@ -24,6 +24,11 @@
 - Prefer small, reviewable changes with relevant validation.
 - Do not expose credentials, tokens, private keys, or secret file contents.
 - Do not perform destructive operations without explicit authorization.
+- Do not create or leave a pull request in draft state unless the user
+  explicitly requests a draft. If the work is not ready for review, stop
+  before opening the pull request and report the blockers. When authorized to
+  publish completed work, open a ready-for-review pull request or mark the
+  existing draft ready for review.
 - Use subagents only when the user or applicable `AGENTS.md` or skill
   instructions explicitly request subagents, delegation, or parallel agent
   work.

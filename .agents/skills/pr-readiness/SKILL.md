@@ -28,7 +28,10 @@ description: Validate local or published changes from final diff through pull-re
    fails, report it as a readiness blocker instead of substituting a third-party
    review CLI.
 5. Commit, push, or open a pull request only when the user authorized those
-   state changes. Keep the PR draft while known gates or manual tests remain.
+   state changes. Open a ready-for-review pull request by default. Create or
+   leave it as a draft only when the user explicitly requests a draft. If known
+   gates or required manual tests remain, stop before opening the pull request
+   and report the blockers instead of using draft state as a holding area.
 6. For a published PR, verify checks and reviews against the latest commit.
    Inspect thread-level resolution state rather than relying only on flat
    comments.
