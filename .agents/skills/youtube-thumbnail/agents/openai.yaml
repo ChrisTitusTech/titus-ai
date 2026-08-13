@@ -1,0 +1,4 @@
+interface:
+  display_name: "YouTube Thumbnail"
+  short_description: "Create restrained, high-impact YouTube thumbnails"
+  default_prompt: "Use $youtube-thumbnail to create a minimal YouTube thumbnail from these source images and title."

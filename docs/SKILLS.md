@@ -63,6 +63,7 @@ clear `name` and `description`.
 - `python-ai`
 - `quickshell`
 - `rust-cli`
+- `youtube-thumbnail`
 
 Run `./scripts/validate.sh` after adding or changing a skill. Validation fails
 when this list and the skill directories drift apart.

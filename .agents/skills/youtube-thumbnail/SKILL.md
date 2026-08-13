@@ -1,0 +1,86 @@
+---
+name: youtube-thumbnail
+description: Create or revise restrained, high-impact YouTube thumbnail images. Use for YouTube thumbnails, video cover art, thumbnail concepts, source-photo composites, or requests to improve clickability while keeping layouts minimal, text brief, colors natural, and photographed people unaltered without bright outlines.
+---
+
+# YouTube Thumbnail
+
+Create a clear 16:9 thumbnail built around one idea. Favor hierarchy, curiosity,
+and an instantly readable subject over visual noise.
+
+## Core Rules
+
+- Use a 1280 x 720 canvas unless the user requests another size.
+- Communicate one idea with one dominant focal point.
+- Prefer no text when the image communicates the idea. Otherwise use one short
+  phrase, normally one to four words. Do not repeat the full video title.
+- Keep colors natural and controlled. Do not globally oversaturate the image,
+  crush shadows, clip highlights, or push skin tones toward orange or red.
+- Preserve photographed people. Do not regenerate, beautify, reshape, repaint,
+  relight, recolor, sharpen, smooth, or otherwise alter their face, skin, hair,
+  body, expression, clothing, accessories, or silhouette.
+- Allow only cropping, uniform scaling, positioning, and a natural drop shadow
+  around a person. Do not add strokes, keylines, glows, halos, rim lights, or
+  bright outlines around people.
+- Never invent or replace a recognizable person when a source photo is
+  provided. Use the original pixels.
+
+## Workflow
+
+1. Inspect the title, topic, source images, brand assets, and any reference
+   thumbnails. Identify the single visual promise of the video.
+2. Select the simplest composition that communicates that promise:
+   - one subject plus a contextual background;
+   - one subject plus one supporting object; or
+   - one strong object or scene with optional short text.
+3. Establish hierarchy at small size. Make the main subject recognizable before
+   adding secondary elements. Keep important content away from the bottom-right
+   timestamp area and allow breathing room near every edge.
+4. Lock any source person before generating or editing other elements. Generate
+   the background or supporting graphics separately, then composite the original
+   person over them. If exact pixel preservation cannot be guaranteed, do not
+   send the person through a generative edit.
+5. Add text only if it supplies information the image cannot. Use one bold,
+   legible type style with strong contrast and minimal effects. Avoid stacked
+   captions, tiny labels, punctuation clutter, and multiple competing fonts.
+6. Apply restrained finishing. Use selective contrast and color separation
+   instead of extreme saturation. For a person, use only a soft, neutral drop
+   shadow with modest opacity and blur.
+7. Export as PNG, JPEG, or WebP at 1280 x 720. Preserve a lossless working file
+   when the workflow supports layers.
+
+## Image Tool Guidance
+
+- Inspect every supplied source image before editing it.
+- Use image generation for new backgrounds, objects, textures, or complete
+  thumbnails that contain no supplied person.
+- Use non-generative compositing for supplied people when feasible. Keep the
+  original person layer unchanged apart from crop, uniform scale, position, and
+  drop shadow.
+- When writing an image-generation prompt, explicitly request a clean 16:9
+  composition, a restrained natural palette, realistic contrast, negative
+  space for optional text, and no embedded typography unless the tool is meant
+  to render the final text.
+- Do not claim a person was preserved unless the final image was compared with
+  the source at full size.
+
+## Visual QA
+
+Before delivery, inspect the full-resolution result and a small thumbnail-sized
+preview. Confirm all of the following:
+
+- The concept is understandable within roughly one second.
+- The thumbnail contains one clear focal point and no unnecessary decoration.
+- Text is absent or limited to one short, readable phrase.
+- No person has changed relative to the source.
+- People have no outline, glow, halo, rim light, or edge color; any separation
+  comes only from a natural drop shadow.
+- Saturation and contrast remain controlled, especially in skin tones and
+  brand colors.
+- The subject and text remain legible at small size and are not obstructed by
+  the timestamp area.
+- The final file is exactly 16:9 and has no accidental crop, padding, artifacts,
+  or embedded watermark.
+
+If any check fails, revise the thumbnail and inspect it again before presenting
+the result.
