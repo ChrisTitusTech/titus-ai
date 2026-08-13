@@ -17,7 +17,7 @@ skills install without replacing private Codex runtime state.
 
 ## Phase 2: Workflow alignment
 
-Status: In progress
+Status: Complete
 
 ### Outcome
 
@@ -52,7 +52,7 @@ review, manual-testing, and merge workflow.
 
 ## Phase 3: Enforced repository governance
 
-Status: Planned
+Status: In progress
 
 ### Outcome
 

@@ -1,6 +1,6 @@
 # Titus AI tasks
 
-## Current phase: Workflow alignment
+## Completed phase: Workflow alignment
 
 - [x] Add project planning documents and reusable planning templates.
 - [x] Add a focused pull-request readiness skill.
@@ -15,7 +15,7 @@
   recursive GitHub trust generation, passes in CI.
 - [x] Inspect the final diff and stage only workflow-alignment changes.
 
-## Next phase: Enforced repository governance
+## Current phase: Enforced repository governance
 
 - [ ] Configure a default-branch ruleset after CI check names exist remotely.
 - [ ] Require pull requests, successful validation, and conversation resolution.

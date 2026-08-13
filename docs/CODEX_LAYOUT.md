@@ -43,8 +43,10 @@ This repository manages only:
 The installer links instructions, rules, profiles, and skills into their
 documented locations while preserving runtime state. It renders
 `~/.codex/config.toml` as a regular file so it can add machine-specific trust
-entries for `~/github` and every Git worktree discovered beneath it. With the
-explicit plugin option, it asks Codex to install each selector from
+entries for `~/github` and every Git worktree discovered beneath it. Existing
+notification, plugin, marketplace, hook-state, notice, local Node REPL, and
+runtime shell-environment settings are carried forward into the rendered file.
+With the explicit plugin option, it asks Codex to install each selector from
 `codex-plugins.txt`; it does not link or track the resulting plugin cache,
 authentication, or connector state.
 

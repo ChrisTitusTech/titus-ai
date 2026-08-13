@@ -32,6 +32,32 @@ assert_link() {
 mkdir -p "$test_codex_home"
 mkdir -p "$test_github_repo/.git"
 printf 'original global instructions\n' >"$test_codex_home/AGENTS.md"
+cat >"$test_codex_home/config.toml" <<'EOF'
+notify = [
+  "example-notifier",
+  "turn-ended",
+]
+
+[plugins."example@personal"]
+enabled = true
+
+[marketplaces.personal]
+source = "example"
+
+[hooks.state]
+
+[hooks.state."example"]
+trusted_hash = "sha256:example"
+
+[notice]
+hide_example = true
+
+[mcp_servers.node_repl]
+command = "node"
+
+[shell_environment_policy.set]
+EXAMPLE_RUNTIME_PATH = "example"
+EOF
 
 HOME="$test_user_home" CODEX_HOME="$test_codex_home" AGENTS_HOME="$test_agents_home" \
   "$repo_root/scripts/install.sh" >/dev/null
@@ -43,6 +69,21 @@ grep -Fqx "[projects.\"$test_user_home/github\"]" "$test_codex_home/config.toml"
   fail "generated config does not trust the user GitHub root"
 grep -Fqx "[projects.\"$test_github_repo\"]" "$test_codex_home/config.toml" ||
   fail "generated config does not trust a nested Git repository"
+if command -v python3 >/dev/null 2>&1; then
+  python3 -c 'import pathlib, sys, tomllib; tomllib.loads(pathlib.Path(sys.argv[1]).read_text())' \
+    "$test_codex_home/config.toml" || fail "generated config is invalid TOML"
+fi
+for preserved_line in \
+  'notify = [' \
+  '[plugins."example@personal"]' \
+  '[marketplaces.personal]' \
+  '[hooks.state."example"]' \
+  '[notice]' \
+  '[mcp_servers.node_repl]' \
+  '[shell_environment_policy.set]'; do
+  grep -Fqx "$preserved_line" "$test_codex_home/config.toml" ||
+    fail "generated config dropped machine-local state: $preserved_line"
+done
 assert_link "$test_codex_home/rules" "$repo_root/codex-home/rules"
 assert_link "$test_codex_home/ollama.config.toml" "$repo_root/codex-home/ollama.config.toml"
 assert_link "$test_codex_home/llamacpp.config.toml" "$repo_root/codex-home/llamacpp.config.toml"
@@ -59,6 +100,11 @@ shopt -u nullglob
   fail "expected one AGENTS.md backup, found ${#instruction_backups[@]}"
 [[ "$(sed -n '1p' "${instruction_backups[0]}")" == "original global instructions" ]] ||
   fail "AGENTS.md backup content changed"
+shopt -s nullglob
+config_backups=("$test_codex_home"/backups/titus-ai-*/config.toml)
+shopt -u nullglob
+[[ ${#config_backups[@]} -eq 1 ]] ||
+  fail "expected one config.toml backup, found ${#config_backups[@]}"
 
 link_fixture_dir="$task_test_root/link fixtures"
 mkdir -p "$link_fixture_dir"
@@ -77,6 +123,22 @@ instruction_backups=("$test_codex_home"/backups/titus-ai-*/AGENTS.md)
 shopt -u nullglob
 [[ ${#instruction_backups[@]} -eq 1 ]] ||
   fail "idempotent install created another AGENTS.md backup"
+shopt -s nullglob
+config_backups=("$test_codex_home"/backups/titus-ai-*/config.toml)
+shopt -u nullglob
+[[ ${#config_backups[@]} -eq 1 ]] ||
+  fail "idempotent install created another config.toml backup"
+for preserved_line in \
+  'notify = [' \
+  '[plugins."example@personal"]' \
+  '[marketplaces.personal]' \
+  '[hooks.state."example"]' \
+  '[notice]' \
+  '[mcp_servers.node_repl]' \
+  '[shell_environment_policy.set]'; do
+  [[ "$(grep -Fxc "$preserved_line" "$test_codex_home/config.toml")" -eq 1 ]] ||
+    fail "idempotent install duplicated machine-local state: $preserved_line"
+done
 
 rm -- "$test_codex_home/rules"
 ln -s "$repo_root/codex-home/rules/." "$test_codex_home/rules"

@@ -57,6 +57,21 @@ if command -v python3 >/dev/null 2>&1; then
   python3 -c 'import pathlib, sys, tomllib; config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit(config.get("features", {}).get("memories") is not True)' \
     "$repo_root/codex-home/config.toml" || fail "codex-home/config.toml must enable features.memories"
 
+  if command -v codex >/dev/null 2>&1 && codex_features="$(codex features list 2>/dev/null)"; then
+    configured_features="$(
+      python3 -c 'import pathlib, sys, tomllib; config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); print("\n".join(config.get("features", {})))' \
+        "$repo_root/codex-home/config.toml"
+    )"
+    removed_features="$(awk '$2 == "removed" { print $1 }' <<<"$codex_features")"
+
+    while IFS= read -r feature; do
+      [[ -n "$feature" ]] || continue
+      if grep -Fxq -- "$feature" <<<"$removed_features"; then
+        fail "codex-home/config.toml configures removed feature: $feature"
+      fi
+    done <<<"$configured_features"
+  fi
+
   python3 - "$repo_root/codex-home/config.toml" <<'PY' ||
 import pathlib
 import sys
@@ -65,7 +80,10 @@ import tomllib
 config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text())
 forbidden = []
 
-for section in ("marketplaces", "plugins"):
+if "notify" in config:
+    forbidden.append("notify")
+
+for section in ("marketplaces", "notice", "plugins"):
     if section in config:
         forbidden.append(section)
 
@@ -74,6 +92,9 @@ if "state" in config.get("hooks", {}):
 
 if "node_repl" in config.get("mcp_servers", {}):
     forbidden.append("mcp_servers.node_repl")
+
+if "set" in config.get("shell_environment_policy", {}):
+    forbidden.append("shell_environment_policy.set")
 
 if forbidden:
     print("runtime state in portable config: " + ", ".join(forbidden), file=sys.stderr)

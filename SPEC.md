@@ -80,8 +80,8 @@ wants the same safe Codex baseline in multiple repositories.
 
 - `./scripts/validate.sh` passes from a clean checkout.
 - Linux and macOS installer integration tests verify dry-run safety, backup
-  preservation, correct links, generated GitHub trust entries, and idempotence
-  in isolated temporary directories.
+  preservation, machine-local configuration state, correct links, generated
+  GitHub trust entries, and idempotence in isolated temporary directories.
 - Windows CI verifies the equivalent PowerShell installer behavior.
 - Installer tests verify plugin opt-in and dry-run behavior without contacting
   a live marketplace.

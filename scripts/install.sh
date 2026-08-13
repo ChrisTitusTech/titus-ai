@@ -53,7 +53,7 @@ run() {
 
 cleanup() {
   if [[ -n "$rendered_config" && -f "$rendered_config" ]]; then
-    rm -f -- "$rendered_config"
+    rm -f -- "$rendered_config" "${rendered_config}.merged" "${rendered_config}.notify"
   fi
 }
 trap cleanup EXIT
@@ -179,6 +179,61 @@ append_trusted_project() {
   printf '\n%s\ntrust_level = "trusted"\n' "$table_header" >>"$config_file"
 }
 
+append_preserved_config_sections() {
+  local existing_config="$1"
+  local config_file="$2"
+  local merged_config="${config_file}.merged"
+  local preserved_notify="${config_file}.notify"
+  local preserved_sections
+
+  [[ -f "$existing_config" ]] || return 0
+
+  awk '
+    /^[[:space:]]*\[\[?/ { exit }
+    capture_notify && /^[[:space:]]*[A-Za-z0-9_.-]+[[:space:]]*=/ { exit }
+    capture_notify && /^[[:space:]]*$/ { trailing_blanks++; next }
+    capture_notify {
+      while (trailing_blanks > 0) {
+        print ""
+        trailing_blanks--
+      }
+      print
+      next
+    }
+    /^[[:space:]]*notify[[:space:]]*=/ { capture_notify = 1; print }
+  ' "$existing_config" >"$preserved_notify"
+
+  if [[ -s "$preserved_notify" ]]; then
+    awk -v notify_file="$preserved_notify" '
+      !inserted && /^[[:space:]]*\[/ {
+        while ((getline line < notify_file) > 0) {
+          print line
+        }
+        close(notify_file)
+        print ""
+        inserted = 1
+      }
+      { print }
+    ' "$config_file" >"$merged_config"
+    mv "$merged_config" "$config_file"
+  fi
+  rm -f -- "$preserved_notify"
+
+  preserved_sections="$(
+    awk '
+      /^[[:space:]]*\[\[?/ {
+        preserve = ($0 ~ /^[[:space:]]*\[\[?(marketplaces|plugins|notice)(\.|\]\]?)/ || $0 ~ /^[[:space:]]*\[\[?hooks\.state(\.|\]\]?)/ || $0 ~ /^[[:space:]]*\[\[?mcp_servers\.node_repl(\.|\]\]?)/ || $0 ~ /^[[:space:]]*\[\[?shell_environment_policy\.set(\.|\]\]?)/)
+      }
+      preserve { print }
+    ' "$existing_config"
+  )"
+
+  if [[ -n "$preserved_sections" ]]; then
+    printf '\n# Preserved machine-local Codex state.\n%s\n' \
+      "$preserved_sections" >>"$config_file"
+  fi
+}
+
 render_managed_config() {
   local git_marker
   local project_path
@@ -200,6 +255,8 @@ render_managed_config() {
         -name .git -print0
     )
   fi
+
+  append_preserved_config_sections "$codex_home/config.toml" "$rendered_config"
 }
 
 install_managed_config() {

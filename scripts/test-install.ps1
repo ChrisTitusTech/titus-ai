@@ -55,6 +55,32 @@ try {
     New-Item -ItemType Directory -Path $testCodexHome -Force | Out-Null
     New-Item -ItemType Directory -Path (Join-Path $testGitHubRepo '.git') -Force | Out-Null
     Set-Content -LiteralPath (Join-Path $testCodexHome 'AGENTS.md') -Value 'original global instructions'
+    Set-Content -LiteralPath (Join-Path $testCodexHome 'config.toml') -Value @'
+notify = [
+  "example-notifier",
+  "turn-ended",
+]
+
+[plugins."example@personal"]
+enabled = true
+
+[marketplaces.personal]
+source = "example"
+
+[hooks.state]
+
+[hooks.state."example"]
+trusted_hash = "sha256:example"
+
+[notice]
+hide_example = true
+
+[mcp_servers.node_repl]
+command = "node"
+
+[shell_environment_policy.set]
+EXAMPLE_RUNTIME_PATH = "example"
+'@
 
     $env:USERPROFILE = $testUserHome
     $env:CODEX_HOME = $testCodexHome
@@ -74,6 +100,19 @@ try {
     Assert-Condition (
         $installedConfigContent.Contains("[projects.`"$escapedGitHubRepo`"]")
     ) 'Generated config does not trust a nested Git repository'
+    foreach ($preservedLine in @(
+        'notify = [',
+        '[plugins."example@personal"]',
+        '[marketplaces.personal]',
+        '[hooks.state."example"]',
+        '[notice]',
+        '[mcp_servers.node_repl]',
+        '[shell_environment_policy.set]'
+    )) {
+        Assert-Condition (
+            $installedConfigContent.Contains($preservedLine)
+        ) "Generated config dropped machine-local state: $preservedLine"
+    }
     Assert-Link (Join-Path $testCodexHome 'rules') (Join-Path $repoRoot 'codex-home/rules')
     Assert-Link (Join-Path $testCodexHome 'ollama.config.toml') (Join-Path $repoRoot 'codex-home/ollama.config.toml')
     Assert-Link (Join-Path $testCodexHome 'llamacpp.config.toml') (Join-Path $repoRoot 'codex-home/llamacpp.config.toml')
@@ -89,6 +128,10 @@ try {
     Assert-Condition ($instructionBackups.Count -eq 1) "Expected one AGENTS.md backup, found $($instructionBackups.Count)"
     $backupContent = Get-Content -LiteralPath $instructionBackups[0].FullName -Raw
     Assert-Condition ($backupContent.Trim() -eq 'original global instructions') 'AGENTS.md backup content changed'
+    $configBackups = @(
+        Get-ChildItem -LiteralPath (Join-Path $testCodexHome 'backups') -Filter 'config.toml' -File -Recurse
+    )
+    Assert-Condition ($configBackups.Count -eq 1) "Expected one config.toml backup, found $($configBackups.Count)"
 
     & (Join-Path $repoRoot 'scripts/install.ps1') | Out-Null
     Assert-Link (Join-Path $testCodexHome 'AGENTS.md') (Join-Path $repoRoot 'codex-home/AGENTS.md')
@@ -96,6 +139,28 @@ try {
         Get-ChildItem -LiteralPath (Join-Path $testCodexHome 'backups') -Filter 'AGENTS.md' -File -Recurse
     )
     Assert-Condition ($instructionBackups.Count -eq 1) 'Idempotent install created another AGENTS.md backup'
+    $configBackups = @(
+        Get-ChildItem -LiteralPath (Join-Path $testCodexHome 'backups') -Filter 'config.toml' -File -Recurse
+    )
+    Assert-Condition ($configBackups.Count -eq 1) 'Idempotent install created another config.toml backup'
+    $installedConfigContent = [System.IO.File]::ReadAllText($installedConfigPath)
+    foreach ($preservedLine in @(
+        'notify = [',
+        '[plugins."example@personal"]',
+        '[marketplaces.personal]',
+        '[hooks.state."example"]',
+        '[notice]',
+        '[mcp_servers.node_repl]',
+        '[shell_environment_policy.set]'
+    )) {
+        $occurrences = [regex]::Matches(
+            $installedConfigContent,
+            "(?m)^$([regex]::Escape($preservedLine))`r?$"
+        ).Count
+        Assert-Condition (
+            $occurrences -eq 1
+        ) "Idempotent install duplicated machine-local state: $preservedLine"
+    }
 
     $pluginLog = Join-Path $taskTestRoot 'plugin-calls.log'
     $env:CODEX_PLUGIN_TEST_LOG = $pluginLog
