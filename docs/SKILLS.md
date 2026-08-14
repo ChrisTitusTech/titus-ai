@@ -61,6 +61,7 @@ clear `name` and `description`.
 - `ai-project-manager`
 - `bash-scripting`
 - `forgejo-maintainer`
+- `frontend-design`
 - `homelab-admin`
 - `hugo`
 - `linux-sysadmin`

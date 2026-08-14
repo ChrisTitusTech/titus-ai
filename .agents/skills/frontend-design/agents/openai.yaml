@@ -1,0 +1,4 @@
+interface:
+  display_name: "Frontend Design"
+  short_description: "Distinctive UI, typography, palette, and visual direction"
+  default_prompt: "Use $frontend-design to plan tokens, layout, and a signature element, then restyle this UI."
