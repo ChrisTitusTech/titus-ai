@@ -1,20 +1,20 @@
 # narehood-ai
 
 Public portable coding-agent configuration, reusable skills, and project
-planning templates. **T3 Code** is the intended control surface; skills follow
-the Agent Skills standard so Codex, Claude Code, Cursor, Grok, and OpenCode can
-load them.
+planning templates. **T3 Code** is the control surface. **Codex**, **Claude
+Code**, and **Cursor** are first-class providers it can run. Shared skills
+follow the Agent Skills standard so all three load the same files, in T3 Code
+or in each provider's own CLI.
 
 This repository is public. Tracked files must stay free of credentials, personal
 absolute paths, pairing tokens, and private product operations.
 
 ## Use with T3 Code
 
-Open this checkout as a T3 Code project at the repository root. T3 Code runs
-your existing provider (Codex, Claude, Cursor, Grok, or OpenCode) against that
-directory. Root `AGENTS.md` is loaded by the provider. Skills under
-`.agents/skills/` appear in the composer `$` picker when the thread cwd is the
-repo root.
+Open this checkout as a T3 Code project at the repository root. Choose Codex,
+Claude, or Cursor as the provider. Root `AGENTS.md` is loaded by the provider.
+Skills under `.agents/skills/` appear in the composer `$` picker when the
+thread cwd is the repo root.
 
 ```text
 $linux-sysadmin diagnose this service failure
@@ -22,7 +22,11 @@ $python-ai add an Ollama-backed model provider
 $rust-cli add a new subcommand
 ```
 
-See [docs/T3CODE_LAYOUT.md](docs/T3CODE_LAYOUT.md).
+See [docs/T3CODE_LAYOUT.md](docs/T3CODE_LAYOUT.md). Provider-specific discovery:
+
+- Codex: [docs/CODEX_LAYOUT.md](docs/CODEX_LAYOUT.md)
+- Claude Code: [docs/CLAUDE_LAYOUT.md](docs/CLAUDE_LAYOUT.md)
+- Cursor: [docs/CURSOR_LAYOUT.md](docs/CURSOR_LAYOUT.md)
 
 Project planning templates live under
 `.agents/skills/ai-project-manager/assets/project-docs/` (`AGENTS.md`,
@@ -209,7 +213,8 @@ dependency review for pull requests.
 - `AGENTS.md`: instructions for maintaining this repository
 - `SPEC.md`, `ROADMAP.md`, and `TASKS.md`: requirements, phase order, and
   validated task status
-- `.agents/skills/`: reusable Agent Skills (T3 Code `$` picker)
+- `.agents/skills/`: reusable Agent Skills for Codex, Claude, and Cursor
+- `CLAUDE.md`: Claude Code router to `AGENTS.md`
 - `codex-plugins.txt`: opt-in Codex plugin selections
 - `codex-home/`: portable Codex global instructions, configuration, profiles,
   and rules
@@ -217,6 +222,6 @@ dependency review for pull requests.
 - `scripts/`: installation and validation
 
 See [docs/T3CODE_LAYOUT.md](docs/T3CODE_LAYOUT.md),
-[docs/CURSOR_LAYOUT.md](docs/CURSOR_LAYOUT.md), and
-[docs/CODEX_LAYOUT.md](docs/CODEX_LAYOUT.md) for discovery and configuration
-behavior.
+[docs/CODEX_LAYOUT.md](docs/CODEX_LAYOUT.md),
+[docs/CLAUDE_LAYOUT.md](docs/CLAUDE_LAYOUT.md), and
+[docs/CURSOR_LAYOUT.md](docs/CURSOR_LAYOUT.md).

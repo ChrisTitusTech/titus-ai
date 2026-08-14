@@ -23,6 +23,7 @@ required_files=(
   "codex-home/llamacpp.config.toml"
   "codex-home/rules/default.rules"
   "docs/CODEX_LAYOUT.md"
+  "docs/CLAUDE_LAYOUT.md"
   "docs/CURSOR_LAYOUT.md"
   "docs/T3CODE_LAYOUT.md"
   "docs/SKILLS.md"

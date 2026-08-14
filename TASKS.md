@@ -34,6 +34,8 @@
 - [x] Retarget README, SPEC, AGENTS, SKILLS, and WORKFLOW for T3 Code while
   keeping the repo public-safe.
 - [x] Keep `.agents/skills/` canonical; ignore local `.t3/` userdata.
+- [x] Document Codex, Claude Code, and Cursor as first-class T3 Code providers
+  (`docs/CODEX_LAYOUT.md`, `docs/CLAUDE_LAYOUT.md`, `docs/CURSOR_LAYOUT.md`).
 - [x] Run `./scripts/validate.sh` after the retarget.
 
 ## Current phase: Enforced repository governance

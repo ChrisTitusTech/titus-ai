@@ -4,10 +4,10 @@
 
 This repository is the source of truth for Narehood's portable coding-agent
 configuration, reusable skills, and durable instructions. T3 Code is the
-intended control surface; skills and `AGENTS.md` must work across the providers
-it can run (Codex, Claude Code, Cursor, Grok, and OpenCode). The root
-`AGENTS.md` is the project maintenance file and follows the AGENTS.md convention
-for tools that load it automatically.
+control surface. Codex, Claude Code, and Cursor are first-class providers it
+can run; skills and `AGENTS.md` must work in all three, in T3 Code or in each
+provider's own CLI. The root `AGENTS.md` is the project maintenance file and
+follows the AGENTS.md convention for tools that load it automatically.
 
 This repository is public. Do not commit credentials, personal absolute paths,
 private product operations, secret values, T3 Code userdata, or pairing tokens.
@@ -68,9 +68,10 @@ permission on the human's side:
 
 - Keep credentials, tokens, sessions, history, caches, logs, and runtime
   databases out of this repository.
-- Put reusable workflows in `.agents/skills/<name>/SKILL.md` (Agent Skills
-  standard; T3 Code `$` picker).
+- Put reusable workflows in `.agents/skills/<name>/SKILL.md` so Codex, Claude,
+  and Cursor can all load them (Agent Skills standard; T3 Code `$` picker).
 - Put portable Codex user configuration in `codex-home/`.
+- Keep `CLAUDE.md` as a thin router to this file.
 - Put project maintenance instructions in this file.
 - Do not assume files in `docs/` are loaded automatically.
 - Use the minimum code or documentation change that solves the stated problem.
@@ -89,8 +90,9 @@ Read only the documents needed for the task:
 - `TASKS.md` for the current phase, validation status, and remaining work.
 - `docs/T3CODE_LAYOUT.md` for T3 Code project, skill, and public-repo
   boundaries.
-- `docs/CURSOR_LAYOUT.md` for Cursor and Cloud Agent discovery boundaries.
 - `docs/CODEX_LAYOUT.md` for Codex discovery and installation boundaries.
+- `docs/CLAUDE_LAYOUT.md` for Claude Code discovery boundaries.
+- `docs/CURSOR_LAYOUT.md` for Cursor and Cloud Agent discovery boundaries.
 - `docs/SKILLS.md` when creating or changing skills.
 - `docs/WORKFLOW.md` when changing the repository development workflow.
 

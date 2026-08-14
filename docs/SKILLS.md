@@ -21,17 +21,15 @@ repository/.agents/skills/<skill-name>/SKILL.md
 ~/.agents/skills/<skill-name>/SKILL.md
 ```
 
-T3 Code surfaces repo-local skills when the thread cwd is the repository root.
-The installer links this tree into the user location so skills are available in
-other T3 Code projects. See [T3CODE_LAYOUT.md](T3CODE_LAYOUT.md).
+T3 Code surfaces repo-local skills when the thread cwd is the repository root
+and the provider is Codex, Claude, or Cursor. The installer links this tree
+into the user location so skills are available in other projects. See
+[T3CODE_LAYOUT.md](T3CODE_LAYOUT.md).
 
-Cursor also discovers `.cursor/skills/` and `~/.cursor/skills/`. Claude Code
-also discovers `.claude/skills/`. Prefer `.agents/skills/` as the source of
-truth so skills stay shared. Do not duplicate skill bodies into provider-only
-trees.
-
-Codex scans repository skill directories from the working directory up to the
-repository root.
+Codex, Claude Code, and Cursor all load `.agents/skills/`. Cursor also
+discovers `.cursor/skills/`. Claude Code also discovers `.claude/skills/`.
+Prefer `.agents/skills/` as the source of truth so skills stay shared. Do not
+duplicate skill bodies into provider-only trees.
 
 ## Required layout
 

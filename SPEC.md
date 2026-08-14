@@ -4,14 +4,14 @@
 
 Coding-agent installations mix portable configuration with credentials, sessions,
 caches, and other machine-local state. Teams need a public, reusable baseline for
-T3 Code (and the providers it can run) without replacing project-specific
+T3 Code with Codex, Claude Code, and Cursor without replacing project-specific
 requirements or leaking private product operations.
 
 ## Users
 
 The primary user is a developer who works across Linux, macOS, and Windows and
-wants the same safe agent baseline in multiple repositories, with T3 Code as
-the control surface.
+wants the same safe agent baseline in multiple repositories. T3 Code is the
+control surface; Codex, Claude Code, and Cursor are first-class providers.
 
 ## Public repository
 
@@ -28,11 +28,12 @@ Examples and templates use placeholders only.
 ## Required behavior
 
 - Provide durable project instruction conventions (`AGENTS.md`) and reusable
-  skills under `.agents/skills/` that T3 Code and its providers can discover.
+  skills under `.agents/skills/` that Codex, Claude Code, and Cursor can
+  discover, including through T3 Code.
 - Document T3 Code project-root, `$` picker, and public-repo boundaries without
   mirroring a live `~/.t3` home.
-- Document Cursor and Codex discovery as provider adapters, not as competing
-  sources of truth.
+- Document Codex, Claude, and Cursor discovery as first-class provider layouts
+  that share the same skills and `AGENTS.md`.
 - Optionally install global Codex instructions, configuration, rules,
   local-model profiles, and skills from this repository.
 - Optionally install an explicit list of recommended Codex plugins from
@@ -56,11 +57,11 @@ Examples and templates use placeholders only.
 
 ## Architecture
 
-- `.agents/skills/` is the canonical Agent Skills tree. T3 Code's `$` picker
-  and provider scanners read it from the project root; the installer links it
-  into `AGENTS_HOME` for user scope.
-- `codex-home/` contains portable Codex files installed into `CODEX_HOME` when
-  the Codex provider is used.
+- `.agents/skills/` is the canonical Agent Skills tree. Codex, Claude Code,
+  Cursor, and T3 Code's `$` picker read it from the project root; the installer
+  links it into `AGENTS_HOME` for user scope.
+- `codex-home/` contains portable Codex files installed into `CODEX_HOME`.
+- Root `CLAUDE.md` routes Claude Code to `AGENTS.md`.
 - The Codex installer renders `config.toml` with machine-specific exact trust
   entries while linking the other managed files. The committed sample config
   must not contain personal absolute paths.
@@ -72,8 +73,8 @@ Examples and templates use placeholders only.
   evidence.
 - `AGENTS.md`, this specification, `ROADMAP.md`, and `TASKS.md` define how the
   repository is maintained.
-- `docs/T3CODE_LAYOUT.md`, `docs/CURSOR_LAYOUT.md`, and `docs/CODEX_LAYOUT.md`
-  document discovery boundaries for the control surface and each adapter.
+- `docs/T3CODE_LAYOUT.md`, `docs/CODEX_LAYOUT.md`, `docs/CLAUDE_LAYOUT.md`, and
+  `docs/CURSOR_LAYOUT.md` document the control surface and each provider.
 
 ## Security and privacy
 

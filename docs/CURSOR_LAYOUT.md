@@ -37,8 +37,8 @@ Canonical skills live in `.agents/skills/<name>/SKILL.md`. Cursor discovers that
 path in the repository. The installer links the same tree into
 `~/.agents/skills/` so skills are available in other projects.
 
-Prefer `.agents/skills/` as the portable source of truth. Add
-`.cursor/skills/` only when a Cursor-only skill must not be shared with Codex.
+Prefer `.agents/skills/` as the portable source of truth shared with Codex and
+Claude. Add `.cursor/skills/` only when a Cursor-only skill must not be shared.
 Do not duplicate skill bodies into both trees.
 
 ## Project rules vs AGENTS.md
@@ -59,9 +59,9 @@ belong in the Cursor dashboard Secrets store, never in committed JSON.
 This public starter does not require a committed `environment.json`; add one in
 downstream projects when shared Cloud boot is useful.
 
-## Relationship to Codex
+## Relationship to T3 Code, Codex, and Claude
 
-Codex discovery and install boundaries are documented in
-[CODEX_LAYOUT.md](CODEX_LAYOUT.md). Shared skills and planning templates serve
-T3 Code and every provider it can run. T3 Code is the intended control surface;
-see [T3CODE_LAYOUT.md](T3CODE_LAYOUT.md).
+T3 Code is the control surface and can run Cursor, Codex, or Claude against
+this checkout. Shared skills and `AGENTS.md` serve all three. See
+[T3CODE_LAYOUT.md](T3CODE_LAYOUT.md), [CODEX_LAYOUT.md](CODEX_LAYOUT.md), and
+[CLAUDE_LAYOUT.md](CLAUDE_LAYOUT.md).

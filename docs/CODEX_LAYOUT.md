@@ -34,8 +34,9 @@ commit personal absolute project paths in sample `config.toml`; the installer
 renders trusts for the current user at install time.
 
 T3 Code is the intended control surface; see [T3CODE_LAYOUT.md](T3CODE_LAYOUT.md).
+Claude Code discovery is documented in [CLAUDE_LAYOUT.md](CLAUDE_LAYOUT.md).
 Cursor discovery is documented in [CURSOR_LAYOUT.md](CURSOR_LAYOUT.md). Codex
-home files remain an optional adapter for the Codex provider.
+home files are the portable Codex provider install.
 
 This repository manages only:
 

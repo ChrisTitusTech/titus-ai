@@ -9,14 +9,14 @@
 | `ROADMAP.md` | Ordered outcomes, dependencies, risks, and exit criteria |
 | `TASKS.md` | Current actionable work and validated status |
 | `STATUS.md` | Optional living shipped / blocked / deploy / secrets-location notes |
-| `.agents/skills/` | Reusable Agent Skills T3 Code and providers can invoke |
+| `.agents/skills/` | Reusable Agent Skills for Codex, Claude, and Cursor |
 | `docs/` | Reference material loaded only when requested or linked |
 
 ## Complete lifecycle
 
-1. Open this repository as a T3 Code project at the checkout root. Install or
-   link reusable skills (and optional Codex home files) when user-global skills
-   are needed.
+1. Open this repository as a T3 Code project at the checkout root and choose
+   Codex, Claude, or Cursor. Install or link reusable skills (and Codex home
+   files) when user-global Codex or shared-skill setup is needed.
 2. Inspect the real repository, branch, worktree, architecture, runtime paths,
    and existing validation.
 3. Put durable project conventions and boundaries in `AGENTS.md`, including

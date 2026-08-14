@@ -110,15 +110,15 @@ Status: Complete
 
 ### Outcome
 
-T3 Code is the documented control surface. Canonical skills live in
-`.agents/skills/` so the `$` picker and every supported provider can load them.
-Cursor and Codex remain adapters, not competing sources of truth.
+T3 Code is the documented control surface. Codex, Claude Code, and Cursor are
+first-class providers. Canonical skills live in `.agents/skills/` so the `$`
+picker and each provider can load them.
 
 ### Included work
 
 - Document T3 Code project-root, skill picker, and public-repo boundaries.
-- Retarget README, SPEC, AGENTS, and workflow docs away from Cursor-primary
-  language.
+- Treat Codex, Claude Code, and Cursor as first-class providers with shared
+  `.agents/skills/` and provider layout docs.
 - Keep `.agents/skills/` as the only skill tree; do not duplicate into
   `.claude/skills` or `.cursor/skills`.
 - Ignore local `.t3/` userdata.
@@ -132,7 +132,8 @@ Cursor and Codex remain adapters, not competing sources of truth.
 
 ### Exit criteria
 
-- Docs name T3 Code as the control surface and `.agents/skills/` as canonical.
-- Validation requires `docs/T3CODE_LAYOUT.md`.
+- Docs name T3 Code as the control surface, Codex/Claude/Cursor as first-class
+  providers, and `.agents/skills/` as canonical.
+- Validation requires `docs/T3CODE_LAYOUT.md` and `docs/CLAUDE_LAYOUT.md`.
 - Public-repo leak checks still pass.
 
