@@ -1,6 +1,6 @@
 ---
 name: ai-project-manager
-description: Turn repository planning docs into actionable AI-agent implementation plans using AGENTS.md, SPEC.md, ROADMAP.md, TASKS.md, optional STATUS.md, approval checkpoints, validation, and incremental execution. Use when a coding agent (Cursor or Codex) is asked to plan a project, create or reconcile project docs, derive tasks, coordinate phases, update task or status docs, or manage an AI-assisted development workflow.
+description: Turn repository planning docs into actionable AI-agent implementation plans using AGENTS.md, SPEC.md, ROADMAP.md, TASKS.md, optional STATUS.md, approval checkpoints, validation, and incremental execution. Use when a coding agent is asked to plan a project, create or reconcile project docs, derive tasks, coordinate phases, update task or status docs, or manage an AI-assisted development workflow.
 ---
 
 # ai-project-manager

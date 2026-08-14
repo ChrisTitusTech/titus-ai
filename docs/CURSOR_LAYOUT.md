@@ -26,7 +26,7 @@ manages only:
 - durable project instruction conventions
 - reusable skills under `.agents/skills/`
 - planning and workflow documentation
-- optional Codex portable home files (secondary)
+- optional Codex portable home files for the Codex provider
 
 Do not commit personal absolute paths, private product operations, or secret
 values.
@@ -63,4 +63,5 @@ downstream projects when shared Cloud boot is useful.
 
 Codex discovery and install boundaries are documented in
 [CODEX_LAYOUT.md](CODEX_LAYOUT.md). Shared skills and planning templates serve
-both surfaces. Cursor is the primary target for Narehood AI.
+T3 Code and every provider it can run. T3 Code is the intended control surface;
+see [T3CODE_LAYOUT.md](T3CODE_LAYOUT.md).

@@ -62,6 +62,9 @@ target/
 .parcel-cache/
 .turbo/
 
+# T3 Code worktree state (never commit live userdata)
+.t3/
+
 # Codex runtime state and credentials
 auth.json
 history.jsonl

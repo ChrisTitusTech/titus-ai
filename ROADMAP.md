@@ -52,7 +52,7 @@ review, manual-testing, and merge workflow.
 
 ## Phase 3: Enforced repository governance
 
-Status: In progress
+Status: Planned
 
 ### Outcome
 
@@ -79,16 +79,15 @@ Status: Complete
 
 ### Outcome
 
-The public repository is branded Narehood AI, Cursor is the primary agent
-surface, shared skills and planning templates encode evolved policy patterns,
-and Codex install remains available as a secondary path without personal or
-private product leakage.
+The public repository is branded Narehood AI, shared skills and planning
+templates encode evolved policy patterns, personal absolute paths are stripped
+from sample configuration, and Codex install remains available without private
+product leakage.
 
 ### Included work
 
 - Complete Narehood AI / narehood-ai rebrand across docs and installers.
 - Remove personal absolute paths from committed sample configuration.
-- Reframe SPEC, README, and maintenance docs for Cursor-primary use.
 - Strengthen project-doc templates and add an optional STATUS.md template.
 - Document Cursor discovery in `docs/CURSOR_LAYOUT.md`.
 - Soften Codex-only skill trigger wording; align global PR and key-block rules.
@@ -104,3 +103,36 @@ private product leakage.
 - Local validation passes with the new brand prefixes.
 - Grep finds no legacy brand strings or personal home paths in tracked files.
 - Templates use placeholders only.
+
+## Phase 5: T3 Code control surface
+
+Status: Complete
+
+### Outcome
+
+T3 Code is the documented control surface. Canonical skills live in
+`.agents/skills/` so the `$` picker and every supported provider can load them.
+Cursor and Codex remain adapters, not competing sources of truth.
+
+### Included work
+
+- Document T3 Code project-root, skill picker, and public-repo boundaries.
+- Retarget README, SPEC, AGENTS, and workflow docs away from Cursor-primary
+  language.
+- Keep `.agents/skills/` as the only skill tree; do not duplicate into
+  `.claude/skills` or `.cursor/skills`.
+- Ignore local `.t3/` userdata.
+
+### Risks
+
+- T3 Code skill discovery is cwd-scoped; opening a parent directory hides
+  repo-local skills.
+- Claude pickers in some T3 Code builds omit `.agents/skills` even when the
+  skill is still invocable by name.
+
+### Exit criteria
+
+- Docs name T3 Code as the control surface and `.agents/skills/` as canonical.
+- Validation requires `docs/T3CODE_LAYOUT.md`.
+- Public-repo leak checks still pass.
+

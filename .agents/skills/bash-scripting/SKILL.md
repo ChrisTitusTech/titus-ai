@@ -1,6 +1,6 @@
 ---
 name: bash-scripting
-description: Design, implement, review, test, and debug Bash and POSIX shell scripts with safe quoting, error handling, portability, ShellCheck, shfmt, and predictable command behavior. Use when a coding agent (Cursor or Codex) is asked to create or modify .sh files, automate command-line workflows, fix shell bugs, improve script safety, remove bashisms, or validate Linux and CI shell scripts.
+description: Design, implement, review, test, and debug Bash and POSIX shell scripts with safe quoting, error handling, portability, ShellCheck, shfmt, and predictable command behavior. Use when a coding agent is asked to create or modify .sh files, automate command-line workflows, fix shell bugs, improve script safety, remove bashisms, or validate Linux and CI shell scripts.
 ---
 
 # bash-scripting

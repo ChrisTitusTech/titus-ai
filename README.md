@@ -1,39 +1,39 @@
 # narehood-ai
 
 Public portable coding-agent configuration, reusable skills, and project
-planning templates. **Cursor** (including Cloud Agents) is the primary target;
-optional Codex install remains supported.
+planning templates. **T3 Code** is the intended control surface; skills follow
+the Agent Skills standard so Codex, Claude Code, Cursor, Grok, and OpenCode can
+load them.
 
-## Use with Cursor
+This repository is public. Tracked files must stay free of credentials, personal
+absolute paths, pairing tokens, and private product operations.
 
-Cursor loads project `AGENTS.md` automatically. Skills under `.agents/skills/`
-are discovered in the repository and, when linked into `~/.agents/skills/`,
-across other projects.
+## Use with T3 Code
 
-To install skills into your user agents home (shared with Codex):
+Open this checkout as a T3 Code project at the repository root. T3 Code runs
+your existing provider (Codex, Claude, Cursor, Grok, or OpenCode) against that
+directory. Root `AGENTS.md` is loaded by the provider. Skills under
+`.agents/skills/` appear in the composer `$` picker when the thread cwd is the
+repo root.
 
-```bash
-./scripts/install.sh --dry-run
-./scripts/install.sh
+```text
+$linux-sysadmin diagnose this service failure
+$python-ai add an Ollama-backed model provider
+$rust-cli add a new subcommand
 ```
 
-On Windows:
-
-```powershell
-.\scripts\install.ps1 -DryRun
-.\scripts\install.ps1
-```
-
-The installer also manages optional Codex home files under `~/.codex/`. For
-Cursor-only work, the important result is `.agents/skills/` linked into
-`~/.agents/skills/`. See [docs/CURSOR_LAYOUT.md](docs/CURSOR_LAYOUT.md).
+See [docs/T3CODE_LAYOUT.md](docs/T3CODE_LAYOUT.md).
 
 Project planning templates live under
 `.agents/skills/ai-project-manager/assets/project-docs/` (`AGENTS.md`,
 `SPEC.md`, `ROADMAP.md`, `TASKS.md`, and optional `STATUS.md`). Adapt them to
 each project; keep placeholders out of production docs.
 
-## Optional Codex install
+## Install skills (and optional Codex home)
+
+The installer links `.agents/skills/` into `~/.agents/skills/` so the same
+skills are available in other T3 Code projects. It can also install portable
+Codex home files when you use the Codex provider.
 
 Preview and install on Linux or macOS:
 
@@ -143,8 +143,8 @@ commands and commands that require exact output remain raw.
 
 ## Use skills
 
-Invoke a skill explicitly when needed (Codex `$skill` syntax; Cursor may also
-auto-select from skill descriptions):
+In T3 Code, type `$` in the composer to pick a skill. Providers may also
+auto-select from skill descriptions.
 
 ```text
 $linux-sysadmin diagnose this service failure
@@ -209,13 +209,14 @@ dependency review for pull requests.
 - `AGENTS.md`: instructions for maintaining this repository
 - `SPEC.md`, `ROADMAP.md`, and `TASKS.md`: requirements, phase order, and
   validated task status
-- `.agents/skills/`: reusable skills (Cursor + Codex)
+- `.agents/skills/`: reusable Agent Skills (T3 Code `$` picker)
 - `codex-plugins.txt`: opt-in Codex plugin selections
 - `codex-home/`: portable Codex global instructions, configuration, profiles,
   and rules
 - `docs/`: reference documentation loaded only when explicitly requested
 - `scripts/`: installation and validation
 
-See [docs/CURSOR_LAYOUT.md](docs/CURSOR_LAYOUT.md) and
+See [docs/T3CODE_LAYOUT.md](docs/T3CODE_LAYOUT.md),
+[docs/CURSOR_LAYOUT.md](docs/CURSOR_LAYOUT.md), and
 [docs/CODEX_LAYOUT.md](docs/CODEX_LAYOUT.md) for discovery and configuration
 behavior.

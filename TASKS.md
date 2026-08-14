@@ -28,6 +28,14 @@
 - [x] Document Cursor skills consumption; extend validate if needed; run
   validate.sh; public-repo leak-check.
 
+## Completed phase: T3 Code control surface
+
+- [x] Document T3 Code as the control surface (`docs/T3CODE_LAYOUT.md`).
+- [x] Retarget README, SPEC, AGENTS, SKILLS, and WORKFLOW for T3 Code while
+  keeping the repo public-safe.
+- [x] Keep `.agents/skills/` canonical; ignore local `.t3/` userdata.
+- [x] Run `./scripts/validate.sh` after the retarget.
+
 ## Current phase: Enforced repository governance
 
 - [ ] Configure a default-branch ruleset after CI check names exist remotely.

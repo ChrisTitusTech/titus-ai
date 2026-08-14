@@ -4,20 +4,21 @@
 
 Coding-agent installations mix portable configuration with credentials, sessions,
 caches, and other machine-local state. Teams need a public, reusable baseline for
-Cursor (and optional Codex) instructions and skills without replacing
-project-specific requirements or leaking private product operations.
+T3 Code (and the providers it can run) without replacing project-specific
+requirements or leaking private product operations.
 
 ## Users
 
 The primary user is a developer who works across Linux, macOS, and Windows and
-wants the same safe agent baseline in multiple repositories, with Cursor as the
-primary surface.
+wants the same safe agent baseline in multiple repositories, with T3 Code as
+the control surface.
 
 ## Public repository
 
 This repository is public. Tracked files must stay world-readable and free of:
 
 - credentials, sessions, caches, logs, and runtime databases
+- T3 Code userdata, pairing URLs, or pairing tokens
 - personal absolute home paths or private project lists
 - private product deploy hosts, app IDs, entitlement IDs, or secret values
 - operational inventories that reveal private infrastructure
@@ -27,9 +28,11 @@ Examples and templates use placeholders only.
 ## Required behavior
 
 - Provide durable project instruction conventions (`AGENTS.md`) and reusable
-  skills under `.agents/skills/` that Cursor and Codex can discover.
-- Document Cursor discovery paths, optional `.cursor/rules`, and Cloud Agent
-  environment notes without mirroring a full user Cursor home.
+  skills under `.agents/skills/` that T3 Code and its providers can discover.
+- Document T3 Code project-root, `$` picker, and public-repo boundaries without
+  mirroring a live `~/.t3` home.
+- Document Cursor and Codex discovery as provider adapters, not as competing
+  sources of truth.
 - Optionally install global Codex instructions, configuration, rules,
   local-model profiles, and skills from this repository.
 - Optionally install an explicit list of recommended Codex plugins from
@@ -43,8 +46,9 @@ Examples and templates use placeholders only.
 - Support repeated installation without replacing already-correct links.
 - Provide project-planning templates (including optional `STATUS.md`) and
   separate planning from pull-request readiness.
-- Use the built-in `codex review --uncommitted` workflow for local review, with
-  validation and review repeated after each actionable fix.
+- Use the built-in `codex review --uncommitted` workflow for local review when
+  Codex is available, with validation and review repeated after each actionable
+  fix.
 - Validate repository structure, configuration syntax, skill metadata,
   documentation consistency, and installer behavior.
 - Run Linux, macOS, and Windows validation for pull requests and default-branch
@@ -52,10 +56,11 @@ Examples and templates use placeholders only.
 
 ## Architecture
 
-- `.agents/skills/` contains reusable workflows discovered by Cursor and linked
+- `.agents/skills/` is the canonical Agent Skills tree. T3 Code's `$` picker
+  and provider scanners read it from the project root; the installer links it
   into `AGENTS_HOME` for user scope.
-- `codex-home/` contains portable Codex files installed into `CODEX_HOME`
-  (secondary to Cursor).
+- `codex-home/` contains portable Codex files installed into `CODEX_HOME` when
+  the Codex provider is used.
 - The Codex installer renders `config.toml` with machine-specific exact trust
   entries while linking the other managed files. The committed sample config
   must not contain personal absolute paths.
@@ -67,13 +72,13 @@ Examples and templates use placeholders only.
   evidence.
 - `AGENTS.md`, this specification, `ROADMAP.md`, and `TASKS.md` define how the
   repository is maintained.
-- `docs/CURSOR_LAYOUT.md` and `docs/CODEX_LAYOUT.md` document discovery
-  boundaries for each agent surface.
+- `docs/T3CODE_LAYOUT.md`, `docs/CURSOR_LAYOUT.md`, and `docs/CODEX_LAYOUT.md`
+  document discovery boundaries for the control surface and each adapter.
 
 ## Security and privacy
 
-- Never track authentication files, session history, caches, logs, or runtime
-  databases.
+- Never track authentication files, session history, caches, logs, runtime
+  databases, or T3 Code userdata.
 - Do not require administrator privileges for normal installation.
 - Keep destructive actions narrowly scoped and require explicit authorization.
 - Give GitHub Actions the minimum permissions required by each job.
@@ -89,12 +94,13 @@ Examples and templates use placeholders only.
 
 ## Non-goals
 
-- Mirroring the complete Codex or Cursor home directory.
+- Mirroring the complete Codex, Cursor, Claude, or T3 Code home directory.
 - Managing credentials, plugin caches or authentication, sessions, or caches.
 - Installing plugins without an explicit opt-in.
 - Replacing project-specific `AGENTS.md` or requirements.
-- Installing Cursor, Codex, Claude Code, T3 Code, third-party review CLIs, RTK,
+- Installing T3 Code, Cursor, Codex, Claude Code, third-party review CLIs, RTK,
   or local model servers.
+- Duplicating skills into `.claude/skills/` or `.cursor/skills/`.
 - Shipping private product operations or identity-leaking sample config.
 - Adding security scanners that do not support the repository's languages.
 
@@ -118,6 +124,7 @@ Examples and templates use placeholders only.
 
 ## Unresolved questions
 
-- Whether a dedicated Cursor user-rules exporter or team-rules sync should be
-  added later; for now, project `AGENTS.md` and linked skills are the portable
-  surface.
+- Whether a committed public-safe `t3.json` (icon only, no local paths) should
+  be added later; for now, T3 Code project settings stay machine-local.
+- Whether T3 Code's Claude `$` picker will always include repo-local
+  `.agents/skills`; skills stay invocable by name regardless.

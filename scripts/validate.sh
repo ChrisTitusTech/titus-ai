@@ -24,6 +24,7 @@ required_files=(
   "codex-home/rules/default.rules"
   "docs/CODEX_LAYOUT.md"
   "docs/CURSOR_LAYOUT.md"
+  "docs/T3CODE_LAYOUT.md"
   "docs/SKILLS.md"
   "docs/WORKFLOW.md"
   ".agents/skills/ai-project-manager/assets/project-docs/AGENTS.md"

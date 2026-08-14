@@ -14,20 +14,24 @@ Use a skill for knowledge that is:
 
 ## Discovery locations
 
-Canonical portable locations (Cursor and Codex):
+Canonical portable location (Agent Skills standard, T3 Code `$` picker):
 
 ```text
 repository/.agents/skills/<skill-name>/SKILL.md
 ~/.agents/skills/<skill-name>/SKILL.md
 ```
 
-Cursor also discovers `.cursor/skills/` and `~/.cursor/skills/`. Prefer
-`.agents/skills/` as the source of truth in this repository so skills stay
-shared. See [CURSOR_LAYOUT.md](CURSOR_LAYOUT.md).
+T3 Code surfaces repo-local skills when the thread cwd is the repository root.
+The installer links this tree into the user location so skills are available in
+other T3 Code projects. See [T3CODE_LAYOUT.md](T3CODE_LAYOUT.md).
+
+Cursor also discovers `.cursor/skills/` and `~/.cursor/skills/`. Claude Code
+also discovers `.claude/skills/`. Prefer `.agents/skills/` as the source of
+truth so skills stay shared. Do not duplicate skill bodies into provider-only
+trees.
 
 Codex scans repository skill directories from the working directory up to the
-repository root. The installer links this repository's skills into the user
-location so they are available in other repositories.
+repository root.
 
 ## Required layout
 
@@ -52,7 +56,7 @@ clear `name` and `description`.
 - Prefer instructions over scripts unless deterministic automation is useful.
 - Keep project requirements in project documentation, not reusable skills.
 - Use `agents/openai.yaml` only for useful UI metadata or dependencies.
-- Prefer agent-agnostic trigger wording ("coding agent", "Cursor or Codex").
+- Prefer agent-agnostic trigger wording ("coding agent", not a provider name).
 
 ## Repository skills
 
