@@ -15,6 +15,15 @@
 - If a task is primarily Bash or command-line automation, consider RTK for
   noisy validation commands, but keep commands raw when validating exact
   stdout, stderr, exit-status, quoting, or pipeline behavior.
+- When a task requires multiple SSH commands to the same remote host, use
+  persistent client multiplexing when possible: establish one authenticated
+  master with `ControlMaster`, `ControlPath`, and `ControlPersist`, verify it,
+  and reuse its channels for every sequential or concurrent command. Close a
+  task-scoped master when the remote work is complete.
+- If required multiplexed concurrency exceeds the server's authenticated
+  channel limit, confirm the limit before changing it. Raise `MaxSessions` only
+  with rollback and validation, and do not weaken unauthenticated connection
+  limits or per-source abuse penalties to improve command throughput.
 
 ## Working style
 
@@ -73,4 +82,6 @@
 - Use `AGENTS.md` for durable repository conventions.
 - Use `.codex/config.toml` for trusted project-specific Codex settings.
 - Use skills for reusable task workflows.
+- Always use the `youtube-thumbnail` skill whenever a user mentions a YouTube
+  thumbnail or asks to create, edit, review, or improve one.
 - Treat files under `docs/` as references, not automatic instructions.

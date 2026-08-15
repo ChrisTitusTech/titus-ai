@@ -1,6 +1,6 @@
 ---
 name: youtube-thumbnail
-description: Create or revise restrained, high-impact YouTube thumbnail images. Use for YouTube thumbnails, video cover art, thumbnail concepts, source-photo composites, or requests to improve clickability while keeping layouts minimal, text brief, colors natural, and photographed people unaltered without bright outlines.
+description: Create, edit, review, or improve restrained, high-impact YouTube thumbnail images. Always use this skill whenever the user mentions a YouTube thumbnail, including video cover art, thumbnail concepts, source-photo composites, or requests to improve clickability. Keep layouts minimal, text brief, colors natural, and photographed people unaltered without bright outlines.
 ---
 
 # YouTube Thumbnail
