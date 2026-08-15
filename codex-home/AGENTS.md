@@ -24,6 +24,15 @@
   channel limit, confirm the limit before changing it. Raise `MaxSessions` only
   with rollback and validation, and do not weaken unauthenticated connection
   limits or per-source abuse penalties to improve command throughput.
+- Before changing a remote OpenSSH server configuration, determine the trusted
+  workstation's current public IP from server-observed connection data. When
+  `PerSourcePenalties` is supported, add only that exact `/32` or `/128` to
+  `PerSourcePenaltyExemptList` in a dedicated early `sshd_config.d` drop-in,
+  preserve any existing exemptions, and set the file mode to `600`.
+- Keep the authenticated session open and prepare rollback before applying the
+  SSH exemption or any other server change. Run `sshd -t`, reload or restart
+  the correct SSH service, verify the effective exemption with `sshd -T`, and
+  prove a new multiplexed connection works before closing the original session.
 
 ## Working style
 
