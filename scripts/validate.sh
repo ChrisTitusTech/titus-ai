@@ -57,6 +57,9 @@ if command -v python3 >/dev/null 2>&1; then
   python3 -c 'import pathlib, sys, tomllib; config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit(config.get("features", {}).get("memories") is not True)' \
     "$repo_root/codex-home/config.toml" || fail "codex-home/config.toml must enable features.memories"
 
+  python3 -c 'import pathlib, sys, tomllib; config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit(config.get("features", {}).get("fast_mode") is not False)' \
+    "$repo_root/codex-home/config.toml" || fail "codex-home/config.toml must disable features.fast_mode by default"
+
   if command -v codex >/dev/null 2>&1 && codex_features="$(codex features list 2>/dev/null)"; then
     configured_features="$(
       python3 -c 'import pathlib, sys, tomllib; config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); print("\n".join(config.get("features", {})))' \

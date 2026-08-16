@@ -6,7 +6,7 @@ model_verbosity = "low"
 sandbox_mode = "danger-full-access"
 
 [features]
-fast_mode = true
+fast_mode = false
 memories = true
 
 [projects."/home/titus/github/titus-ai"]

@@ -72,6 +72,8 @@ grep -Fqx "[projects.\"$test_github_repo\"]" "$test_codex_home/config.toml" ||
 if command -v python3 >/dev/null 2>&1; then
   python3 -c 'import pathlib, sys, tomllib; tomllib.loads(pathlib.Path(sys.argv[1]).read_text())' \
     "$test_codex_home/config.toml" || fail "generated config is invalid TOML"
+  python3 -c 'import pathlib, sys, tomllib; config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit(config.get("features", {}).get("fast_mode") is not False)' \
+    "$test_codex_home/config.toml" || fail "generated config must disable features.fast_mode by default"
 fi
 for preserved_line in \
   'notify = [' \
