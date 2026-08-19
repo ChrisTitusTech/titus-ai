@@ -1,6 +1,6 @@
 ---
 name: youtube-thumbnail
-description: Create, edit, review, or improve restrained, high-impact YouTube thumbnail images. Always use this skill whenever the user mentions a YouTube thumbnail, including video cover art, thumbnail concepts, source-photo composites, or requests to improve clickability. Keep layouts minimal, text brief, colors natural, and photographed people unaltered without bright outlines.
+description: Create, edit, or review YouTube thumbnails. Always use when a YouTube thumbnail or video cover is requested; keep the design restrained and preserve photographed people exactly.
 ---
 
 # YouTube Thumbnail
@@ -84,3 +84,18 @@ preview. Confirm all of the following:
 
 If any check fails, revise the thumbnail and inspect it again before presenting
 the result.
+
+## Delivery QA
+
+Do not treat an internal sandbox path, generated preview reference, or claimed
+export as a delivered file. Before finishing:
+
+1. Confirm that the final image exists at a user-accessible local artifact path
+   for the current task, using its configured output directory when available.
+2. Verify the actual file type, dimensions, and size. When the file was copied
+   from another local source, compare hashes to prove the artifact is complete.
+3. Present the verified artifact with an absolute local path that the current
+   Codex client can render or download.
+
+Treat the task as partially complete and explain the blocker if the image is
+visually finished but cannot be exposed as an accessible artifact.

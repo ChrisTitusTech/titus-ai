@@ -1,17 +1,19 @@
 ---
 name: homelab-admin
-description: Operate and troubleshoot homelab infrastructure with Rocky Linux, systemd, networking, NFS, Synology storage, DNS, reverse proxies, and storage management. Use when Codex is asked to plan maintenance, diagnose outages, change host or network configuration, document runbooks, or prepare safe commands for homelab servers.
+description: Operate homelab infrastructure spanning networking, DNS, storage, NFS, reverse proxies, or multiple services. Use for cross-system work rather than an isolated host, application, or container problem.
 ---
 
 # homelab-admin
 
 ## Workflow
 
-1. Gather diagnostics.
-2. Determine user impact and blast radius.
-3. Create rollback.
-4. Implement the smallest safe change.
-5. Validate service, network, storage, and reboot persistence.
+1. Map the affected hosts, clients, network paths, storage dependencies, and
+   service ownership before changing anything.
+2. Route an isolated Linux, Forgejo, or Podman problem to its narrower skill;
+   keep this skill active when multiple infrastructure layers interact.
+3. Determine user impact and blast radius, prepare rollback and out-of-band
+   access, then make the smallest safe change.
+4. Validate service, network, storage, client access, and reboot persistence.
 
 ## Diagnostics
 

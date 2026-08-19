@@ -1,6 +1,6 @@
 ---
 name: linux-sysadmin
-description: Diagnose and operate Linux systems, especially Rocky Linux and Ubuntu, including SSH, SELinux, permissions, firewalls, packages, processes, logs, and systemd services. Use when Codex is asked to troubleshoot hosts, prepare commands, write runbooks, fix service failures, or reason about Linux administration.
+description: Diagnose and operate Linux hosts, services, packages, permissions, SELinux, firewalls, and SSH. Use for host-level work that is not primarily an application-specific or container task.
 ---
 
 # linux-sysadmin
@@ -8,10 +8,12 @@ description: Diagnose and operate Linux systems, especially Rocky Linux and Ubun
 ## Workflow
 
 1. Gather host, service, resource, network, and security diagnostics.
-2. Determine impact and recent changes.
-3. Create rollback for files, packages, service units, and firewall changes.
-4. Implement the smallest fix.
-5. Validate runtime behavior and boot persistence.
+2. Determine whether the failure is host-level or primarily belongs to a
+   specialized application, container, or cross-system infrastructure skill.
+3. Identify impact and recent changes, then create rollback for files,
+   packages, service units, and firewall changes.
+4. Implement the smallest host-level fix and validate runtime behavior, remote
+   access, security policy, and boot persistence.
 
 ## Diagnostics
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "mdBook"
+  short_description: "Build mdBook projects and KDP manuscripts"
+  default_prompt: "Use $mdbook to edit and validate this mdBook project or KDP manuscript."

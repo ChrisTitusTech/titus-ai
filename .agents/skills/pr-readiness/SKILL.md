@@ -1,6 +1,6 @@
 ---
 name: pr-readiness
-description: Validate local or published changes from final diff through pull-request merge readiness, including project gates, the built-in Codex review loop, CI, independent review, thread resolution, and manual-test evidence. Use when Codex is asked to review uncommitted work, prepare or open a pull request, check whether a PR is ready, address final review feedback, or verify merge readiness.
+description: Validate changes and pull requests through merge readiness, including local gates, Codex review, CI, independent review, manual evidence, and unresolved review threads.
 ---
 
 # PR readiness
@@ -34,7 +34,8 @@ description: Validate local or published changes from final diff through pull-re
    and report the blockers instead of using draft state as a holding area.
 6. For a published PR, verify checks and reviews against the latest commit.
    Inspect thread-level resolution state rather than relying only on flat
-   comments.
+   comments. For a contributor-fork PR, read
+   [references/contributor-forks.md](references/contributor-forks.md).
 7. Require a fresh independent review. The builder's self-review and a green CI
    run do not replace it.
 8. Complete and document the repository's manual-test checklist on the real

@@ -3,11 +3,45 @@ set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 errors=0
+python_cmd=""
+python_seen=0
+powershell_cmd=""
+host_os="$(uname -s)"
+
+for candidate in python3 python; do
+  if ! command -v "$candidate" >/dev/null 2>&1; then
+    continue
+  fi
+  python_seen=1
+  if "$candidate" -c 'import sys; __import__("tomllib" if sys.version_info >= (3, 11) else "tomli")' >/dev/null 2>&1; then
+    python_cmd="$candidate"
+    break
+  fi
+done
+
+powershell_candidates=(pwsh)
+case "$host_os" in
+MINGW* | MSYS* | CYGWIN*)
+  powershell_candidates+=(powershell.exe powershell)
+  ;;
+esac
+
+for candidate in "${powershell_candidates[@]}"; do
+  if command -v "$candidate" >/dev/null 2>&1 &&
+    "$candidate" -NoProfile -NonInteractive -Command 'exit 0' >/dev/null 2>&1; then
+    powershell_cmd="$candidate"
+    break
+  fi
+done
 
 fail() {
   printf 'error: %s\n' "$1" >&2
   errors=$((errors + 1))
 }
+
+if [[ -z "$python_cmd" && $python_seen -eq 1 ]]; then
+  fail "Python requires tomllib or the tomli compatibility package"
+fi
 
 required_files=(
   "AGENTS.md"
@@ -48,21 +82,21 @@ plugin_count="$(grep -Ec '^[a-z0-9][a-z0-9-]*@[a-z0-9][a-z0-9-]*$' "$repo_root/c
 duplicate_plugins="$(sort "$repo_root/codex-plugins.txt" | uniq -d)"
 [[ -z "$duplicate_plugins" ]] || fail "codex-plugins.txt contains duplicate plugins"
 
-if command -v python3 >/dev/null 2>&1; then
+if [[ -n "$python_cmd" ]]; then
   for config_file in "$repo_root"/codex-home/*.toml; do
-    python3 -c 'import pathlib, sys, tomllib; tomllib.loads(pathlib.Path(sys.argv[1]).read_text())' "$config_file" ||
+    "$python_cmd" -c 'import pathlib, sys; tomllib = __import__("tomllib" if sys.version_info >= (3, 11) else "tomli"); tomllib.loads(pathlib.Path(sys.argv[1]).read_text())' "$config_file" ||
       fail "invalid TOML in ${config_file#"$repo_root"/}"
   done
 
-  python3 -c 'import pathlib, sys, tomllib; config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit(config.get("features", {}).get("memories") is not True)' \
+  "$python_cmd" -c 'import pathlib, sys; tomllib = __import__("tomllib" if sys.version_info >= (3, 11) else "tomli"); config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit(config.get("features", {}).get("memories") is not True)' \
     "$repo_root/codex-home/config.toml" || fail "codex-home/config.toml must enable features.memories"
 
-  python3 -c 'import pathlib, sys, tomllib; config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit(config.get("features", {}).get("fast_mode") is not False)' \
+  "$python_cmd" -c 'import pathlib, sys; tomllib = __import__("tomllib" if sys.version_info >= (3, 11) else "tomli"); config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit(config.get("features", {}).get("fast_mode") is not False)' \
     "$repo_root/codex-home/config.toml" || fail "codex-home/config.toml must disable features.fast_mode by default"
 
   if command -v codex >/dev/null 2>&1 && codex_features="$(codex features list 2>/dev/null)"; then
     configured_features="$(
-      python3 -c 'import pathlib, sys, tomllib; config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); print("\n".join(config.get("features", {})))' \
+      "$python_cmd" -c 'import pathlib, sys; tomllib = __import__("tomllib" if sys.version_info >= (3, 11) else "tomli"); config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); print("\n".join(config.get("features", {})))' \
         "$repo_root/codex-home/config.toml"
     )"
     removed_features="$(awk '$2 == "removed" { print $1 }' <<<"$codex_features")"
@@ -75,10 +109,13 @@ if command -v python3 >/dev/null 2>&1; then
     done <<<"$configured_features"
   fi
 
-  python3 - "$repo_root/codex-home/config.toml" <<'PY' ||
+  "$python_cmd" - "$repo_root/codex-home/config.toml" <<'PY' ||
 import pathlib
 import sys
-import tomllib
+try:
+    import tomllib
+except ModuleNotFoundError:
+    import tomli as tomllib
 
 config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text())
 forbidden = []
@@ -106,11 +143,11 @@ PY
     fail "codex-home/config.toml contains machine-local runtime or plugin state"
 
   for profile_file in "$repo_root"/codex-home/*.config.toml; do
-    python3 -c 'import pathlib, sys, tomllib; config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit("projects" in config)' \
+    "$python_cmd" -c 'import pathlib, sys; tomllib = __import__("tomllib" if sys.version_info >= (3, 11) else "tomli"); config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit("projects" in config)' \
       "$profile_file" || fail "${profile_file#"$repo_root"/} must not contain machine-specific project trust"
   done
 
-  python3 - "$repo_root/AGENTS.md" "$repo_root/codex-home/AGENTS.md" <<'PY' ||
+  "$python_cmd" - "$repo_root/AGENTS.md" "$repo_root/codex-home/AGENTS.md" <<'PY' ||
 import pathlib
 import re
 import sys
@@ -218,7 +255,7 @@ if command -v shellcheck >/dev/null 2>&1; then
     fail "ShellCheck failed"
 fi
 
-if command -v codex >/dev/null 2>&1; then
+if command -v codex >/dev/null 2>&1 && codex --version >/dev/null 2>&1; then
   read_only_policy_result="$(
     codex execpolicy check \
       --rules "$repo_root/codex-home/rules/default.rules" \
@@ -237,32 +274,67 @@ if command -v codex >/dev/null 2>&1; then
       rtk git push --force
   )" || fail "invalid codex-home/rules/default.rules"
 
-  if command -v python3 >/dev/null 2>&1; then
-    python3 -c 'import json, sys; raise SystemExit(json.loads(sys.argv[1]).get("decision") != "allow")' \
+  if [[ -n "$python_cmd" ]]; then
+    "$python_cmd" -c 'import json, sys; raise SystemExit(json.loads(sys.argv[1]).get("decision") != "allow")' \
       "$read_only_policy_result" || fail "default rules must allow read-only inspection commands"
-    python3 -c 'import json, sys; raise SystemExit(json.loads(sys.argv[1]).get("decision") != "forbidden")' \
+    "$python_cmd" -c 'import json, sys; raise SystemExit(json.loads(sys.argv[1]).get("decision") != "forbidden")' \
       "$forbidden_policy_result" || fail "default rules must forbid repository deletion"
-    python3 -c 'import json, sys; raise SystemExit(json.loads(sys.argv[1]).get("decision") == "allow")' \
+    "$python_cmd" -c 'import json, sys; raise SystemExit(json.loads(sys.argv[1]).get("decision") == "allow")' \
       "$wrapper_policy_result" || fail "default rules must not blanket-allow rtk commands"
   fi
 fi
 
-if command -v pwsh >/dev/null 2>&1 &&
-  pwsh -NoProfile -Command 'exit 0' >/dev/null 2>&1; then
+if [[ -n "$powershell_cmd" ]]; then
   for powershell_file in \
     "$repo_root/scripts/install.ps1" \
     "$repo_root/scripts/test-install.ps1"; do
     # The PowerShell variables must not expand in Bash.
     # shellcheck disable=SC2016
-    TITUS_AI_POWERSHELL_FILE="$powershell_file" pwsh -NoProfile -Command \
+    TITUS_AI_POWERSHELL_FILE="$powershell_file" "$powershell_cmd" -NoProfile -NonInteractive -Command \
       '$errors = $null; [void][System.Management.Automation.Language.Parser]::ParseFile($env:TITUS_AI_POWERSHELL_FILE, [ref]$null, [ref]$errors); if ($errors.Count) { $errors | ForEach-Object { Write-Error $_ }; exit 1 }' ||
       fail "PowerShell syntax validation failed for ${powershell_file#"$repo_root"/}"
   done
 fi
 
-if ! bash "$repo_root/scripts/test-install.sh"; then
-  fail "installer integration test failed"
-fi
+windows_symlink_supported() {
+  # The PowerShell variables must not expand in Bash.
+  # shellcheck disable=SC2016
+  "$powershell_cmd" -NoProfile -NonInteractive -Command '
+    $probeRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("titus-ai-symlink-probe-" + [guid]::NewGuid())
+    $supported = $false
+    try {
+      [void](New-Item -ItemType Directory -Path $probeRoot)
+      $target = Join-Path $probeRoot "target.txt"
+      $link = Join-Path $probeRoot "link.txt"
+      [System.IO.File]::WriteAllText($target, "probe")
+      [void](New-Item -ItemType SymbolicLink -Path $link -Target $target -ErrorAction Stop)
+      $supported = $true
+    } catch {
+    } finally {
+      Remove-Item -LiteralPath $probeRoot -Recurse -Force -ErrorAction SilentlyContinue
+    }
+    if (-not $supported) { exit 1 }
+  '
+}
+
+case "$host_os" in
+MINGW* | MSYS* | CYGWIN*)
+  if [[ -z "$powershell_cmd" ]]; then
+    fail "Windows PowerShell (pwsh or powershell.exe) is required for installer validation"
+  elif windows_symlink_supported; then
+    if ! "$powershell_cmd" -NoProfile -NonInteractive -File "$repo_root/scripts/test-install.ps1"; then
+      fail "Windows installer integration test failed"
+    fi
+  else
+    printf '%s\n' "warning: skipping Windows installer integration test because symlink creation requires Developer Mode or administrator privileges" >&2
+  fi
+  ;;
+*)
+  if ! bash "$repo_root/scripts/test-install.sh"; then
+    fail "installer integration test failed"
+  fi
+  ;;
+esac
 
 if [[ $errors -gt 0 ]]; then
   printf 'validation failed with %d error(s)\n' "$errors" >&2

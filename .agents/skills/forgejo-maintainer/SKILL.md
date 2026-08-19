@@ -1,17 +1,20 @@
 ---
 name: forgejo-maintainer
-description: Maintain Forgejo and Gitea-compatible installations, repository administration, SSH access, Actions runners, backups, upgrades, migrations, and operational runbooks. Use when Codex is asked to debug Forgejo, plan upgrades, migrate from Gitea, configure runners, verify backups, or administer repositories and access.
+description: Administer Forgejo or Gitea installations, including upgrades, backups, migrations, repository access, and Actions runners. Use for application-specific operations, not general Linux host troubleshooting.
 ---
 
 # forgejo-maintainer
 
 ## Workflow
 
-1. Gather deployment, version, database, config, runner, and storage state.
-2. Determine user impact for Git, web, SSH, packages, and Actions.
-3. Create rollback with database and data backups.
-4. Implement the smallest admin, config, runner, or upgrade change.
-5. Validate web, SSH, repository, backup, and runner behavior.
+1. Establish the deployment method, Forgejo version, database, storage paths,
+   configuration, and runner topology.
+2. Separate application failures from host, network, container, and reverse
+   proxy failures; use the narrower skill for substantial work in those layers.
+3. Determine impact to Git, web, SSH, packages, and Actions, then create
+   rollback with database and data backups.
+4. Make the smallest application-specific change and validate every affected
+   access path.
 
 ## Diagnostics
 

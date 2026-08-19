@@ -7,6 +7,19 @@ test_codex_home="$task_test_root/codex home"
 test_agents_home="$task_test_root/agents home"
 test_user_home="$task_test_root/user home"
 test_github_repo="$test_user_home/github/nested/project"
+python_cmd=""
+python_seen=0
+
+for candidate in python3 python; do
+  if ! command -v "$candidate" >/dev/null 2>&1; then
+    continue
+  fi
+  python_seen=1
+  if "$candidate" -c 'import sys; __import__("tomllib" if sys.version_info >= (3, 11) else "tomli")' >/dev/null 2>&1; then
+    python_cmd="$candidate"
+    break
+  fi
+done
 
 cleanup() {
   if [[ -d "$task_test_root" && "$(basename "$task_test_root")" == titus-ai-install-test.* ]]; then
@@ -19,6 +32,10 @@ fail() {
   printf 'error: %s\n' "$1" >&2
   exit 1
 }
+
+if [[ -z "$python_cmd" && $python_seen -eq 1 ]]; then
+  fail "Python requires tomllib or the tomli compatibility package"
+fi
 
 assert_link() {
   local target="$1"
@@ -69,10 +86,10 @@ grep -Fqx "[projects.\"$test_user_home/github\"]" "$test_codex_home/config.toml"
   fail "generated config does not trust the user GitHub root"
 grep -Fqx "[projects.\"$test_github_repo\"]" "$test_codex_home/config.toml" ||
   fail "generated config does not trust a nested Git repository"
-if command -v python3 >/dev/null 2>&1; then
-  python3 -c 'import pathlib, sys, tomllib; tomllib.loads(pathlib.Path(sys.argv[1]).read_text())' \
+if [[ -n "$python_cmd" ]]; then
+  "$python_cmd" -c 'import pathlib, sys; tomllib = __import__("tomllib" if sys.version_info >= (3, 11) else "tomli"); tomllib.loads(pathlib.Path(sys.argv[1]).read_text())' \
     "$test_codex_home/config.toml" || fail "generated config is invalid TOML"
-  python3 -c 'import pathlib, sys, tomllib; config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit(config.get("features", {}).get("fast_mode") is not False)' \
+  "$python_cmd" -c 'import pathlib, sys; tomllib = __import__("tomllib" if sys.version_info >= (3, 11) else "tomli"); config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit(config.get("features", {}).get("fast_mode") is not False)' \
     "$test_codex_home/config.toml" || fail "generated config must disable features.fast_mode by default"
 fi
 for preserved_line in \

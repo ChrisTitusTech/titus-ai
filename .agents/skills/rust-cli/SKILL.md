@@ -1,6 +1,6 @@
 ---
 name: rust-cli
-description: Design, implement, test, document, and release Rust command line applications using Cargo, clap, integration tests, error handling, and CLI UX conventions. Use when Codex is asked to build or review a Rust CLI, add commands or flags, improve tests, package releases, or debug Cargo workflows.
+description: Build, test, review, and release Rust command-line applications using Cargo and clap, with reliable output, exit codes, help text, and integration tests.
 ---
 
 # rust-cli

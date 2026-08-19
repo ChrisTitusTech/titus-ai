@@ -6,16 +6,29 @@ Use this reference for `qmllint`, `qmlls`, `qml-language-server`, and missing QM
 
 Stock `qmllint` often does not discover Quickshell modules automatically. It needs explicit QML import roots that contain Qt's modules, Quickshell's `qmldir` files, and generated `.qmltypes` files. Quickshell `qs.<path>` imports are rooted at the directory containing `shell.qml`; stock Qt tooling may also need a lint-only `qmldir` map for each local `qs.*` module.
 
-Official docs:
-- Quickshell v0.2.1 QML imports: https://quickshell.org/docs/v0.2.1/guide/qml-language/
-- Installation and editor setup: https://quickshell.org/docs/v0.2.1/guide/install-setup/
+Official docs for the current reference version:
+- QML imports: https://quickshell.org/docs/v0.3.0/guide/qml-language/
+- Installation and editor setup: https://quickshell.org/docs/v0.3.0/guide/install-setup/
+
+Use the version-selection rules in `docs-map.md` for a project that targets a
+different release.
 
 ## Preferred Command
 
-Run the bundled helper from a Quickshell config project:
+Resolve this skill's absolute directory, keep the working directory at the
+target project, then run the bundled helper against the nearest Quickshell
+config root:
 
 ```sh
-/home/titus/github/titus-ai/.agents/skills/quickshell/scripts/quickshell-qmllint
+quickshell_skill_dir="/absolute/path/to/quickshell-skill"
+"$quickshell_skill_dir/scripts/quickshell-qmllint"
+```
+
+When running elsewhere, pass an absolute root explicitly:
+
+```sh
+"$quickshell_skill_dir/scripts/quickshell-qmllint" \
+  --root "/absolute/path/to/project/config/quickshell"
 ```
 
 It:
@@ -69,4 +82,8 @@ Do not commit this lint-only tree unless the project intentionally wants persist
 
 ## LSP Notes
 
-Quickshell v0.2.1 docs recommend `qmlls`, but note it has caveats and cannot provide all Quickshell type documentation. In Codex projects, prefer `qml-language-server` from `cushycush/qml-language-server` when the repo already standardizes on it, and still keep `QMLLS_BUILD_DIRS`/`QML_IMPORT_PATH` aligned with the lint import roots.
+Official Quickshell docs recommend `qmlls`, but note it has caveats and cannot
+provide all Quickshell type documentation. In Codex projects, prefer
+`qml-language-server` from `cushycush/qml-language-server` when the repository
+already standardizes on it, and still keep `QMLLS_BUILD_DIRS` and
+`QML_IMPORT_PATH` aligned with the lint import roots.

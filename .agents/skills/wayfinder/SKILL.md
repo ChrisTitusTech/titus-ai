@@ -1,6 +1,6 @@
 ---
 name: wayfinder
-description: Build and maintain a local three-file planning set consisting of SPEC.md, MAP.md, and ANSWERS.md for large, unclear, or multi-session work. Use only when explicitly invoked with /wayfinder or $wayfinder to chart an idea, resolve planning questions, or refresh an existing wayfinder plan; do not invoke automatically for ordinary planning or implementation requests.
+description: Create or maintain SPEC.md, MAP.md, and ANSWERS.md for large or unclear work. Invoke only with /wayfinder or $wayfinder; do not use for ordinary planning or implementation.
 ---
 
 # Wayfinder
