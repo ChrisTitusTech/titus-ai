@@ -1,0 +1,6 @@
+interface:
+  display_name: "Wayfinder"
+  short_description: "Chart large work into three planning files"
+  default_prompt: "Use $wayfinder to turn this idea into SPEC.md, MAP.md, and ANSWERS.md planning files."
+policy:
+  allow_implicit_invocation: false
