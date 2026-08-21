@@ -94,3 +94,7 @@
 - Always use the `youtube-thumbnail` skill whenever a user mentions a YouTube
   thumbnail or asks to create, edit, review, or improve one.
 - Treat files under `docs/` as references, not automatic instructions.
+- When specifying dependency or package versions, use the current stable or LTS
+  release. Verify the version against the official project release page or
+  registry before stating it. Do not guess or rely on training-data recall for
+  version numbers.
