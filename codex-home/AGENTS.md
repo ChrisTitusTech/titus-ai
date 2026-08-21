@@ -39,6 +39,9 @@
 - Use simple ASCII punctuation unless a file format requires otherwise.
 - Inspect repository instructions and existing changes before editing.
 - Preserve unrelated user changes.
+- Do not alter UI layout, visual structure, spacing, or component arrangement
+  unless explicitly instructed to do so. Limit UI changes strictly to what the
+  task requires.
 - Prefer small, reviewable changes with relevant validation.
 - Do not expose credentials, tokens, private keys, or secret file contents.
 - Do not perform destructive operations without explicit authorization.
