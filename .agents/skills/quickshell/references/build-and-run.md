@@ -3,9 +3,12 @@
 Use this reference for Quickshell installs, config validation, packaged configs, and source builds.
 
 Official docs:
-- Installation and setup: https://quickshell.org/docs/v0.2.1/guide/install-setup/
-- Distributing configurations: https://quickshell.org/docs/v0.2.1/guide/distribution/
-- Source build instructions: https://git.outfoxxed.me/quickshell/quickshell/src/branch/master/BUILD.md
+- Installation and setup for the current reference version: https://quickshell.org/docs/v0.3.0/guide/install-setup/
+- Distributing configurations for the current reference version: https://quickshell.org/docs/v0.3.0/guide/distribution/
+- Source build instructions: https://github.com/quickshell-mirror/quickshell/blob/master/BUILD.md
+
+Use the version-selection rules in `docs-map.md` when the project targets a
+different Quickshell release.
 
 ## Install Tooling
 
