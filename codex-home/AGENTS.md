@@ -2,19 +2,10 @@
 
 ## Command execution
 
-- Use `rtk` when command output is likely to be large or repetitive and a
-  filtered summary is sufficient. Good candidates include test suites, builds,
-  linters, logs, broad searches, dependency listings, and infrastructure
-  status commands.
-- Use raw commands when output is expected to be short, when exact or complete
-  output matters, or when inspecting a specific file or narrowly scoped result.
-- In command chains, apply `rtk` only to segments that benefit from filtering.
-- If RTK hides needed detail, rejects a command or flag, or complicates
-  debugging, rerun the command raw. Do not use `rtk proxy` merely to satisfy an
-  RTK convention.
-- If a task is primarily Bash or command-line automation, consider RTK for
-  noisy validation commands, but keep commands raw when validating exact
-  stdout, stderr, exit-status, quoting, or pipeline behavior.
+- Run commands directly. Keep output manageable with narrow command scope and
+  tool-specific filtering flags when the complete output is unnecessary.
+- Preserve exact stdout, stderr, exit status, quoting, and pipeline behavior
+  when validating Bash or command-line automation.
 - When a task requires multiple SSH commands to the same remote host, use
   persistent client multiplexing when possible: establish one authenticated
   master with `ControlMaster`, `ControlPath`, and `ControlPersist`, verify it,

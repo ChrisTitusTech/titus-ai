@@ -84,37 +84,6 @@ authorization or project-specific setup. Plugin directories do not provide
 reliable public installation counts, so the ranking is based on fit for this
 workflow rather than unverifiable popularity.
 
-### Install RTK
-
-[RTK](https://github.com/rtk-ai/rtk) is an optional Rust CLI proxy that
-compresses verbose command output before it reaches Codex's context window.
-Install it directly from GitHub:
-
-```bash
-cargo install --git https://github.com/rtk-ai/rtk
-```
-
-Do not use `cargo install rtk`. The `rtk` package name on crates.io belongs to
-a different project.
-
-Ensure Cargo's binary directory is on `PATH`:
-
-```bash
-export PATH="$HOME/.cargo/bin:$PATH"
-```
-
-Then verify both the binary and its output-savings command:
-
-```bash
-rtk --version
-rtk gain
-```
-
-The managed `codex-home/AGENTS.md` already instructs Codex to use RTK selectively
-for commands whose large or repetitive output benefits from filtering, so no
-separate `rtk init` step is required after running this repository's installer.
-Short commands and commands that require exact output remain raw.
-
 ## Use
 
 Start Codex normally to use the default configuration:

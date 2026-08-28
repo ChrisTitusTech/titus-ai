@@ -72,7 +72,7 @@ wants the same safe Codex baseline in multiple repositories.
 - Managing credentials, plugin caches or authentication, sessions, or caches.
 - Installing plugins without an explicit opt-in.
 - Replacing project-specific `AGENTS.md` or requirements.
-- Installing Codex, Claude Code, third-party review CLIs, RTK, or local model
+- Installing Codex, Claude Code, third-party review CLIs, or local model
   servers.
 - Adding security scanners that do not support the repository's languages.
 

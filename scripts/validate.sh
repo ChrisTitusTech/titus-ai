@@ -271,7 +271,7 @@ if command -v codex >/dev/null 2>&1 && codex --version >/dev/null 2>&1; then
   wrapper_policy_result="$(
     codex execpolicy check \
       --rules "$repo_root/codex-home/rules/default.rules" \
-      rtk git push --force
+      bash -lc 'git push --force'
   )" || fail "invalid codex-home/rules/default.rules"
 
   if [[ -n "$python_cmd" ]]; then
@@ -280,7 +280,7 @@ if command -v codex >/dev/null 2>&1 && codex --version >/dev/null 2>&1; then
     "$python_cmd" -c 'import json, sys; raise SystemExit(json.loads(sys.argv[1]).get("decision") != "forbidden")' \
       "$forbidden_policy_result" || fail "default rules must forbid repository deletion"
     "$python_cmd" -c 'import json, sys; raise SystemExit(json.loads(sys.argv[1]).get("decision") == "allow")' \
-      "$wrapper_policy_result" || fail "default rules must not blanket-allow rtk commands"
+      "$wrapper_policy_result" || fail "default rules must not blanket-allow shell wrappers"
   fi
 fi
 
