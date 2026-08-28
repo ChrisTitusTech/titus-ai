@@ -88,8 +88,8 @@ if [[ -n "$python_cmd" ]]; then
       fail "invalid TOML in ${config_file#"$repo_root"/}"
   done
 
-  "$python_cmd" -c 'import pathlib, sys; tomllib = __import__("tomllib" if sys.version_info >= (3, 11) else "tomli"); config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit(config.get("features", {}).get("memories") is not True)' \
-    "$repo_root/codex-home/config.toml" || fail "codex-home/config.toml must enable features.memories"
+  "$python_cmd" -c 'import pathlib, sys; tomllib = __import__("tomllib" if sys.version_info >= (3, 11) else "tomli"); config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit(config.get("features", {}).get("memories") is not False)' \
+    "$repo_root/codex-home/config.toml" || fail "codex-home/config.toml must disable features.memories by default"
 
   "$python_cmd" -c 'import pathlib, sys; tomllib = __import__("tomllib" if sys.version_info >= (3, 11) else "tomli"); config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit(config.get("features", {}).get("fast_mode") is not False)' \
     "$repo_root/codex-home/config.toml" || fail "codex-home/config.toml must disable features.fast_mode by default"

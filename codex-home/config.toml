@@ -7,7 +7,7 @@ sandbox_mode = "danger-full-access"
 
 [features]
 fast_mode = false
-memories = true
+memories = false
 
 [projects."/home/titus/github/titus-ai"]
 trust_level = "trusted"
