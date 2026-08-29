@@ -99,8 +99,8 @@ if [[ -n "$python_cmd" ]]; then
       fail "invalid TOML in ${config_file#"$repo_root"/}"
   done
 
-  "$python_cmd" -c 'import pathlib, sys; tomllib = __import__("tomllib" if sys.version_info >= (3, 11) else "tomli"); config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit(config.get("features", {}).get("memories") is not True)' \
-    "$repo_root/codex-home/config.toml" || fail "codex-home/config.toml must enable features.memories"
+  "$python_cmd" -c 'import pathlib, sys; tomllib = __import__("tomllib" if sys.version_info >= (3, 11) else "tomli"); config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit(config.get("features", {}).get("memories") is not False)' \
+    "$repo_root/codex-home/config.toml" || fail "codex-home/config.toml must disable features.memories by default"
 
   "$python_cmd" -c 'import pathlib, sys; tomllib = __import__("tomllib" if sys.version_info >= (3, 11) else "tomli"); config = tomllib.loads(pathlib.Path(sys.argv[1]).read_text()); raise SystemExit(config.get("features", {}).get("fast_mode") is not False)' \
     "$repo_root/codex-home/config.toml" || fail "codex-home/config.toml must disable features.fast_mode by default"
@@ -302,7 +302,7 @@ if command -v codex >/dev/null 2>&1 && codex --version >/dev/null 2>&1; then
   wrapper_policy_result="$(
     codex execpolicy check \
       --rules "$repo_root/codex-home/rules/default.rules" \
-      rtk git push --force
+      bash -lc 'git push --force'
   )" || fail "invalid codex-home/rules/default.rules"
 
   if [[ -n "$python_cmd" ]]; then
@@ -311,7 +311,7 @@ if command -v codex >/dev/null 2>&1 && codex --version >/dev/null 2>&1; then
     "$python_cmd" -c 'import json, sys; raise SystemExit(json.loads(sys.argv[1]).get("decision") != "forbidden")' \
       "$forbidden_policy_result" || fail "default rules must forbid repository deletion"
     "$python_cmd" -c 'import json, sys; raise SystemExit(json.loads(sys.argv[1]).get("decision") == "allow")' \
-      "$wrapper_policy_result" || fail "default rules must not blanket-allow rtk commands"
+      "$wrapper_policy_result" || fail "default rules must not blanket-allow shell wrappers"
   fi
 fi
 

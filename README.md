@@ -115,36 +115,6 @@ require separate configuration. GitHub, Codex Security, and Sentry remain
 opt-in until they are added to the manifest because they can require service
 authorization or project-specific setup.
 
-### Install RTK
-
-[RTK](https://github.com/rtk-ai/rtk) is an optional Rust CLI proxy that
-compresses verbose command output before it reaches an agent's context window.
-Install it directly from GitHub:
-
-```bash
-cargo install --git https://github.com/rtk-ai/rtk
-```
-
-Do not use `cargo install rtk`. The `rtk` package name on crates.io belongs to
-a different project.
-
-Ensure Cargo's binary directory is on `PATH`:
-
-```bash
-export PATH="$HOME/.cargo/bin:$PATH"
-```
-
-Then verify both the binary and its output-savings command:
-
-```bash
-rtk --version
-rtk gain
-```
-
-Managed agent instructions already tell agents to use RTK selectively for
-commands whose large or repetitive output benefits from filtering. Short
-commands and commands that require exact output remain raw.
-
 ## Use skills
 
 In T3 Code, type `$` in the composer to pick a skill. Providers may also

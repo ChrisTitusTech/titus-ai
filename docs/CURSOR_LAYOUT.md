@@ -15,7 +15,7 @@ instructions. A loaded `AGENTS.md`, selected skill, or user prompt must point
 the agent to the relevant document.
 
 Optional: root `CLAUDE.md` may be read by Cursor CLI alongside `AGENTS.md`. This
-repository keeps `CLAUDE.md` as a thin router plus RTK notes.
+repository keeps `CLAUDE.md` as a thin router to `AGENTS.md`.
 
 ## Why this repository is not a full Cursor home mirror
 

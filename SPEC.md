@@ -99,8 +99,8 @@ Examples and templates use placeholders only.
 - Managing credentials, plugin caches or authentication, sessions, or caches.
 - Installing plugins without an explicit opt-in.
 - Replacing project-specific `AGENTS.md` or requirements.
-- Installing T3 Code, Cursor, Codex, Claude Code, third-party review CLIs, RTK,
-  or local model servers.
+- Installing T3 Code, Cursor, Codex, Claude Code, third-party review CLIs, or
+  local model servers.
 - Duplicating skills into `.claude/skills/` or `.cursor/skills/`.
 - Shipping private product operations or identity-leaking sample config.
 - Adding security scanners that do not support the repository's languages.
