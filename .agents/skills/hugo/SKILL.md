@@ -1,6 +1,6 @@
 ---
 name: hugo
-description: Build, edit, validate, and troubleshoot Hugo static sites. Use when working with Hugo repositories, including config.toml/config.yaml/hugo.toml, content front matter, archetypes, layouts, partials, shortcodes, taxonomies, menus, assets, image processing, RSS/search outputs, redirects, or static-site deployment.
+description: Build, edit, validate, and troubleshoot Hugo sites, including content, templates, assets, taxonomies, redirects, output formats, and deployment configuration.
 ---
 
 # Hugo
@@ -109,5 +109,12 @@ For high-impact template or URL changes, also inspect representative generated p
 - Search or JSON output if present.
 - RSS or sitemap if touched.
 - A page using any changed shortcode/render hook.
+
+If the complete build fails because of a confirmed pre-existing problem outside
+the requested change, do not weaken or hide that failure. Use the narrowest
+legitimate Hugo option or environment that still renders the affected content,
+inspect the generated output, and report the focused validation separately from
+the unresolved full-build blocker. Never describe focused validation as a
+successful complete build.
 
 Report validation commands run, failures, skipped checks, and residual risks.

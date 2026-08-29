@@ -7,11 +7,13 @@ description: Operate and troubleshoot homelab infrastructure with Rocky Linux, s
 
 ## Workflow
 
-1. Gather diagnostics.
-2. Determine user impact and blast radius.
-3. Create rollback.
-4. Implement the smallest safe change.
-5. Validate service, network, storage, and reboot persistence.
+1. Map the affected hosts, clients, network paths, storage dependencies, and
+   service ownership before changing anything.
+2. Route an isolated Linux, Forgejo, or Podman problem to its narrower skill;
+   keep this skill active when multiple infrastructure layers interact.
+3. Determine user impact and blast radius, prepare rollback and out-of-band
+   access, then make the smallest safe change.
+4. Validate service, network, storage, client access, and reboot persistence.
 
 ## Diagnostics
 

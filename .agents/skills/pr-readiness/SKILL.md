@@ -34,7 +34,8 @@ description: Validate local or published changes from final diff through pull-re
    and report the blockers instead of using draft state as a holding area.
 6. For a published PR, verify checks and reviews against the latest commit.
    Inspect thread-level resolution state rather than relying only on flat
-   comments.
+   comments. For a contributor-fork PR, read
+   [references/contributor-forks.md](references/contributor-forks.md).
 7. Require a fresh independent review. The builder's self-review and a green CI
    run do not replace it.
 8. Complete and document the repository's manual-test checklist on the real

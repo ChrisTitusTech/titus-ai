@@ -2,19 +2,28 @@
 
 ## Command execution
 
-- Use `rtk` when command output is likely to be large or repetitive and a
-  filtered summary is sufficient. Good candidates include test suites, builds,
-  linters, logs, broad searches, dependency listings, and infrastructure
-  status commands.
-- Use raw commands when output is expected to be short, when exact or complete
-  output matters, or when inspecting a specific file or narrowly scoped result.
-- In command chains, apply `rtk` only to segments that benefit from filtering.
-- If RTK hides needed detail, rejects a command or flag, or complicates
-  debugging, rerun the command raw. Do not use `rtk proxy` merely to satisfy an
-  RTK convention.
-- If a task is primarily Bash or command-line automation, consider RTK for
-  noisy validation commands, but keep commands raw when validating exact
-  stdout, stderr, exit-status, quoting, or pipeline behavior.
+- Run commands directly. Keep output manageable with narrow command scope and
+  tool-specific filtering flags when the complete output is unnecessary.
+- Preserve exact stdout, stderr, exit status, quoting, and pipeline behavior
+  when validating Bash or command-line automation.
+- When a task requires multiple SSH commands to the same remote host, use
+  persistent client multiplexing when possible: establish one authenticated
+  master with `ControlMaster`, `ControlPath`, and `ControlPersist`, verify it,
+  and reuse its channels for every sequential or concurrent command. Close a
+  task-scoped master when the remote work is complete.
+- If required multiplexed concurrency exceeds the server's authenticated
+  channel limit, confirm the limit before changing it. Raise `MaxSessions` only
+  with rollback and validation, and do not weaken unauthenticated connection
+  limits or per-source abuse penalties to improve command throughput.
+- Before changing a remote OpenSSH server configuration, determine the trusted
+  workstation's current public IP from server-observed connection data. When
+  `PerSourcePenalties` is supported, add only that exact `/32` or `/128` to
+  `PerSourcePenaltyExemptList` in a dedicated early `sshd_config.d` drop-in,
+  preserve any existing exemptions, and set the file mode to `600`.
+- Keep the authenticated session open and prepare rollback before applying the
+  SSH exemption or any other server change. Run `sshd -t`, reload or restart
+  the correct SSH service, verify the effective exemption with `sshd -T`, and
+  prove a new multiplexed connection works before closing the original session.
 
 ## Working style
 
@@ -73,4 +82,6 @@
 - Use `AGENTS.md` for durable repository conventions.
 - Use `.codex/config.toml` for trusted project-specific Codex settings.
 - Use skills for reusable task workflows.
+- Always use the `youtube-thumbnail` skill whenever a user mentions a YouTube
+  thumbnail or asks to create, edit, review, or improve one.
 - Treat files under `docs/` as references, not automatic instructions.

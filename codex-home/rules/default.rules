@@ -22,7 +22,7 @@ prefix_rule(
     ]],
     decision="allow",
     match=["rg --files", "grep -n pattern file.txt", "ps"],
-    not_match=["find . -delete", "rtk rg --files"],
+    not_match=["find . -delete", "bash -lc 'rg --files'"],
 )
 
 # Read-only Git inspection.
