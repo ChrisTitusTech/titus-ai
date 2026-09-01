@@ -27,6 +27,7 @@ manages only:
 - reusable skills under `.agents/skills/`
 - planning and workflow documentation
 - optional Codex portable home files for the Codex provider
+- links to recommended Cursor marketplace plugins (not vendored copies)
 
 Do not commit personal absolute paths, private product operations, or secret
 values.
@@ -58,6 +59,31 @@ belong in the Cursor dashboard Secrets store, never in committed JSON.
 
 This public starter does not require a committed `environment.json`; add one in
 downstream projects when shared Cloud boot is useful.
+
+## Recommended Cursor plugins
+
+This repository does not vendor Cursor marketplace plugins. Link and install
+them from upstream so they stay current.
+
+### pstack (poteto)
+
+[pstack](https://github.com/cursor/plugins/tree/main/pstack) is poteto's Cursor
+plugin for rigorous, multi-model agent workflows (`/poteto-mode`, playbooks,
+and related skills). Install it from the Cursor marketplace rather than copying
+its files into this tree:
+
+```text
+/add-plugin pstack
+```
+
+Then run `/setup-pstack` once to choose per-role models, and use
+`/poteto-mode` for work that needs rigor. Optional companion:
+`cursor-team-kit` (also from the Cursor marketplace) for `/deslop` and
+control skills referenced by pstack.
+
+Do not copy pstack skills into `.agents/skills/` or `.cursor/skills/`. That
+would fork upstream and drift. Keep this repository's shared skills separate
+from marketplace plugins.
 
 ## Relationship to T3 Code, Codex, and Claude
 

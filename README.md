@@ -28,6 +28,19 @@ See [docs/T3CODE_LAYOUT.md](docs/T3CODE_LAYOUT.md). Provider-specific discovery:
 - Claude Code: [docs/CLAUDE_LAYOUT.md](docs/CLAUDE_LAYOUT.md)
 - Cursor: [docs/CURSOR_LAYOUT.md](docs/CURSOR_LAYOUT.md)
 
+### Recommended Cursor plugin: pstack
+
+For Cursor, install [poteto's pstack](https://github.com/cursor/plugins/tree/main/pstack)
+from the marketplace so it stays updated. This repository links to it; it does
+not vendor the plugin files.
+
+```text
+/add-plugin pstack
+```
+
+Then run `/setup-pstack`, and use `/poteto-mode` for rigorous work. Details:
+[docs/CURSOR_LAYOUT.md](docs/CURSOR_LAYOUT.md#recommended-cursor-plugins).
+
 Project planning templates live under
 `.agents/skills/ai-project-manager/assets/project-docs/` (`AGENTS.md`,
 `SPEC.md`, `ROADMAP.md`, `TASKS.md`, and optional `STATUS.md`). Adapt them to

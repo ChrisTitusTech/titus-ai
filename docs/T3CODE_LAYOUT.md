@@ -58,7 +58,8 @@ skills are available in other projects, including ones opened outside T3 Code.
 
 - Codex: [CODEX_LAYOUT.md](CODEX_LAYOUT.md) (`codex-home/`, trust, plugins)
 - Claude Code: [CLAUDE_LAYOUT.md](CLAUDE_LAYOUT.md) (`CLAUDE.md` router)
-- Cursor: [CURSOR_LAYOUT.md](CURSOR_LAYOUT.md) (`AGENTS.md`, optional rules)
+- Cursor: [CURSOR_LAYOUT.md](CURSOR_LAYOUT.md) (`AGENTS.md`, optional rules,
+  recommended marketplace plugins such as pstack)
 
 ## Public repository boundaries
 

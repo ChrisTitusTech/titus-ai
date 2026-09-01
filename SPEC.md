@@ -34,6 +34,8 @@ Examples and templates use placeholders only.
   mirroring a live `~/.t3` home.
 - Document Codex, Claude, and Cursor discovery as first-class provider layouts
   that share the same skills and `AGENTS.md`.
+- Document recommended Cursor marketplace plugins by upstream link (for example
+  poteto's pstack) without vendoring plugin trees into this repository.
 - Optionally install global Codex instructions, configuration, rules,
   local-model profiles, and skills from this repository.
 - Optionally install an explicit list of recommended Codex plugins from
@@ -102,6 +104,7 @@ Examples and templates use placeholders only.
 - Installing T3 Code, Cursor, Codex, Claude Code, third-party review CLIs, or
   local model servers.
 - Duplicating skills into `.claude/skills/` or `.cursor/skills/`.
+- Vendoring Cursor marketplace plugins (such as pstack) into this repository.
 - Shipping private product operations or identity-leaking sample config.
 - Adding security scanners that do not support the repository's languages.
 
