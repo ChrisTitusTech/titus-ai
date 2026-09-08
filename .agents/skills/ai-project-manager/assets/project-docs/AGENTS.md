@@ -15,8 +15,9 @@ Describe the project, its users, and the outcome it provides.
 - Preserve unrelated changes.
 - Do not expose or commit credentials, sessions, private data, or environment
   files.
-- Ask before destructive operations, migrations, deployments, or changes that
-  require a product or architecture decision.
+- Require authorization for destructive operations, migrations, and
+  deployments; reuse authorization already given. Ask about unresolved product
+  or architecture decisions only when they materially affect the result.
 
 ## Commands
 

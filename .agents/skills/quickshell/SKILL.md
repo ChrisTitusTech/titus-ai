@@ -20,7 +20,9 @@ description: Build, lint, and troubleshoot Quickshell QML configurations or sour
    package metadata, lock files, source checkout, or `quickshell --version`.
    Use the matching official versioned docs. If the project has no version
    signal, use the latest stable release and state the version selected.
-6. For source builds, use CMake/Ninja and disable optional features whose dependencies are absent.
+6. For source builds, use CMake/Ninja and preserve required runtime features.
+   Install missing dependencies; disable an optional feature only when the
+   requested configuration does not need it.
 
 ## Resources
 

@@ -7,11 +7,12 @@ description: Diagnose and operate Linux hosts, services, packages, permissions, 
 
 ## Workflow
 
-1. Gather host, service, resource, network, and security diagnostics.
+1. Gather diagnostics for the reported symptom and complete relevant log
+   interval. Do not run every example below for an isolated service issue.
 2. Determine whether the failure is host-level or primarily belongs to a
    specialized application, container, or cross-system infrastructure skill.
-3. Identify impact and recent changes, then create rollback for files,
-   packages, service units, and firewall changes.
+3. For an authorized fix, identify impact and recent changes, then prepare
+   rollback for the files, packages, units, or firewall rules being changed.
 4. Implement the smallest host-level fix and validate runtime behavior, remote
    access, security policy, and boot persistence.
 
@@ -42,7 +43,8 @@ ufw status verbose
 
 ## Validation
 
-- Service starts now and after reboot.
+- The affected service runs and its boot configuration is correct. Reboot only
+  when authorized; distinguish inspection from a verified reboot test.
 - Logs show no new errors.
 - Expected ports listen and unexpected ports do not.
 - SSH access still works.

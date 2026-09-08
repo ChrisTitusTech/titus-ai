@@ -14,8 +14,9 @@ description: Create and maintain repository planning documents, phased implement
    and surface conflicts.
 3. Determine missing requirements, unresolved decisions, dependencies, risks,
    and implementation impact.
-4. Create a phase plan that maps to acceptance criteria and defines automated
-   validation, manual validation, rollback, and pause points.
+4. Match planning detail to the task. Create only requested or useful planning
+   artifacts, map work to acceptance criteria, and define applicable validation
+   and rollback. Pause points come from the user or a real unresolved decision.
 5. Present the plan and stop when the user requested planning only or reserved
    implementation approval.
 6. Once implementation is authorized, execute one reviewable phase at a time.
@@ -42,7 +43,8 @@ leaving placeholders or inventing requirements.
 ## Safety Rules
 
 - Never rewrite project requirements unless asked.
-- Never mark a task done without validation or a stated reason validation was skipped.
+- Mark work complete only when required validation passes. Record skipped
+  required checks as blockers, not as substitutes for acceptance evidence.
 - Never ignore conflicts between SPEC, ROADMAP, TASKS, and code.
 - Never cross a user approval or plan-only checkpoint.
 - Never treat an agent's implementation report as validation evidence.

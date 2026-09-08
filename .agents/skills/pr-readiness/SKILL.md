@@ -5,6 +5,11 @@ description: Validate changes and pull requests through merge readiness, includi
 
 # PR readiness
 
+Match the requested milestone: local validation, PR publication, or merge
+readiness. For local work, remote gates are not applicable. Reuse a completed
+review for the same unchanged diff; do not start another review merely because
+this skill was loaded after the repository's review gate already passed.
+
 ## Workflow
 
 1. Read the applicable repository instructions, requirements, accepted plan,
@@ -36,8 +41,10 @@ description: Validate changes and pull requests through merge readiness, includi
    Inspect thread-level resolution state rather than relying only on flat
    comments. For a contributor-fork PR, read
    [references/contributor-forks.md](references/contributor-forks.md).
-7. Require a fresh independent review. The builder's self-review and a green CI
-   run do not replace it.
+7. For merge readiness, require an independent review of the current change.
+   A completed independent Codex review can supply that evidence unless the
+   repository requires an additional reviewer or human approval. The builder's
+   self-review and green CI do not replace an independent review.
 8. Complete and document the repository's manual-test checklist on the real
    target environment when practical.
 9. Recheck the final diff, required checks, reviews, and unresolved threads

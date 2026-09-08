@@ -11,8 +11,9 @@ description: Administer Forgejo or Gitea installations, including upgrades, back
    configuration, and runner topology.
 2. Separate application failures from host, network, container, and reverse
    proxy failures; use the narrower skill for substantial work in those layers.
-3. Determine impact to Git, web, SSH, packages, and Actions, then create
-   rollback with database and data backups.
+3. For authorized changes, determine affected access paths and prepare
+   rollback. Take database and data backups before upgrades or migrations;
+   read-only diagnosis does not require creating backups.
 4. Make the smallest application-specific change and validate every affected
    access path.
 
@@ -39,8 +40,11 @@ curl -I <root-url>
 
 ## Validation
 
+- Validate the access paths affected by the change; an upgrade needs the full
+  application smoke test below. Report unavailable checks explicitly.
 - Web login and repository browsing work.
 - HTTPS clone and SSH clone work.
-- Push and pull work for a test repository.
+- Pull works; test pushes and Actions jobs require authorization for those
+  remote writes and an appropriate test repository.
 - Actions runners register and run a small job when applicable.
 - Backup artifacts exist and restore steps are documented.

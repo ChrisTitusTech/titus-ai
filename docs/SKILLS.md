@@ -48,6 +48,12 @@ clear `name` and `description`.
 - Prefer instructions over scripts unless deterministic automation is useful.
 - Keep project requirements in project documentation, not reusable skills.
 - Use `agents/openai.yaml` only for useful UI metadata or dependencies.
+- Keep diagnostic examples conditional on the task, platform, and deployment
+  mode. Do not print credentials or imply authorization for external writes.
+- Preserve domain invariants, but remove duplicated process rules and
+  unnecessary approval pauses. User instructions govern skill guidelines.
+- Audit descriptions for accidental activation and references for conflicting
+  rules. Reuse unchanged validation evidence instead of stacking review loops.
 
 ## Repository skills
 

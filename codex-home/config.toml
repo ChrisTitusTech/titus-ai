@@ -1,6 +1,7 @@
 approval_policy = "never"
-model = "gpt-5.6-sol"
-model_reasoning_effort = "high"
+# Astra balance baseline; rationale and task-specific overrides: docs/ASTRA.md.
+model = "gpt-6-astra"
+model_reasoning_effort = "medium"
 plan_mode_reasoning_effort = "high"
 model_verbosity = "low"
 sandbox_mode = "danger-full-access"

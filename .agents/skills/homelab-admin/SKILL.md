@@ -11,9 +11,10 @@ description: Operate homelab infrastructure spanning networking, DNS, storage, N
    service ownership before changing anything.
 2. Route an isolated Linux, Forgejo, or Podman problem to its narrower skill;
    keep this skill active when multiple infrastructure layers interact.
-3. Determine user impact and blast radius, prepare rollback and out-of-band
-   access, then make the smallest safe change.
-4. Validate service, network, storage, client access, and reboot persistence.
+3. For authorized changes, determine impact and prepare rollback. Before
+   changes that could sever access, verify an alternate recovery path.
+4. Validate the affected service, network, storage, and client paths. Inspect
+   persistence configuration; reboot only within an authorized maintenance scope.
 
 ## Diagnostics
 
@@ -28,7 +29,7 @@ df -h
 lsblk
 findmnt
 dig <name>
-curl -vk <url>
+curl -I <url>
 ```
 
 ## Safety Rules
@@ -38,11 +39,13 @@ curl -vk <url>
 - Never change networking without rollback and out-of-band access.
 - Treat storage, reverse proxy, and NFS changes as high blast-radius work.
 - Prefer incremental config changes over broad rewrites.
+- Keep TLS certificate verification enabled. Do not use insecure requests as
+  evidence that a certificate or trust-chain problem is fixed.
 
 ## Validation
 
-- Service starts now and after reboot.
-- Mounts persist after reboot.
+- Changed services and mounts work now and have correct persistence settings.
+- Report an actual reboot test separately from configuration inspection.
 - DNS resolves from expected clients.
 - Reverse proxy routes to the expected backend.
 - Logs show no new errors.

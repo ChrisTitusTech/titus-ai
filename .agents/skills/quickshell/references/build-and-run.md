@@ -63,7 +63,8 @@ cmake --install build
 Important source-build rules from upstream:
 - Quickshell depends on private Qt APIs and must be rebuilt against each Qt release to avoid ABI mismatches.
 - At least Qt 6.6 is required.
-- Features are enabled by default; disable optional features when dependencies are missing.
+- Features are enabled by default. Install dependencies for required features;
+  disable optional features only when the requested configuration does not need them.
 - Packaging should set a useful `DISTRIBUTOR` CMake flag.
 - QML tooling metadata install paths can be controlled with `INSTALL_QML_PREFIX` or `INSTALL_QMLDIR`.
 

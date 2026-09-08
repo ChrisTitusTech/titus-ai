@@ -92,6 +92,11 @@ Start Codex normally to use the default configuration:
 codex
 ```
 
+Defaults use GPT-6 Astra with medium reasoning, high reasoning in Plan mode,
+and low verbosity. Fast-mode selection is disabled and no priority service
+tier is requested. See [docs/ASTRA.md](docs/ASTRA.md) for the dated rationale,
+effort overrides, security boundaries, and skill audit.
+
 Invoke a skill explicitly when needed:
 
 ```text
