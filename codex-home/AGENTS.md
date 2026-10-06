@@ -61,9 +61,14 @@
 - Treat an explicit sequence of actions as one authorized workflow. Complete
   every named step without pausing for repeated confirmation unless blocked or
   a new materially risky choice is required.
-- Commit, push, pull-request, merge, release, deployment, and external-message
-  actions require explicit authorization. When authorized, complete them rather
-  than returning instructions or status only.
+- Commit task-owned changes in small, coherent batches as work progresses,
+  after applicable checks pass, so progress is visible in Git history. This is
+  standing authorization for local commits unless the user says otherwise.
+  Stage only intended files; never include unrelated user changes or secrets.
+  Report each commit and any validation blockers.
+- Push, pull-request, merge, release, deployment, and external-message actions
+  require explicit authorization. When authorized, complete them rather than
+  returning instructions or status only.
 - When asked to check logs for other issues, inspect the complete relevant run,
   not only the first reported symptom. Separate benign or idempotent conditions
   from genuine failures.
