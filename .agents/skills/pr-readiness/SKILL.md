@@ -61,6 +61,40 @@ this skill was loaded after the repository's review gate already passed.
 9. Recheck the final diff, required checks, reviews, and unresolved threads
    after every push.
 
+## CodeRabbit rate-limit fallback
+
+When CodeRabbit explicitly reports rate limiting or exhausted review quota,
+switch to built-in Codex review for the current change without waiting for the
+quota reset or repeatedly retrying CodeRabbit. Record the limit as the reason
+for the fallback. An ordinary pending review, authentication error, or failed
+request is not proof of rate limiting, and missing output is not a clean review.
+
+1. Inspect existing CodeRabbit feedback and retain all unresolved actionable
+   findings. Switching reviewers does not dismiss them.
+2. Review the complete requested change with the scope from step 4 above.
+   For a PR, fetch its actual target and head, confirm the checkout matches the
+   intended head, and use `codex review --base <target-branch>`. Review any
+   uncommitted fixes as well. Do not use an empty `--uncommitted` review as
+   evidence for a committed PR. Reuse an already completed independent Codex
+   review only when it covers the same full, unchanged diff.
+3. For an authorized fix loop, verify findings, fix actionable defects, rerun
+   affected validation, and repeat Codex review until a completed review finds
+   no actionable issues. Preserve the existing commit, push, and thread-action
+   authorization. A review-only request reports findings without applying fixes.
+   A failed, interrupted, or unavailable Codex review remains a blocker.
+4. Before announcing merge readiness, confirm the reviewed content is the
+   latest remote PR head, required checks and approvals pass, prior actionable
+   feedback is addressed, required conversations are resolved, and all other
+   hard gates below pass. Unpushed fixes are local readiness only.
+
+A clean independent Codex review satisfies the reviewer fallback; do not wait
+for another optional CodeRabbit run. It cannot satisfy a CodeRabbit-specific
+required check or approval enforced by branch protection or repository policy.
+Report that remaining gate rather than bypassing it or claiming merge readiness.
+Otherwise, announce "merge ready" to the user with the verified PR head SHA and
+state that Codex review replaced rate-limited CodeRabbit. This does not authorize
+posting a remote comment or performing the merge.
+
 ## Hard gates
 
 Do not report a pull request as ready to merge while any of these remain:

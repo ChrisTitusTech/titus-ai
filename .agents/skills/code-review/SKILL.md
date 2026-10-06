@@ -91,6 +91,13 @@ coderabbit review --agent --dir path/to/directory
 cr review --agent
 ```
 
+If CodeRabbit explicitly reports rate limiting or exhausted review quota, use
+the [Codex review fallback](../pr-readiness/SKILL.md#coderabbit-rate-limit-fallback)
+instead of retrying or waiting for a reset. Preserve review-only scope; for an
+authorized fix loop, repeat Codex review and fixes until no actionable issues
+remain. Announce merge readiness only after the latest remote head passes the
+fallback's remaining gates, and identify which reviewer supplied the evidence.
+
 ### 3. Present Results
 
 Group findings by severity:

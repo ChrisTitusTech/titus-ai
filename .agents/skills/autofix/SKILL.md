@@ -110,7 +110,14 @@ are true for the exact remote head:
 - the PR is mergeable under repository policy.
 
 After each push, wait for the new CodeRabbit review when a clean review loop was
-requested. Treat a running review as healthy for up to 10 minutes. If the user
+requested, unless CodeRabbit explicitly reports rate limiting or exhausted
+review quota. In that case, follow the
+[Codex review fallback](../pr-readiness/SKILL.md#coderabbit-rate-limit-fallback):
+keep existing findings, use Codex for the fix/review loop until no actionable
+issues remain, and announce merge readiness once the latest PR head passes all
+required gates. Do not wait for an optional CodeRabbit rerun after that.
+
+Treat a running review as healthy for up to 10 minutes. If the user
 explicitly said not to wait, inspect only feedback already present and report a
 queued future review as non-blocking unless branch protection makes it required.
 
@@ -137,3 +144,7 @@ Report:
 - unresolved threads or external blockers;
 - whether a queued CodeRabbit review was intentionally not awaited; and
 - final PR mergeability.
+
+When rate limiting triggered the fallback, identify Codex as the completed
+reviewer and report its reviewed scope and head SHA. Do not describe a skipped
+CodeRabbit run as a passing CodeRabbit review.
