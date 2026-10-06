@@ -9,8 +9,10 @@ Use mdBook as the source workflow for documentation books and KDP manuscripts.
 
 ## Workflow
 
-1. Inspect the repository instructions, `book.toml`, `src/SUMMARY.md`, source
-   tree, preprocessors, custom theme, and deployment configuration.
+1. Read repository instructions and the affected chapter or configuration.
+   Inspect `book.toml` for source/build settings, `SUMMARY.md` for chapter or
+   navigation changes, and preprocessors, theme, or deployment configuration
+   only when they affect the task.
 2. Determine whether the task concerns ordinary mdBook output, custom tooling,
    deployment, or a KDP manuscript, then read only the matching references.
 3. Preserve the existing chapter hierarchy, URLs, output contracts, and pinned

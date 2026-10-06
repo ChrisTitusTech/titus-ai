@@ -15,6 +15,11 @@ description: Build and troubleshoot Python AI applications involving model APIs,
 4. Implement the smallest model, prompt, retrieval, or tool change.
 5. Validate deterministic code paths and representative AI behavior.
 
+For OpenAI model or API migrations, read
+[references/openai-migrations.md](references/openai-migrations.md) and verify
+the target model's current official documentation. Ordinary Python changes do
+not require loading migration guidance.
+
 ## Diagnostics
 
 ```bash
@@ -42,8 +47,10 @@ environment. Inspect only needed model configuration fields, excluding secrets.
 
 ## Validation
 
-- Prompt assembly tests pass.
-- Tool schema and parser tests pass.
-- Retrieval filters return expected fixtures.
+- Run the repository's required gates and checks for affected components.
+  Do not add absent retrieval or tool subsystems merely to satisfy this list.
+- For prompt changes, validate assembly and representative behavior.
+- For tool or structured-output changes, validate schemas and parsers.
+- For retrieval changes, verify filters against expected fixtures.
 - Optional live-provider smoke tests are gated by environment variables.
 - Logs expose model, tool, retry, and error decisions without secrets.

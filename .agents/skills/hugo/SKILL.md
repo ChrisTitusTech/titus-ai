@@ -9,12 +9,15 @@ Use this skill for Hugo static-site work: content changes, template/layout edits
 
 ## First Pass
 
-Before editing, inspect the project shape:
+Read repository instructions and inspect existing changes first. Choose the
+remaining context by task; a content correction does not require a full site
+or deployment inventory:
 
 - Read repository instructions such as `AGENTS.md`, `.codex/config.toml`, and relevant README files.
 - Identify the Hugo config file: `hugo.toml`, `config.toml`, `hugo.yaml`, `config.yaml`, `hugo.json`, or a `config/` directory.
-- Check for a theme, module, or local layouts: `themes/`, `layouts/`, `assets/`, `static/`, `data/`, `content/`, `archetypes/`, `i18n/`.
-- Check the build/deploy path: `package.json`, `go.mod`, `.github/workflows/`, `netlify.toml`, `vercel.json`, `wrangler.*`, Cloudflare Pages docs, Makefile, or project scripts.
+- For content edits, read the target page, nearby content, and the archetype or template defining its required fields.
+- For template, asset, or data work, inspect the affected theme, module, or local directories: `themes/`, `layouts/`, `assets/`, `static/`, `data/`, `archetypes/`, `i18n/`.
+- For build or deployment changes, inspect the relevant scripts and configuration: `package.json`, `go.mod`, `.github/workflows/`, `netlify.toml`, `vercel.json`, `wrangler.*`, Cloudflare Pages docs, or Makefile.
 - Run or inspect `hugo version` when validation depends on version-specific behavior.
 - Inspect `git status --short` and preserve unrelated user changes.
 

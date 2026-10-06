@@ -1,6 +1,6 @@
 # Astra configuration and instruction audit
 
-Checked against official OpenAI documentation on 2026-09-08. This is a
+Checked against official OpenAI documentation on 2026-10-06. This is a
 quality-to-credit baseline, not a measured optimum.
 
 ## Model defaults
@@ -20,10 +20,18 @@ medium as balancing speed and reasoning depth. OpenAI's
 [Astra migration guidance](https://developers.openai.com/api/docs/guides/latest-model)
 recommends retaining effective effort when migrating from supported levels.
 
-The [Codex pricing page](https://developers.openai.com/codex/pricing) says Astra
-Fast mode uses 2.5 times the Standard credits. This is a processing-speed choice,
-not a documented quality improvement. API dollar prices are a separate billing
-system and do not establish subscription credits saved per task.
+The [pricing page](https://learn.chatgpt.com/docs/pricing) distinguishes included
+subscription usage from purchased credits and Enterprise pay-as-you-go usage:
+
+| Speed mode | Included usage multiplier | Purchased-credit / pay-as-you-go multiplier |
+| --- | --- | --- |
+| Fast | 2.5x | 2x |
+| Astra Ultrafast | 8x | 6x |
+
+These are billing multipliers relative to Standard for the same model, not
+speed or quality guarantees. Availability depends on plan and workspace.
+API dollar prices are separate and do not establish subscription usage saved
+per task. Recheck dated rates before making cost decisions.
 
 The [configuration reference](https://developers.openai.com/codex/config-reference)
 distinguishes Fast-tier selection from `service_tier`. An explicit task, profile,
@@ -41,7 +49,38 @@ Keep medium as the starting point. Compare accepted results, rework, elapsed
 time, and actual account usage on representative tasks before changing the
 default further. No credit-savings benchmark was run during this audit.
 
-## Findings and changes
+## October 2026 follow-up
+
+The [current model guide](https://learn.chatgpt.com/docs/models) recommends
+GPT-6.1 Sol for complex coding and agentic work when available, with Astra for
+the most demanding work and Luna for focused tasks. Keep the explicitly chosen
+Astra baseline; compare accepted results and actual usage before switching.
+GPT-5.5 retires from ChatGPT and Codex on October 14, 2026, but not from the API.
+The `tui.model_availability_nux` entry in this repo is notification state, not
+a model selection, so it does not require a model migration.
+
+The [September 11 skills guidance](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra)
+emphasizes focused triggers, conditional references, and clear completion
+boundaries. The follow-up changes apply it as follows:
+
+- Global instructions authorize validated local commits as work progresses;
+  external publication still needs authorization.
+- `pr-readiness` selects uncommitted, branch, or commit review scope.
+- `hugo` and `mdbook` inspect context relevant to the requested change.
+- `python-ai` validates affected components and routes API migrations to a
+  dated [reference](../.agents/skills/python-ai/references/openai-migrations.md).
+- `autofix`, `code-review`, and `find-skills` are now repository-managed.
+  Local fixes do not imply publication; generic review and how-to requests
+  no longer select CodeRabbit or skill discovery indiscriminately.
+- [Skill authoring guidance](SKILLS.md) covers invocation policy and behavioral
+  evaluation cases. These cases are proposed checks, not claimed passing runs.
+
+All 17 skill entrypoints are in scope; bundled domain manuals are not an
+exhaustive current-version audit. Model defaults and security settings remain
+unchanged. Plugin-owned skills remain separate and may still overlap; loading
+a plugin does not supersede repository review policy.
+
+## September 2026 findings and changes
 
 All 14 repository skill entrypoints, global and root instructions, and the
 planning instruction template were inspected. Conditional references were read
@@ -73,17 +112,17 @@ retaining required gates.
 
 ## Global scope and security
 
-The old standalone CLI 0.149.0 was rejected by the server for Astra requests.
-The installed app bundles CLI 0.153.0-alpha.5, which successfully starts Astra
-review. The local `~/.local/bin/codex` launcher now links to
+During the September audit, standalone CLI 0.149.0 was rejected by the server
+for Astra requests. The then-installed app bundled CLI 0.153.0-alpha.5, which
+successfully started Astra review. The local `~/.local/bin/codex` launcher was linked to
 `/usr/lib/chatgpt/resources/codex`; its former symlink is backed up under
 `~/.codex/backups/astra-cli-20260908-190153/`. This machine-specific repair is
 not part of the portable installer. If the app is removed, install a current
 standalone CLI before replacing the launcher; restoring the old launcher also
 restores its Astra incompatibility.
 
-The installed global `AGENTS.md` and all 14 managed skills are links into this
-repository, so their edits apply globally. The live config is a regular file;
+The installer links global `AGENTS.md` and managed skills into this repository,
+so edits to linked files apply globally. The live config is a regular file;
 update only the intended model settings when applying this audit to an existing
 installation. The normal installer renders broader defaults and trust entries,
 so inspect its dry run before using it on a customized machine.
@@ -94,12 +133,10 @@ memory features, and machine-local integrations. These are existing full-access
 preferences, not a sandboxed security baseline. Written authorization rules do
 not create OS isolation. No permission or security control was relaxed for cost.
 
-Three additional user-installed skills (`autofix`, `code-review`, `find-skills`)
-were inspected. They are not managed by this repository: autofix assumes
-publication authorization, code-review broadly selects CodeRabbit, and
-find-skills can route ordinary questions into discovery. Global task-scope and
-authorization rules take precedence over those guidelines. Their files and
-plugin-owned caches remain untouched; future upstream updates need re-auditing.
+The October follow-up brings the previously unmanaged `autofix`, `code-review`,
+and `find-skills` into the portable skill collection. Preserve existing local
+copies in backups before replacing them with managed links. Plugin-owned
+caches remain untouched; future upstream updates need re-auditing.
 
 Credentials, session data, runtime caches, and plugin settings are not copied
 into this repository. Required verification remains `./scripts/validate.sh`,

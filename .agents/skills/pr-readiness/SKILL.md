@@ -18,22 +18,33 @@ this skill was loaded after the repository's review gate already passed.
    unrelated pre-existing changes from the requested change.
 3. Run focused checks, then the repository's complete required local gate.
    Record exact commands, results, skipped checks, and residual risk.
-4. Run the built-in local Codex review after the complete local gate passes:
+4. Run the built-in local Codex review after the complete local gate passes.
+   Select the scope that contains the requested change:
 
    ```bash
    codex review --uncommitted
+   codex review --base <target-branch>
+   codex review --commit <sha>
    ```
+
+   Use `--uncommitted` for staged, unstaged, and untracked changes, `--base`
+   for a committed branch or PR, and `--commit` for one commit. Resolve the
+   actual PR target branch rather than assuming `main`. If both committed and
+   uncommitted work belong to the request, ensure both are covered; a clean
+   worktree does not establish that committed changes were reviewed.
 
    Let the review finish. Verify every finding against the current diff, fix
    only actionable defects, add regression coverage when practical, rerun
-   affected validation, and repeat `codex review --uncommitted` until no
+   affected validation, and repeat review of the affected scope until no
    actionable findings remain. Explain verified false positives without
    changing correct code. A review-mode Codex instance must report findings
    directly and never launch a nested review. If Codex review is unavailable or
    fails, report it as a readiness blocker instead of substituting a third-party
    review CLI.
-5. Commit, push, or open a pull request only when the user authorized those
-   state changes. Open a ready-for-review pull request by default. Create or
+5. Honor standing local-commit authorization in the applicable instructions
+   and commit validated, task-owned batches as requested. Local commits do not
+   authorize pushes or pull requests; require authorization for those actions.
+   Open a ready-for-review pull request by default. Create or
    leave it as a draft only when the user explicitly requests a draft. If known
    gates or required manual tests remain, stop before opening the pull request
    and report the blockers instead of using draft state as a holding area.

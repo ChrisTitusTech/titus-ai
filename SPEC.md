@@ -27,8 +27,10 @@ wants the same safe Codex baseline in multiple repositories.
 - Support repeated installation without replacing already-correct links.
 - Provide project-planning templates and separate planning from pull-request
   readiness.
-- Use the built-in `codex review --uncommitted` workflow for local review, with
-  validation and review repeated after each actionable fix.
+- Use built-in Codex review with the scope matching uncommitted work, a branch,
+  or a commit, with affected validation and review repeated after actionable fixes.
+- Commit validated task-owned changes in coherent batches under standing local
+  authorization; require separate authorization for publication actions.
 - Validate repository structure, configuration syntax, skill metadata,
   documentation consistency, and installer behavior.
 - Run Linux, macOS, and Windows validation for pull requests and default-branch
